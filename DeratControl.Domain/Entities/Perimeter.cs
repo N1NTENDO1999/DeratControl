@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using DeratControl.Domain.Root;
 namespace DeratControl.Domain.Entities
 {
     public enum PerimeterType
@@ -10,13 +10,14 @@ namespace DeratControl.Domain.Entities
         External,
         Third
     }
-    class Perimeter
+    class Perimeter : EntityBase<int>
     {
-        public int Id { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public User CreatedBy { get; set; }
         public Facility Facility { get; set; }
         public PerimeterType PerimeterType { get; set; }
         public List<Point> TrapPoints { get; set; }
+        public Perimeter()
+        {
+            TrapPoints = new List<Point>();
+        }
     }
 }
