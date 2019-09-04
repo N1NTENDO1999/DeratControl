@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DeratControl.Domain.Entities
 {
-    class Trap : EntityBase<int>
+    class Trap 
     {
     }
 }
