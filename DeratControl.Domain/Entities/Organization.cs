@@ -14,10 +14,10 @@ namespace DeratControl.Domain.Entities
             this.ContactPeople = new List<User>();
         }
 
-        public string Name { get; protected set; }
+        public string Name { get;  set; }
 
-        public ICollection<User> ContactPeople { get; protected set; }
+        public ICollection<User> ContactPeople { get;  set; }
 
-        public ICollection<Facility> Facilities { get; protected set; }
+        public ICollection<Facility> Facilities { get;  set; }
     }
 }

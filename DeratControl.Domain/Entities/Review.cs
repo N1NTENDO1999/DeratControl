@@ -12,19 +12,19 @@ namespace DeratControl.Domain.Entities
             this.ListOfTrapsToReview = new List<Trap>();
         }
 
-        public DateTime Date { get; protected set; }
+        public DateTime Date { get;  set; }
 
-        public DateTime StartedAt { get; protected set; }
+        public DateTime StartedAt { get;  set; }
 
-        public DateTime FinishedAt { get;protected set; }
+        public DateTime FinishedAt { get; set; }
 
-        public DateTime PostponedTo { get; protected set; }
+        public DateTime PostponedTo { get;  set; }
 
-        public string Status { get; protected set; }
+        public string Status { get;  set; }
 
-        public Facility Facility { get; protected set; }
+        public Facility Facility { get;  set; }
 
-        public User AssignedEmployee { get; protected set; }
+        public User AssignedEmployee { get;  set; }
 
         public ICollection<Trap> ListOfTrapsToReview { get; protected set; }
     }
