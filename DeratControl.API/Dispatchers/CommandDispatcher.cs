@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DeratControl.Application.Interfaces
 {
-    class CommandDispatcher
+    public class CommandDispatcher
     {
 
     }
