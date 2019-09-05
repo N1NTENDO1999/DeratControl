@@ -5,6 +5,13 @@ using DeratControl.Domain.Root;
 
 namespace DeratControl.Domain.Entities
 {
+    public enum Status
+    {
+        toDo,
+        inProgress,
+        Done
+    }
+
    public class Review:EntityBase<int>
     {
         private Review()
@@ -20,7 +27,7 @@ namespace DeratControl.Domain.Entities
 
         public DateTime? PostponedTo { get;  set; }
 
-        public string Status { get;  set; }
+        public Status Status { get;  set; }
 
         public virtual Facility Facility { get;  set; }
 
