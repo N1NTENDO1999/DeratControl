@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace DeratControl.Application.Interfaces
 {
-    public interface IQueryHandler<in TRequest> where TRequest : IRequest
+    public interface IQueryHandler<in TRequest, TResponse> where TRequest : IRequest
     {
-        Task<CommandResult> Handle (CommandExecutionContext executionContext, TRequest request);
+        Task<TResponse> Handle (CommandExecutionContext executionContext, TRequest request);
     }
 }
