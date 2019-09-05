@@ -12,6 +12,6 @@ namespace DeratControl.Domain.Entities
         public string Address { get; set; }
         public int Phone { get; set; }
         public string Email { get; set; }
-        public string Organization { get; set; }
+        public Organization Organization { get; set; }
     }
 }
