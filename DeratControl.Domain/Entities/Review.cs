@@ -22,10 +22,10 @@ namespace DeratControl.Domain.Entities
 
         public string Status { get;  set; }
 
-        public Facility Facility { get;  set; }
+        public virtual Facility Facility { get;  set; }
 
-        public User AssignedEmployee { get;  set; }
+        public virtual User AssignedEmployee { get;  set; }
 
-        public ICollection<Trap> ListOfTrapsToReview { get; protected set; }
+        public virtual ICollection<Trap> ListOfTrapsToReview { get; protected set; }
     }
 }
