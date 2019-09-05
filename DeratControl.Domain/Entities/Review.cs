@@ -7,18 +7,18 @@ namespace DeratControl.Domain.Entities
 {
     class Review:EntityBase<int>
     {
-        public Review()
+        private Review()
         {
             this.ListOfTrapsToReview = new List<Trap>();
         }
 
-        public DateTime Date { get;  set; }
+        public DateTime? Date { get;  set; }
 
-        public DateTime StartedAt { get;  set; }
+        public DateTime? StartedAt { get;  set; }
 
-        public DateTime FinishedAt { get; set; }
+        public DateTime? FinishedAt { get; set; }
 
-        public DateTime PostponedTo { get;  set; }
+        public DateTime? PostponedTo { get;  set; }
 
         public string Status { get;  set; }
 

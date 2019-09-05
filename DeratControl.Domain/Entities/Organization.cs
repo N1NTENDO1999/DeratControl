@@ -7,7 +7,7 @@ namespace DeratControl.Domain.Entities
 {
     class Organization:EntityBase<int>
     {
-        public Organization()
+        private Organization()
         {
             this.Facilities = new List<Facility>();
 
