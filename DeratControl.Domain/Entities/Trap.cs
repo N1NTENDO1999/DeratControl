@@ -10,5 +10,10 @@ namespace DeratControl.Domain.Entities
         public string Data { get; set; }
         public virtual Point TrapPoint { get; set; }
         public string TrapType { get; set; }
+
+        private Trap()
+        {
+
+        }
     }
 }
