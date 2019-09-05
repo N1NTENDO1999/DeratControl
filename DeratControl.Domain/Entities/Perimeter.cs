@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DeratControl.Domain.Entities
 {
-    class Perimeter 
+    public class Perimeter : EntityBase<int>
     {
     }
 }

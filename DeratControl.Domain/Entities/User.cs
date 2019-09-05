@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DeratControl.Domain.Entities
 {
-    class User : EntityBase<int>
+    public class User : EntityBase<int>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -13,5 +13,10 @@ namespace DeratControl.Domain.Entities
         public int Phone { get; set; }
         public string Email { get; set; }
         public Organization Organization { get; set; }
+
+        private User()
+        {
+
+        }
     }
 }

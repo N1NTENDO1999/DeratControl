@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DeratControl.Domain.Entities
 {
-    class Facility 
+    public class Facility : EntityBase<int>
     {
     }
 }

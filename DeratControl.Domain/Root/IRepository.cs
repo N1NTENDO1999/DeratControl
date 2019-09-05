@@ -4,12 +4,14 @@ using System.Text;
 
 namespace DeratControl.Domain.Root
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T, Tkey>
+        where T : EntityBase<Tkey>
+        where Tkey : struct
     {
         IEnumerable<T> List { get; }
         void Add(T entity);
         void Delete(T entity);
         void Update(T entity);
-        T FindById(int Id);
+        T FindById(Tkey Id);
     }
 }
