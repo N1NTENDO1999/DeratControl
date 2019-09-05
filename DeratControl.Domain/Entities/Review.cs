@@ -5,7 +5,7 @@ using DeratControl.Domain.Root;
 
 namespace DeratControl.Domain.Entities
 {
-    class Review:EntityBase<int>
+   public class Review:EntityBase<int>
     {
         private Review()
         {
