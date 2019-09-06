@@ -16,8 +16,8 @@ namespace DeratControl.Domain.Entities
 
         public string Name { get;  set; }
 
-        public virtual ICollection<User> ContactPeople { get;  set; }
+        public virtual ICollection<User> ContactPeople { get; protected set; }
 
-        public virtual ICollection<Facility> Facilities { get;  set; }
+        public virtual ICollection<Facility> Facilities { get; protected set; }
     }
 }
