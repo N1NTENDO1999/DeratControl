@@ -9,8 +9,8 @@ namespace DeratControl.Domain.Entities
     {
         public string Address { get; private set; }
         public Organization Organization { get; private set; }
-        public List<Perimeter> Perimeters { get; private set; }
-        public List<Review> Reviews { get; private set; }
+        public IEnumerable<Perimeter> Perimeters { get; private set; }
+        public IEnumerable<Review> Reviews { get; private set; }
         private Facility()
         {
             this.Perimeters = new List<Perimeter>();
