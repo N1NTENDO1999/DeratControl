@@ -1,11 +1,12 @@
-﻿using System;
+﻿using DeratControl.Domain.Root;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using DeratControl.Domain.Root;
 
 namespace DeratControl.Domain.Entities
 {
-   public class Organization:EntityBase<int>
+    public class Organization : EntityBase<int>
     {
         private Organization()
         {
