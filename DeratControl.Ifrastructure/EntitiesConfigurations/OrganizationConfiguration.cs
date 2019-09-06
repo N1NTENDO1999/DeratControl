@@ -7,13 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DeratControl.Infrastructure.EntitiesConfigurations
 {
-    class OrganizationConfiguration : IEntityTypeConfiguration<Organization>
+    class OrganizationConfiguration : BaseEntityConfiguration<Organization,int>
     {
-        public void Configure(EntityTypeBuilder<Organization> builder)
+        public override void Configure(EntityTypeBuilder<Organization> builder)
         {
-            builder.HasKey(o => o.Id);
-
-            builder.Property(o => o.CreatedBy).HasMaxLength(40).IsRequired();
+            base.Configure(builder);
 
             builder.HasMany(o => o.ContactPeople).WithOne(p=>p.Organization).OnDelete(DeleteBehavior.Cascade);
 

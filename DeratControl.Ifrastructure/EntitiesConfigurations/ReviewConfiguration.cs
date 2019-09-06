@@ -7,13 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DeratControl.Infrastructure.EntitiesConfigurations
 {
-    class ReviewConfiguration : IEntityTypeConfiguration<Review>
+    class ReviewConfiguration : BaseEntityConfiguration<Review,int>
     {
-        public void Configure(EntityTypeBuilder<Review> builder)
+        public override void Configure(EntityTypeBuilder<Review> builder)
         {
-            builder.HasKey(r => r.Id);
-
-            builder.Property(r => r.CreatedBy).HasMaxLength(40).IsRequired();
+            base.Configure(builder);
 
             builder.Property(r => r.Date).IsRequired();
 
