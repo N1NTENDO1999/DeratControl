@@ -9,9 +9,9 @@ namespace DeratControl.Domain.Entities
     {
         private Organization()
         {
-            this.Facilities = new List<Facility>();
+            this.Facilities = new HashSet<Facility>();
 
-            this.ContactPeople = new List<User>();
+            this.ContactPeople = new HashSet<User>();
         }
 
         public string Name { get;  set; }

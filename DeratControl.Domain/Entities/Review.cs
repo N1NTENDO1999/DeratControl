@@ -7,8 +7,8 @@ namespace DeratControl.Domain.Entities
 {
     public enum Status
     {
-        toDo,
-        inProgress,
+        ToDo,
+        InProgress,
         Done
     }
 
@@ -16,10 +16,10 @@ namespace DeratControl.Domain.Entities
     {
         private Review()
         {
-            this.ListOfTrapsToReview = new List<Trap>();
+            this.ListOfTrapsToReview = new HashSet<Trap>();
         }
 
-        public DateTime? Date { get;  set; }
+        public DateTime Date { get;  set; }
 
         public DateTime? StartedAt { get;  set; }
 
