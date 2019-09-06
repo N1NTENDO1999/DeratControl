@@ -8,16 +8,16 @@ namespace DeratControl.Domain.Entities
     {
         Internal,
         External,
-        Third
+        Fence
     }
-    class Perimeter : EntityBase<int>
+    public class Perimeter : EntityBase<int>
     {
-        public Facility Facility { get; set; }
+        public virtual Facility Facility { get; set; }
         public PerimeterType PerimeterType { get; set; }
-        public List<Point> TrapPoints { get; set; }
-        public Perimeter()
+        public virtual IEnumerable<Point> TrapPoints { get; protected set; }
+        private Perimeter()
         {
-            TrapPoints = new List<Point>();
+            this.TrapPoints = new List<Point>();
         }
     }
 }
