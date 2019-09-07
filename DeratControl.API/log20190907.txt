@@ -1,0 +1,7 @@
+2019-09-07 15:05:04.766 +03:00 [INF] Starting web host
+2019-09-07 15:05:37.224 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/  
+2019-09-07 15:05:37.434 +03:00 [ERR] Errorbad
+2019-09-07 15:05:37.527 +03:00 [INF] Request finished in 332.4938ms 200 
+2019-09-07 15:05:38.437 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/favicon.ico  
+2019-09-07 15:05:38.851 +03:00 [ERR] Errorbad
+2019-09-07 15:05:39.141 +03:00 [INF] Request finished in 704.1587ms 200 
