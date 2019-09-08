@@ -17,15 +17,15 @@ namespace DeratControl.Domain.Entities
 
     class TrapReview : EntityBase<int>
     {
-        Review Review { get; set; }
-        Point Point { get; set; }
-        string Comment { get; set; }
-        List<TrapReviewImage> ListOfImages { get; set; }
-        TrapRewiewState TrapRewiewState { get; set; }
+        public Review Review { get; set; }
+        public Point Point { get; set; }
+        public string Comment { get; set; }
+        public ICollection<TrapReviewImage> ListOfImages { get; set; }
+        public TrapRewiewState TrapRewiewState { get; protected set; }
 
-        public TrapReview()
+        private TrapReview()
         {
-            ListOfImages = new List<TrapReviewImage>();
+            this.ListOfImages = new List<TrapReviewImage>();
         } 
     }
 }
