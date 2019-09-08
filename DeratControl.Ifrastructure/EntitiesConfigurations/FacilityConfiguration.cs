@@ -14,10 +14,6 @@ namespace DeratControl.Infrastructure.EntitiesConfigurations
             base.Configure(builder);
 
             builder.HasMany(f => f.Perimeters).WithOne(p => p.Facility).OnDelete(DeleteBehavior.Cascade);
-
-            builder.HasMany(f => f.Reviews).WithOne(r => r.Facility).OnDelete(DeleteBehavior.Cascade);
-
-            builder.HasOne(f => f.Organization).WithMany(o => o.Facilities);
         }
     }
 }
