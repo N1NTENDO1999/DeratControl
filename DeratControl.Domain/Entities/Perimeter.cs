@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using DeratControl.Domain.Root;
 namespace DeratControl.Domain.Entities
-
+{
     public enum PerimeterType
     {
         Internal,
