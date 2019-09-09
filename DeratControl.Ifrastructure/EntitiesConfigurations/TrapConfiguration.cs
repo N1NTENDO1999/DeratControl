@@ -8,6 +8,8 @@ namespace DeratControl.Infrastructure.EntitiesConfigurations
         public override void Configure(EntityTypeBuilder<Trap> builder)
         {
             base.Configure(builder);
+            builder.Property(x => x.Data).HasMaxLength(50).IsRequired();
+            builder.Property(x => x.TrapType).IsRequired();
         }
     }
 }
