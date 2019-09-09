@@ -1,7 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Root\Repositories\FacilityRepository.cs" />
+    <Compile Remove="Root\Repositories\OrganizationRepository.cs" />
+    <Compile Remove="Root\Repositories\PerimeterRepository.cs" />
+    <Compile Remove="Root\Repositories\PointRepository.cs" />
+    <Compile Remove="Root\Repositories\ReviewRepository.cs" />
+    <Compile Remove="Root\Repositories\TrapRepository.cs" />
+    <Compile Remove="Root\Repositories\TrapReviewRepository.cs" />
+    <Compile Remove="Root\Repositories\UserRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Root\Repositories\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Serilog.AspNetCore" Version="3.0.0" />
+  </ItemGroup>
 </Project>

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DeratControl.Domain.Root
+namespace DeratControl.Application.Interfaces
 {
-    class BaseEntity
+    public class QueryDispatcher
     {
+
     }
 }
