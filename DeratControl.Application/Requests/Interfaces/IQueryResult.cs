@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DeratControl.Application.Requests.Interfaces
 {
-    public class IQueryResult
+    public interface IQueryResult
     {
     }
 }
