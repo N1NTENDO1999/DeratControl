@@ -9,14 +9,14 @@ namespace DeratControl.Domain.Entities
     {
         private Point()
         {
-            this.ListOfReviews = new HashSet<Review>();
+            this.ListOfReviews = new HashSet<TrapReview>();
         }
 
         public string Order { get; set; }
         public string Location { get; set; }
         public string Description { get; set; }
 
-        public virtual ICollection<Review> ListOfReviews { get; protected set; }
+        public virtual ICollection<TrapReview> ListOfReviews { get; protected set; }
 
         public int PerimeterId { get; set; }
         public virtual Perimeter Perimeter { get; set; }
