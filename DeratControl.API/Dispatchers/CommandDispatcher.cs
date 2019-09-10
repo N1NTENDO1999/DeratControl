@@ -33,14 +33,12 @@ namespace DeratControl.Application.Interfaces
             ICommandHandler<TRequest>handler= (ICommandHandler<TRequest>)this._context.HttpContext.RequestServices.
                 GetService(typeof(ICommandHandler<TRequest>));
 
-            int userId =int.Parse(this._context.HttpContext.User.Identity.Name);
-
             IRepository<User, int> userRepo =(IRepository<User, int>)this._context.HttpContext.RequestServices.
                 GetService(typeof(IRepository<User,int>));
 
-            User currentUser = userRepo.FindById(userId);
+            User currentUser = userRepo.FindById(int.Parse(this._context.HttpContext.User.Identity.Name));
 
-            CommandExecutionContext commandExeContext = new CommandExecutionContext() { requestedUser=currentUser};
+            CommandExecutionContext commandExeContext = new CommandExecutionContext() { RequestedUser=currentUser};
 
             return await handler.Handle(commandExeContext,command);
         }
