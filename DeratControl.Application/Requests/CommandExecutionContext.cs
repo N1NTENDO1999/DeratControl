@@ -7,6 +7,6 @@ namespace DeratControl.Application.Requests.Interfaces
 {
     public class CommandExecutionContext
     {
-        public User requestedUser { get; set; }
+        public User RequestedUser { get; set; }
     }
 }
