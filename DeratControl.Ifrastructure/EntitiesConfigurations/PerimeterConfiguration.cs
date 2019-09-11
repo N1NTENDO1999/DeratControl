@@ -10,6 +10,7 @@ namespace DeratControl.Infrastructure.EntitiesConfigurations
             base.Configure(builder);
             builder.Property(p => p.PerimeterType).IsRequired();
             builder.HasMany(p => p.TrapPoints).WithOne(t => t.Perimeter).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(p => p.Facility).WithMany(f => f.Perimeters).HasForeignKey(p => p.FacilityId);
         }
     }
 }
