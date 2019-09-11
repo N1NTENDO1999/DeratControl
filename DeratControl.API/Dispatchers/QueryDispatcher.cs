@@ -6,6 +6,7 @@ using DeratControl.Application.Requests;
 using DeratControl.Domain.Entities;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace DeratControl.Application.Interfaces
 {
@@ -27,15 +28,18 @@ namespace DeratControl.Application.Interfaces
             
             if (!this._context.HttpContext.User.Identity.IsAuthenticated)
                 throw new UnauthorizedAccessException();
-            
+
+            var userRepo = (IRepository<User, int>)this._context.HttpContext.RequestServices.
+              GetService(typeof(IRepository<User, int>));
+
+            User currentUser = userRepo.FindById(int.Parse(this._context.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value));
+
+            if (currentUser == null)
+                throw new NullReferenceException("User was not found");
+
 
             var handler = (IQueryHandler<TRequest,TResult>)this._context.HttpContext.RequestServices.
                 GetService(typeof(IQueryHandler<TRequest,TResult>));
-
-            var userRepo = (IRepository<User, int>)this._context.HttpContext.RequestServices.
-                GetService(typeof(IRepository<User, int>));
-
-            User currentUser = userRepo.FindById(int.Parse(this._context.HttpContext.User.Identity.Name));
 
             CommandExecutionContext commandExeContext = new CommandExecutionContext(currentUser);
 
