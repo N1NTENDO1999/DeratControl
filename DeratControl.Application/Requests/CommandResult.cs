@@ -6,5 +6,6 @@ namespace DeratControl.Application.Requests
 {
     public class CommandResult
     {
+
     }
 }
