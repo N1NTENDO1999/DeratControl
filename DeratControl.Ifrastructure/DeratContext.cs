@@ -13,6 +13,8 @@ namespace DeratControl.Infrastructure
             modelBuilder.ApplyConfiguration(new OrganizationConfiguration());
             modelBuilder.ApplyConfiguration(new ReviewConfiguration());
             modelBuilder.ApplyConfiguration(new PerimeterConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+
         }
     }
 }

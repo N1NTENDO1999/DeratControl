@@ -12,7 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DeratControl.Application\DeratControl.Application.csproj" />
     <ProjectReference Include="..\DeratControl.Domain\DeratControl.Domain.csproj" />
+    <ProjectReference Include="..\DeratControl.Ifrastructure\DeratControl.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
