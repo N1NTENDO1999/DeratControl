@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DeratControl.Application.Interfaces
+namespace DeratControl.API.Dispatchers
 {
     public class QueryDispatcher
     {

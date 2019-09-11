@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DeratControl.Domain.Entities
 {
-    class TrapReviewImage
+    public class TrapReviewImage
     {
     }
 }
