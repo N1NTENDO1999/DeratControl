@@ -7,6 +7,12 @@ namespace DeratControl.Application.Requests.Interfaces
 {
     public class CommandExecutionContext
     {
-        public User RequestedUser { get; set; }
+        private User requestedUser;
+        public User RequestedUser { get;}
+
+        public CommandExecutionContext(User requestedUser)
+        {
+            this.requestedUser = requestedUser;
+        }
     }
 }

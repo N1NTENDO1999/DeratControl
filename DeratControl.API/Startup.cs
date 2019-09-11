@@ -26,8 +26,6 @@ namespace DeratControl.API
         {
             services.AddDbContext<DeratContext>(options =>
             options.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
-
-            services.AddTransient(typeof(IHttpContextAccessor)); 
         }  
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

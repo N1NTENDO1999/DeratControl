@@ -11,34 +11,33 @@ namespace DeratControl.Application.Interfaces
 {
     public class QueryDispatcher
     {
-        private IHttpContextAccessor _context;
+        private readonly IHttpContextAccessor _context;
 
         public QueryDispatcher(IHttpContextAccessor context)
         {
             this._context = context;
+
         }
 
-        async Task<TResult> Dispatch<TRequest,TResult>(TRequest command) where TRequest : IRequest where TResult:IQueryResult
+       public async Task<TResult> Dispatch<TRequest,TResult>(TRequest command) where TRequest : IRequest where TResult:IQueryResult
         {
             if (command == null)
-            {
                 throw new ArgumentNullException(nameof(command),
                                                 "Command can not be null.");
-            }
-            else if (!this._context.HttpContext.User.Identity.IsAuthenticated)
-            {
+            
+            if (!this._context.HttpContext.User.Identity.IsAuthenticated)
                 throw new UnauthorizedAccessException();
-            }
+            
 
-            IQueryHandler<TRequest,TResult> handler = (IQueryHandler<TRequest,TResult>)this._context.HttpContext.RequestServices.
+            var handler = (IQueryHandler<TRequest,TResult>)this._context.HttpContext.RequestServices.
                 GetService(typeof(IQueryHandler<TRequest,TResult>));
 
-            IRepository<User, int> userRepo = (IRepository<User, int>)this._context.HttpContext.RequestServices.
+            var userRepo = (IRepository<User, int>)this._context.HttpContext.RequestServices.
                 GetService(typeof(IRepository<User, int>));
 
             User currentUser = userRepo.FindById(int.Parse(this._context.HttpContext.User.Identity.Name));
 
-            CommandExecutionContext commandExeContext = new CommandExecutionContext() { RequestedUser = currentUser };
+            CommandExecutionContext commandExeContext = new CommandExecutionContext(currentUser);
 
             return await handler.Handle(commandExeContext, command);
         }
