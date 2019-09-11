@@ -1,11 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using DeratControl.Application.Requests.Interfaces;
+using DeratControl.Application.Interfaces;
+using DeratControl.Domain.Root;
+using DeratControl.Application.Requests;
+using DeratControl.Domain.Entities;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace DeratControl.API.Dispatchers
 {
     public class QueryDispatcher
     {
+        private readonly IHttpContextAccessor _context;
 
+        public QueryDispatcher(IHttpContextAccessor context)
+        {
+            this._context = context;
+
+        }
+
+       public async Task<TResult> Dispatch<TRequest,TResult>(TRequest command) where TRequest : IRequest where TResult:IQueryResult
+        {
+            if (command == null)
+                throw new ArgumentNullException(nameof(command),
+                                                "Command can not be null.");
+            
+            if (!this._context.HttpContext.User.Identity.IsAuthenticated)
+                throw new UnauthorizedAccessException();
+
+            var userRepo = (IRepository<User, int>)this._context.HttpContext.RequestServices.
+              GetService(typeof(IRepository<User, int>));
+
+            User currentUser = userRepo.FindById(int.Parse(this._context.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value));
+
+            if (currentUser == null)
+                throw new NullReferenceException("User was not found");
+
+
+            var handler = (IQueryHandler<TRequest,TResult>)this._context.HttpContext.RequestServices.
+                GetService(typeof(IQueryHandler<TRequest,TResult>));
+
+            CommandExecutionContext commandExeContext = new CommandExecutionContext(currentUser);
+
+            return await handler.Handle(commandExeContext, command);
+        }
     }
 }
