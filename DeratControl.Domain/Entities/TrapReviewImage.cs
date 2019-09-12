@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DeratControl.Application.Requests
+namespace DeratControl.Domain.Entities
 {
-    public class CommandResult
+    public class TrapReviewImage
     {
-
     }
 }

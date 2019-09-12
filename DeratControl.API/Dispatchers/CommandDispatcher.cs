@@ -6,8 +6,9 @@ using DeratControl.Domain.Entities;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using DeratControl.Application.Interfaces;
 
-namespace DeratControl.Application.Interfaces
+namespace DeratControl.API.Dispatchers
 {
     public class CommandDispatcher
     {
