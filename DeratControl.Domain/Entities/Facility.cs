@@ -11,6 +11,7 @@ namespace DeratControl.Domain.Entities
         public Organization Organization { get; private set; }
         public ICollection<Perimeter> Perimeters { get; private set; }
         public ICollection<Review> Reviews { get; private set; }
+
         private Facility()
         {
             this.Perimeters = new List<Perimeter>();

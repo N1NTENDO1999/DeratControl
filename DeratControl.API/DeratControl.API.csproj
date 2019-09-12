@@ -8,12 +8,16 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc2" />
 	<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DeratControl.Application\DeratControl.Application.csproj" />
     <ProjectReference Include="..\DeratControl.Domain\DeratControl.Domain.csproj" />
+    <ProjectReference Include="..\DeratControl.Ifrastructure\DeratControl.Infrastructure.csproj" />
     <ProjectReference Include="..\DeratControl.Security\DeratControl.Security.csproj" />    
   </ItemGroup>
 
