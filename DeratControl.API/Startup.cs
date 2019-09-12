@@ -12,6 +12,7 @@ using DeratControl.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.OpenApi.Models;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DeratControl.API
 {
@@ -37,7 +38,7 @@ namespace DeratControl.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
-        }  
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {
@@ -55,7 +56,7 @@ namespace DeratControl.API
                     });
             services.AddDbContext<ApplicationDbContext>();
         }
-
+  
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
@@ -80,3 +81,4 @@ namespace DeratControl.API
         }
     }
 }
+
