@@ -8,8 +8,9 @@ using System.Text;
 
 namespace DeratControl.Security.Infrastracture
 {
-    class ApplicationDbContext : IdentityDbContext<SecurityUser>
+    public class ApplicationDbContext : IdentityDbContext<SecurityUser>
     {
+        public ApplicationDbContext(){ }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)  : base(options)
         {
 
@@ -18,6 +19,5 @@ namespace DeratControl.Security.Infrastracture
         {
             base.OnModelCreating(builder);
         }
-        public DbSet<SecurityUser> SecurityUsers { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DeratControl.Security
 {
-    class SignOutResponse
+    public class SignOutResponse
     {
     }
 }

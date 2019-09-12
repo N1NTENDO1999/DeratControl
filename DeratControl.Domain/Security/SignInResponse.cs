@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DeratControl.Security
 {
-    class SignInResponse<T>
+    public class SignInResponse<T>
     {
         public string Email { get; set; }
         public T UserId { get; set; }

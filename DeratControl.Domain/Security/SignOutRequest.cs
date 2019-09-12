@@ -4,9 +4,7 @@ using System.Text;
 
 namespace DeratControl.Security
 {
-    class Token
+    public class SignOutRequest
     {
-        private DateTime Expired { get; set; }
-        private string Value { get; set; }
     }
 }

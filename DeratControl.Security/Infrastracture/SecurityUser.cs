@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using DeratControl.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using System;
 
 namespace DeratControl.Security
 {
-    public class SecurityUser:IdentityUser
+    public class SecurityUser : IdentityUser
     {
-
+        public int UserId { get; set; }
+        public User User { get; set; }
     }
 }
