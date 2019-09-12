@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
-namespace DeratControl.Application.Interfaces
+namespace DeratControl.API.Dispatchers
 {
     public class QueryDispatcher
     {

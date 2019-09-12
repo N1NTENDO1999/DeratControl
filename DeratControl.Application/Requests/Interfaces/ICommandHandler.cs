@@ -2,8 +2,8 @@
 using DeratControl.Application.Requests;
 using System.Collections.Generic;
 using System.Text;
-using DeratControl.Application.Requests.Interfaces;
 using System.Threading.Tasks;
+using DeratControl.Application.Requests.Interfaces;
 
 namespace DeratControl.Application.Interfaces
 {
