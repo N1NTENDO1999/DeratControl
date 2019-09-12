@@ -5,5 +5,7 @@ namespace DeratControl.Domain.Root.Repositories
 {
     public interface IPerimeterRepository : IRepository<Perimeter, int>
     {
+        bool IsExists(Perimeter perimeter);
+        void Save();
     }
 }

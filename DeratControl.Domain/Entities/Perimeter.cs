@@ -21,5 +21,13 @@ namespace DeratControl.Domain.Entities
         {
             this.TrapPoints = new List<Point>();
         }
+        public Perimeter(int facilityId, Facility facility, PerimeterType perimeterType, string createdBy )
+        {
+            this.FacilityId = FacilityId;
+            this.Facility = facility;
+            this.PerimeterType = perimeterType;
+            this.CreatedBy = createdBy;
+            this.CreatedAt = DateTime.Now;
+        }
     }
 }
