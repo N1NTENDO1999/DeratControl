@@ -6,8 +6,7 @@ using System.Text;
 
 namespace DeratControl.Domain.Root
 {
-    public abstract class DomainExeption : Exception
+    public abstract class DomainException : Exception
     {
-
     }
 }

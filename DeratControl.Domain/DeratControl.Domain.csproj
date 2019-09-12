@@ -17,4 +17,7 @@
   <ItemGroup>
     <Folder Include="Root\Repositories\" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Serilog.AspNetCore" Version="3.0.0" />
+  </ItemGroup>
 </Project>
