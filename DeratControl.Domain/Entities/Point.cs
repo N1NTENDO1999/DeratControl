@@ -12,17 +12,17 @@ namespace DeratControl.Domain.Entities
             
         }
 
-        public string Order { get; private set; }
-        public string Location { get; private set; }
-        public string Description { get; private set; }
+        public string Order { get; protected set; }
+        public string Location { get; protected set; }
+        public string Description { get; protected set; }
 
         public virtual ICollection<TrapReview> ListOfReviews { get; protected set; } = new HashSet<TrapReview>();
 
-        public int PerimeterId { get; private set; }
+        public int PerimeterId { get; protected set; }
         public virtual Perimeter Perimeter { get; private set; }
 
-        public int? TrapId { get; private set; }
-        public virtual Trap Trap { get; private set; }
+        public int? TrapId { get; protected set; }
+        public virtual Trap Trap { get; protected set; }
 
     }
 }
