@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using DeratControl.Domain.Root;
 namespace DeratControl.Domain.Entities
-
+{
     public enum PerimeterType
     {
         Internal,
@@ -13,6 +13,7 @@ namespace DeratControl.Domain.Entities
     }
     public class Perimeter : EntityBase<int>
     {
+        public int FacilityId { get; set; } 
         public virtual Facility Facility { get; set; }
         public PerimeterType PerimeterType { get; set; }
         public virtual IEnumerable<Point> TrapPoints { get; protected set; }
