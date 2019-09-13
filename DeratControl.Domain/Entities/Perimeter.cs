@@ -13,9 +13,9 @@ namespace DeratControl.Domain.Entities
     }
     public class Perimeter : EntityBase<int>
     {
-        public int FacilityId { get; set; } 
-        public virtual Facility Facility { get; set; }
-        public PerimeterType PerimeterType { get; set; }
+        public int FacilityId { get; protected set; } 
+        public virtual Facility Facility { get; protected set; }
+        public PerimeterType PerimeterType { get; protected set; }
         public virtual IEnumerable<Point> TrapPoints { get; protected set; }
         private Perimeter()
         {

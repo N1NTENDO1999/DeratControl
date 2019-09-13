@@ -22,8 +22,8 @@ namespace DeratControl.Application.Perimeters.Commands
     /// </summary>
     public class AddPerimeterCommandHandler : ICommandHandler<AddPerimeterCommandDTO>
     {
-        public IPerimeterRepository _repository;
-        public AddPerimeterCommandHandler(IPerimeterRepository repository)
+        public IFacilityRepository _repository;
+        public AddPerimeterCommandHandler(IFacilityRepository repository)
         {
             this._repository = repository;
         }
@@ -35,10 +35,11 @@ namespace DeratControl.Application.Perimeters.Commands
                 request.Facility,
                 request.PerimeterType,
                 executionContext.RequestedUser.FirstName + " " + executionContext.RequestedUser.LastName);
-            if (request.Facility != null && _repository.IsExists(newPerimeter)) // we need to compare FacilityId & PerimeterType
+            if (request.Facility != null && _repository.IsInclude(newPerimeter)) // we need to compare FacilityId & PerimeterType
                 throw new Exception("Current Facility already has this type of perimeter");
-            _repository.Add(newPerimeter); // we need to add new perimetr through foreignKey
-            _repository.Save(); //Unit Of Work will do it instead repository
+            var facility = _repository.FindById(request.FacilityId);
+            facility.AddPerimeter(newPerimeter, executionContext.RequestedUser);
+            _repository.Save();//Unit Of Work will do it instead repository
             return new CommandCreateResult<int>(newPerimeter.Id);
         }
     }
