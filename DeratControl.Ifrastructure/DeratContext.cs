@@ -17,6 +17,7 @@ namespace DeratControl.Infrastructure
             modelBuilder.ApplyConfiguration(new PerimeterConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new FacilityConfiguration());
+            modelBuilder.ApplyConfiguration(new TrapReviewConfiguration());
         }
     }
 }
