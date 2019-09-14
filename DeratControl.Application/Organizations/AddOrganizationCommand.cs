@@ -1,7 +1,9 @@
 ﻿using DeratControl.Application.Interfaces;
+using DeratControl.Application.Organizations;
 using DeratControl.Application.Requests;
 using DeratControl.Application.Requests.Interfaces;
 using DeratControl.Domain.Entities;
+using DeratControl.Domain.Root.Exceptions;
 using DeratControl.Domain.Root.Repositories;
 using System;
 using System.Collections.Generic;
@@ -12,53 +14,39 @@ namespace DeratControl.Application.Organizations
 {
     public class AddOrganizationCommand : IRequest
     {
-        public string Name { get; set; }
-
-        public string CreatedBy { get; set; }
+        public string OrganizationName { get; set; }
     }
 
-    public class AddOrganizationCommandHendler : ICommandHandler<AddOrganizationCommand>
+    public class AddOrganizationCommandHandler : BaseCommandHandler<AddOrganizationCommand>
     {
         private readonly IOrganizationRepository organizationRepository;
 
-        public AddOrganizationCommandHendler(IOrganizationRepository organizationRepository)
+        //TODO : inject IUnitOfWork insted of IOrganizationRepository when avaliable
+        public AddOrganizationCommandHandler(IOrganizationRepository organizationRepository)
         {
             this.organizationRepository = organizationRepository;
         }
-        public async Task<CommandResult> Handle(CommandExecutionContext executionContext, AddOrganizationCommand request)
+
+        protected override async Task<CommandResult> HandleRequest(CommandExecutionContext executionContext, AddOrganizationCommand request)
         {
-            if (IsValidRequest(request))
+            if (await organizationRepository.Exists(request.OrganizationName))
             {
-                var entity = new Organization(request.Name, executionContext.RequestedUser.FirstName + executionContext.RequestedUser.LastName);
-                if (organizationRepository.IsExists(entity))
-                {
-                    throw new Exception();
-                }
-                else
-                {
-                    organizationRepository.Add(entity);
-                    return new CommandCreateResult<int>(entity.Id);
-                }
+                throw new OrganizationAlreadyExistsException();
             }
-            else
-            {
-                throw new NullReferenceException();
-            }
+
+            var entity = new Organization(request.OrganizationName, executionContext.RequestedUser);
+            organizationRepository.Add(entity);
+            //TODO : add unitOfWork.Save(); when avaliable
+            return new CommandCreateResult<int>(entity.Id);
         }
 
-        private bool IsValidRequest(AddOrganizationCommand request)
+        protected override void AssertRequestIsValid(AddOrganizationCommand request)
         {
-            if (request == null)
+            base.AssertRequestIsValid(request);
+
+            if (string.IsNullOrEmpty(request.OrganizationName))
             {
-                return false;
-            }
-            else if (request.Name.Equals(string.Empty) || request.CreatedBy.Equals(string.Empty))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
+                throw new ArgumentNullException(nameof(request.OrganizationName));
             }
         }
     }
