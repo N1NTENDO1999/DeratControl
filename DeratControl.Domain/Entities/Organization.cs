@@ -26,5 +26,12 @@ namespace DeratControl.Domain.Entities
         public virtual ICollection<User> ContactPeople { get; protected set; }
 
         public virtual ICollection<Facility> Facilities { get; protected set; }
+
+
+        public void AddFacility(Facility facility, User user)
+        {
+            this.Facilities.Add(facility);
+            facility.CreatedBy = user.FirstName + " " + user.LastName;
+        }
     }
 }

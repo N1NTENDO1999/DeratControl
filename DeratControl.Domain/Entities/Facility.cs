@@ -17,5 +17,15 @@ namespace DeratControl.Domain.Entities
             this.Perimeters = new List<Perimeter>();
             this.Reviews = new List<Review>();
         }
+
+        public Facility(int OrganizationId, Organization Organization, string Address, string CreatedBy)
+        {
+            this.OrganizationId = OrganizationId;
+            this.Address = Address;
+            this.Organization = Organization;
+            this.CreatedBy = CreatedBy;
+        }
+
+
     }
 }
