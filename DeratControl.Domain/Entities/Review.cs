@@ -19,7 +19,7 @@ namespace DeratControl.Domain.Entities
             this.ListOfTrapsToReview = new HashSet<Trap>();
         }
 
-        public Review(DateTime endTime,string createdBy)
+        public Review(DateTime endTime, int createdBy)
         {
             this.Date = endTime;
 

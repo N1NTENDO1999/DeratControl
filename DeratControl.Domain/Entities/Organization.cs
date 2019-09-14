@@ -14,11 +14,11 @@ namespace DeratControl.Domain.Entities
             this.ContactPeople = new HashSet<User>();
         }
 
-        public Organization(string name,string createdBy)
+        public Organization(string name, User user)
         {
             this.Name = name;
 
-            this.CreatedBy = createdBy;
+            this.CreatedBy = user.Id;
         }
 
         public string Name { get;  set; }
@@ -31,7 +31,7 @@ namespace DeratControl.Domain.Entities
         public void AddFacility(Facility facility, User user)
         {
             this.Facilities.Add(facility);
-            facility.CreatedBy = user.FirstName + " " + user.LastName;
+            facility.CreatedBy = user.Id;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace DeratControl.Domain.Entities
             this.Reviews = new List<Review>();
         }
 
-        public Facility(int OrganizationId, Organization Organization, string Address, string CreatedBy)
+        public Facility(int OrganizationId, Organization Organization, string Address, int CreatedBy)
         {
             this.OrganizationId = OrganizationId;
             this.Address = Address;

@@ -3,72 +3,54 @@ using DeratControl.Application.Requests;
 using DeratControl.Application.Requests.Interfaces;
 using DeratControl.Domain.Entities;
 using DeratControl.Domain.Root.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using DeratControl.Domain.Root.Exceptions;
 using System.Threading.Tasks;
+using System;
 
 namespace DeratControl.Application.Facilities
 {
-    public class AddFacilityCommandHandler : ICommandHandler<AddFacilityCommand>
+    public class AddFacilityCommandHandler : BaseCommandHandler<AddFacilityCommand>
     {
         private readonly IOrganizationRepository _organizationRepository;
 
         public AddFacilityCommandHandler(
             IOrganizationRepository organizationRepository)
         {
-            _organizationRepository = organizationRepository;
+            this._organizationRepository = organizationRepository;
         }
 
 
 
-        public async Task<CommandResult> Handle(CommandExecutionContext executionContext, AddFacilityCommand request)
+        protected override async Task<CommandResult> HandleRequest(CommandExecutionContext executionContext, AddFacilityCommand request)
         {
-            if (IsValidRequest(request))
+            if (await this._organizationRepository.IsInclude(request.Organization, request.Address))
             {
-                var newFacility = new Facility(request.OrganizationId, 
-                    executionContext.RequestedUser.Organization,
-                    executionContext.RequestedUser.Address,
-                    executionContext.RequestedUser.FirstName + " " + 
-                    executionContext.RequestedUser.LastName
-                    );
-
-                if (_organizationRepository.IsInclude(newFacility))
-                {
-                    throw new Exception("Current organization already has this facility");
-                }
-                else
-                {
-                    var organization = _organizationRepository.FindById(request.OrganizationId);
-
-                    organization.AddFacility(newFacility, executionContext.RequestedUser);
-
-                    _organizationRepository.Save();
-
-                    return  new CommandCreateResult<int>(newFacility.Id);
-                }
+                throw new FacilityAlreadyExistsException();
             }
-            else
-            {
-                throw new NullReferenceException();
-            }
+
+            var newFacility = new Facility(
+                request.OrganizationId,
+                request.Organization,
+                request.Address,
+                executionContext.RequestedUser.Id
+                );
+
+            var organization = this._organizationRepository.FindById(request.OrganizationId);
+
+            organization.AddFacility(newFacility, executionContext.RequestedUser);
+
+            //this._organizationRepository.Save(); Waiting for Unit of Work to show up
+
+            return new CommandCreateResult<int>(newFacility.Id);
+
         }
-
-
-
-        private bool IsValidRequest(AddFacilityCommand request)
+        
+        protected override void AssertRequestIsValid(AddFacilityCommand request)
         {
-            if (request == null)
+            base.AssertRequestIsValid(request);
+            if (request.Address.Equals(string.Empty) || request.Organization == null)
             {
-                return false;
-            }
-            else if (request.Address.Equals(string.Empty) || request.Organization == null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
+                throw new ArgumentNullException(nameof(request.Organization));
             }
         }
     }
