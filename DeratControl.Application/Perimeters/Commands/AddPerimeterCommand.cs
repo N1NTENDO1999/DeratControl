@@ -7,11 +7,12 @@ using DeratControl.Application.Requests;
 using DeratControl.Application.Requests.Interfaces;
 using DeratControl.Domain.Entities;
 using DeratControl.Domain.Root.Repositories;
+using DeratControl.Domain.Root.Exceptions;
 namespace DeratControl.Application.Perimeters.Commands
 {   /// <summary>
 /// DTO class for adding perimeters command
 /// </summary>
-    public class AddPerimeterCommandDTO : IRequest
+    public class AddPerimeterCommand : IRequest
     {
         public int FacilityId { get; set; }
         public virtual Facility Facility { get; set; }
@@ -20,26 +21,36 @@ namespace DeratControl.Application.Perimeters.Commands
     /// <summary>
     /// class that will implement CommandHandler : Add Perimeter to facility
     /// </summary>
-    public class AddPerimeterCommandHandler : ICommandHandler<AddPerimeterCommandDTO>
+    public class AddPerimeterCommandHandler : BaseCommandHandler<AddPerimeterCommand>
     {
-        public IPerimeterRepository _repository;
-        public AddPerimeterCommandHandler(IPerimeterRepository repository)
+        private readonly IFacilityRepository _repository;
+        //TODO : inject IUnitOfWork instead of IFacilityRepository when available
+        public AddPerimeterCommandHandler(IFacilityRepository repository)
         {
             this._repository = repository;
         }
-        public async Task<CommandResult> Handle(CommandExecutionContext executionContext, AddPerimeterCommandDTO request)
+        protected override async Task<CommandResult> HandleRequest(CommandExecutionContext executionContext, AddPerimeterCommand request)
         {
-            if (request == null)
-                throw new Exception("request == null");
+            if (await _repository.IsInclude(request.FacilityId, request.PerimeterType))
+            {
+                throw new PerimeterAlreadyExistsException();
+            }
             var newPerimeter = new Perimeter(request.FacilityId,
                 request.Facility,
                 request.PerimeterType,
-                executionContext.RequestedUser.FirstName + " " + executionContext.RequestedUser.LastName);
-            if (request.Facility != null && _repository.IsExists(newPerimeter)) // we need to compare FacilityId & PerimeterType
-                throw new Exception("Current Facility already has this type of perimeter");
-            _repository.Add(newPerimeter); // we need to add new perimetr through foreignKey
-            _repository.Save(); //Unit Of Work will do it instead repository
+                executionContext.RequestedUser.Id);
+            var facility = _repository.FindById(request.FacilityId);
+            facility.AddPerimeter(newPerimeter, executionContext.RequestedUser);
+            //_repository.Save();//Unit Of Work will do it instead repository
             return new CommandCreateResult<int>(newPerimeter.Id);
+        }
+        protected override void AssertRequestIsValid(AddPerimeterCommand request)
+        {
+            base.AssertRequestIsValid(request);
+            if (request.Facility == null ||)
+            {
+                throw new ArgumentNullException(nameof(request.Facility));
+            }
         }
     }
 }
