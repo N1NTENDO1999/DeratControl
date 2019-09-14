@@ -15,8 +15,6 @@ namespace DeratControl.Application.Organizations
         public string Name { get; set; }
 
         public string CreatedBy { get; set; }
-
-
     }
 
     public class AddOrganizationCommandHendler : ICommandHandler<AddOrganizationCommand>
