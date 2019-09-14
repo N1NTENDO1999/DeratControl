@@ -17,10 +17,10 @@ namespace DeratControl.Domain.Entities
             this.Perimeters = new List<Perimeter>();
             this.Reviews = new List<Review>();
         }
-        public void AddPerimeter(Perimeter perimeter, User user)
+        public void AddPerimeter(Perimeter perimeter, int createdBy)
         {
             this.Perimeters.Add(perimeter);
-            perimeter.CreatedBy = user.FirstName + " " + user.LastName;
+            perimeter.CreatedBy = createdBy;
         }
     }
 }
