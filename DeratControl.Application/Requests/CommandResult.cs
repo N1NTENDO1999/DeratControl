@@ -8,12 +8,14 @@ namespace DeratControl.Application.Requests
     {
 
     }
-    public class CommandCreateResult<Tkey>  : CommandResult where Tkey : struct
+
+    public class CommandCreateResult<TKey> : CommandResult where TKey : struct
     {
-        public Tkey Id { get; set; }
-        public CommandCreateResult(Tkey id)
+        public TKey Id { get; }
+
+        public CommandCreateResult(TKey key)
         {
-            this.Id = id;
+            Id = key;
         }
     }
 }

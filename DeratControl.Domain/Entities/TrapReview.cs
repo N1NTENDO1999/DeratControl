@@ -17,7 +17,7 @@ namespace DeratControl.Domain.Entities
 
     public class TrapReview : EntityBase<int>
     {
-        public int ReviewId { get; private set; }
+        public int TrapReviewId { get; private set; }
 
         public int PointId { get; private set; }
 
@@ -28,7 +28,7 @@ namespace DeratControl.Domain.Entities
         public string Comment { get; private set; }
 
         public ICollection<TrapReviewImage> ListOfImages { get; private set; }
-            = new List<TrapReviewImage>();
+            = new HashSet<TrapReviewImage>();
 
         public TrapRewiewState TrapRewiewState { get; private set; } 
 
