@@ -23,14 +23,13 @@ namespace DeratControl.Application.Facilities
 
         protected override async Task<CommandResult> HandleRequest(CommandExecutionContext executionContext, AddFacilityCommand request)
         {
-            if (await this._organizationRepository.IsInclude(request.Organization, request.Address))
+            if (await this._organizationRepository.IsInclude(request.Address))
             {
                 throw new FacilityAlreadyExistsException();
             }
 
             var newFacility = new Facility(
                 request.OrganizationId,
-                request.Organization,
                 request.Address,
                 executionContext.RequestedUser.Id
                 );
@@ -48,9 +47,9 @@ namespace DeratControl.Application.Facilities
         protected override void AssertRequestIsValid(AddFacilityCommand request)
         {
             base.AssertRequestIsValid(request);
-            if (request.Address.Equals(string.Empty) || request.Organization == null)
+            if (request.Address.Equals(string.Empty))
             {
-                throw new ArgumentNullException(nameof(request.Organization));
+                throw new ArgumentNullException("Address in undefined");
             }
         }
     }

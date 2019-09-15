@@ -9,9 +9,7 @@ namespace DeratControl.Application.Facilities
     public class AddFacilityCommand : IRequest
     {
         public int OrganizationId { get; private set; }
-
-        public Organization Organization { get; private set; }
-
+        
         public string Address { get; private set; }
     }
 }
