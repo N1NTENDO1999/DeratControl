@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using DeratControl.Domain.Root.Exceptions;
 
 namespace DeratControl.Domain.Entities
 {
@@ -17,10 +18,16 @@ namespace DeratControl.Domain.Entities
             this.Perimeters = new List<Perimeter>();
             this.Reviews = new List<Review>();
         }
-        public void AddPerimeter(Perimeter perimeter, int createdBy)
+        public void AddPerimeter(PerimeterType perimeterType, User user)
         {
-            this.Perimeters.Add(perimeter);
-            perimeter.CreatedBy = createdBy;
+            foreach (var perimeter in this.Perimeters)
+            {
+                if (perimeterType == perimeter.PerimeterType)
+                {
+                    throw new PerimeterAlreadyExistsException();
+                }
+            }
+            this.Perimeters.Add(new Perimeter(this.Id, this, perimeterType, user.Id));
         }
     }
 }

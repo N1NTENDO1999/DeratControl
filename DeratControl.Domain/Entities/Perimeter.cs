@@ -13,7 +13,7 @@ namespace DeratControl.Domain.Entities
     }
     public class Perimeter : EntityBase<int>
     {
-        public int FacilityId { get; protected set; } 
+        public int FacilityId { get; protected set; }
         public virtual Facility Facility { get; protected set; }
         public PerimeterType PerimeterType { get; protected set; }
         public virtual IEnumerable<Point> TrapPoints { get; protected set; }
@@ -21,13 +21,18 @@ namespace DeratControl.Domain.Entities
         {
             this.TrapPoints = new List<Point>();
         }
-        public Perimeter(int facilityId, Facility facility, PerimeterType perimeterType, int createdBy )
+        public Perimeter(int facilityId, Facility facility, PerimeterType perimeterType, int createdBy)
         {
             this.FacilityId = FacilityId;
             this.Facility = facility;
             this.PerimeterType = perimeterType;
             this.CreatedBy = createdBy;
             this.CreatedAt = DateTime.Now;
+        }
+        public Perimeter(int facilityId, PerimeterType perimeterType)
+        {
+            this.FacilityId = facilityId;
+            this.PerimeterType = perimeterType;
         }
     }
 }

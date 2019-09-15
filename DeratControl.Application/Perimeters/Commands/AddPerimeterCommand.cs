@@ -8,15 +8,16 @@ using DeratControl.Application.Requests.Interfaces;
 using DeratControl.Domain.Entities;
 using DeratControl.Domain.Root.Repositories;
 using DeratControl.Domain.Root.Exceptions;
+using System.Linq;
+
 namespace DeratControl.Application.Perimeters.Commands
 {   /// <summary>
 /// DTO class for adding perimeters command
 /// </summary>
     public class AddPerimeterCommand : IRequest
     {
-        public int FacilityId { get; set; }
-        public virtual Facility Facility { get; set; }
-        public PerimeterType PerimeterType { get; set; }
+        public PerimeterType PerimeterType { get; }
+        public int FacilityId { get; }
     }
     /// <summary>
     /// class that will implement CommandHandler : Add Perimeter to facility
@@ -31,26 +32,18 @@ namespace DeratControl.Application.Perimeters.Commands
         }
         protected override async Task<CommandResult> HandleRequest(CommandExecutionContext executionContext, AddPerimeterCommand request)
         {
-            if (await _repository.IsInclude(request.FacilityId, request.PerimeterType))
-            {
-                throw new PerimeterAlreadyExistsException();
-            }
-            var newPerimeter = new Perimeter(request.FacilityId,
-                request.Facility,
-                request.PerimeterType,
-                executionContext.RequestedUser.Id);
+
             var facility = _repository.FindById(request.FacilityId);
-            facility.AddPerimeter(newPerimeter, executionContext.RequestedUser);
+            if (facility == null)
+                throw new Exception("this facility doesn`t exists");
+            facility.AddPerimeter(request.PerimeterType, executionContext.RequestedUser);
             //_repository.Save();//Unit Of Work will do it instead repository
-            return new CommandCreateResult<int>(newPerimeter.Id);
+            var id = from i in facility.Perimeters where i.PerimeterType == request.PerimeterType select i.Id;
+            return new CommandCreateResult<int>(id.First());
         }
         protected override void AssertRequestIsValid(AddPerimeterCommand request)
         {
             base.AssertRequestIsValid(request);
-            if (request.Facility == null ||)
-            {
-                throw new ArgumentNullException(nameof(request.Facility));
-            }
         }
     }
 }
