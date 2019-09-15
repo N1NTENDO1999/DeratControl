@@ -6,8 +6,11 @@ namespace DeratControl.Domain.Root.Repositories
 {
     public interface IOrganizationRepository : IRepository<Organization, int>
     {
-        Task<bool> IsExists(Organization organization);
+        Task<bool> Exists(string organizationName);
 
-        Task<bool> IsInclude(Organization organization, string Address);
+        /// <summary>
+        /// Checks if Organization already has facility at this address
+        /// </summary>
+        Task<bool> IsInclude(Organization organization, string FacilityAddress);
     }
 }

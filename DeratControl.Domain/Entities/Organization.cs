@@ -9,9 +9,7 @@ namespace DeratControl.Domain.Entities
     {
         private Organization()
         {
-            this.Facilities = new HashSet<Facility>();
-
-            this.ContactPeople = new HashSet<User>();
+           
         }
 
         public Organization(string name, User user)
@@ -23,10 +21,8 @@ namespace DeratControl.Domain.Entities
 
         public string Name { get;  set; }
 
-        public virtual ICollection<User> ContactPeople { get; protected set; }
-
-        public virtual ICollection<Facility> Facilities { get; protected set; }
-
+        public virtual ICollection<User> ContactPeople { get; protected set; } = new HashSet<User>();
+        public virtual ICollection<Facility> Facilities { get; protected set; } = new HashSet<Facility>();
 
         public void AddFacility(Facility facility, User user)
         {
