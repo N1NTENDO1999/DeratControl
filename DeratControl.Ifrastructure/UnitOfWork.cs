@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DeratControl.Infrastructure
 {
@@ -115,9 +116,9 @@ namespace DeratControl.Infrastructure
             DatabaseContext = dbContext;
         }
 
-        public void Commit()
+        public Task Commit()
         {
-            DatabaseContext.SaveChanges();
+            return DatabaseContext.SaveChangesAsync();
         }
 
         public void Dispose()

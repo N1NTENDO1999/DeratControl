@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DeratControl.Domain.Root
 {
@@ -16,6 +17,6 @@ namespace DeratControl.Domain.Root
         ITrapReviewRepository TrapReviewRepository { get; }
         IUserRepository UserRepository { get; }
 
-        void Commit();
+        Task Commit();
     }
 }

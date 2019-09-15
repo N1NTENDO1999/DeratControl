@@ -10,14 +10,14 @@ namespace DeratControl.Infrastructure
     public class DeratContext : DbContext
     {
 
-        public DbSet<Facility> Facilities { get; set; }
-        public DbSet<Organization> Organizations { get; set; }
-        public DbSet<Perimeter> Perimeters { get; set; }
-        public DbSet<Point> Points { get; set; }
-        public DbSet<Review> Reviews { get; set; }
-        public DbSet<Trap> Traps { get; set; }
-        public DbSet<TrapReview> TrapReviews { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<Facility> Facilities { get; private set; }
+        public DbSet<Organization> Organizations { get; private set; }
+        public DbSet<Perimeter> Perimeters { get; private set; }
+        public DbSet<Point> Points { get; private set; }
+        public DbSet<Review> Reviews { get; private set; }
+        public DbSet<Trap> Traps { get; private set; }
+        public DbSet<TrapReview> TrapReviews { get; private set; }
+        public DbSet<User> Users { get; private set; }
 
         public DeratContext(DbContextOptions<DeratContext> options)
             : base(options)
