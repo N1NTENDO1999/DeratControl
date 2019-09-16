@@ -9,10 +9,10 @@ namespace DeratControl.Domain.Entities
     public class Facility : EntityBase<int>
     {
         public string Address { get; private set; }
-        public Organization Organization { get; private set; }
-        public ICollection<Perimeter> Perimeters { get; private set; }
-        public ICollection<Review> Reviews { get; private set; }
-
+        public int OrganizationId { get; private set; }
+        public virtual Organization Organization { get; private set; }
+        public virtual ICollection<Perimeter> Perimeters { get; private set; }
+        public virtual ICollection<Review> Reviews { get; private set; }
         private Facility()
         {
             this.Perimeters = new List<Perimeter>();
