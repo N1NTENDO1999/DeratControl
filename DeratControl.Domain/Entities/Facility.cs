@@ -18,11 +18,11 @@ namespace DeratControl.Domain.Entities
             this.Reviews = new List<Review>();
         }
 
-        public Facility(int organizationId, string address, User user)
+        public Facility(int organizationId, string address, int createdBy)
         {
             this.OrganizationId = organizationId;
             this.Address = address;
-            this.CreatedBy = user.Id;
+            this.CreatedBy = createdBy;
             this.CreatedAt = DateTime.Now;
         }
     }

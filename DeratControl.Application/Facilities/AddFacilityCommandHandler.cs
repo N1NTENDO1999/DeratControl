@@ -23,23 +23,14 @@ namespace DeratControl.Application.Facilities
 
         protected override async Task<CommandResult> HandleRequest(CommandExecutionContext executionContext, AddFacilityCommand request)
         {
-            if (await this._unitOfWork.OrganizationRepository.IsInclude(request.Address))
-            {
-                throw new FacilityAlreadyExistsException();
-            }
-
-            var newFacility = new Facility(
-                request.OrganizationId,
-                request.Address,
-                executionContext.RequestedUser
-                );
-
             var organization = await this._unitOfWork.OrganizationRepository.FindById(request.OrganizationId);
 
-            if(organization == null)
+            if (organization == null)
+            {
                 throw new OrganizationIsNullException();
+            }
 
-            organization.AddFacility(newFacility, executionContext.RequestedUser);
+            var newFacility  = organization.AddFacility(request.Address, executionContext.RequestedUser);
 
             await this._unitOfWork.Commit();
 
