@@ -13,8 +13,6 @@ namespace DeratControl.Infrastructure.EntitiesConfigurations
         {
             base.Configure(builder);
 
-            builder.HasKey(k => k.Id);
-
             builder.Property(x => x.Description).HasMaxLength(255);
             builder.Property(x => x.CreatedAt).IsRequired();
             builder.Property(x => x.CreatedBy).IsRequired();

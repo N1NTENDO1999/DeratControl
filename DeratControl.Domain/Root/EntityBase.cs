@@ -8,7 +8,7 @@ namespace DeratControl.Domain.Root
     {
         public virtual TKey Id { get; protected set; }
 
-        public virtual string CreatedBy { get; set; }
+        public virtual int CreatedBy { get; set; }
 
         public virtual DateTime CreatedAt { get; set; }
 
