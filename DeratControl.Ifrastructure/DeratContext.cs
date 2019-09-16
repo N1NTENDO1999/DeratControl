@@ -29,12 +29,14 @@ namespace DeratControl.Infrastructure
         {
             modelBuilder.ApplyConfiguration(new OrganizationConfiguration());
             modelBuilder.ApplyConfiguration(new ReviewConfiguration());
+            modelBuilder.ApplyConfiguration(new TrapConfiguration());
+
             modelBuilder.ApplyConfiguration(new PointConfiguration());
             modelBuilder.ApplyConfiguration(new PerimeterConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new FacilityConfiguration());
+            modelBuilder.ApplyConfiguration(new TrapReviewConfiguration();
             modelBuilder.ApplyConfiguration(new TrapReviewConfiguration());
-
         }
     }
 }
