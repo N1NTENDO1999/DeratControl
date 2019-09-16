@@ -11,10 +11,10 @@ using System.Linq;
 
 namespace DeratControl.Security
 {
-    class AuthService : IAuthService
+    public class AuthService : IAuthService
     {
-        private UserManager<SecurityUser> userManager;
-        private SignInManager<SecurityUser> signInManager;
+        private readonly UserManager<SecurityUser> userManager;
+        private readonly SignInManager<SecurityUser> signInManager;
         public AuthService(UserManager<SecurityUser> userMng, SignInManager<SecurityUser> signInMng)
         {
             userManager = userMng;
