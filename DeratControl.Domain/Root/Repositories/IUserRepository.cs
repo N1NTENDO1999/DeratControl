@@ -5,5 +5,6 @@ namespace DeratControl.Domain.Root.Repositories
 {
     public interface IUserRepository : IRepository<User, int>
     {
+
     }
 }

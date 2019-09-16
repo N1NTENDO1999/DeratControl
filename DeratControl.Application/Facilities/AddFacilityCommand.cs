@@ -8,8 +8,8 @@ namespace DeratControl.Application.Facilities
 {
     public class AddFacilityCommand : IRequest
     {
-        public int OrganizationId { get; private set; }
+        public int OrganizationId { get; set; }
         
-        public string Address { get; private set; }
+        public string Address { get; set; }
     }
 }
