@@ -1,5 +1,6 @@
 ﻿using DeratControl.Domain.Root;
 using DeratControl.Domain.Root.Repositories;
+using DeratControl.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
