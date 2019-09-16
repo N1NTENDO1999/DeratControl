@@ -31,10 +31,9 @@ namespace DeratControl.Application.Perimeters.Commands
             var facility = unitOfWork.FacilityRepository.FindById(request.FacilityId);
             if (facility == null)
                 throw new Exception("this facility doesn`t exists");
-            facility.AddPerimeter(request.PerimeterType, executionContext.RequestedUser);
-            unitOfWork.Commit();
-            var id = from i in facility.Perimeters where i.PerimeterType == request.PerimeterType select i.Id;
-            return new CommandCreateResult<int>(id.First());
+            var newPerimeter = facility.AddPerimeter(request.PerimeterType, executionContext.RequestedUser);
+            await unitOfWork.Commit();
+            return new CommandCreateResult<int>(newPerimeter.Id);
         }
     }
 }
