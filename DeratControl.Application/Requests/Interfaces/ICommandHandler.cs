@@ -9,9 +9,9 @@ namespace DeratControl.Application.Interfaces
 {
     public interface ICommandHandler<in TRequest> where TRequest : IRequest
     {
-        Task<CommandResult> Handle (CommandExecutionContext executionContext, TRequest request);
+        Task<CommandResult> Handle(CommandExecutionContext executionContext, TRequest request);
     }
-
+    
     public abstract class BaseCommandHandler<TRequest> : ICommandHandler<TRequest> where TRequest : IRequest
     {
         public Task<CommandResult> Handle(CommandExecutionContext executionContext, TRequest request)
@@ -31,5 +31,4 @@ namespace DeratControl.Application.Interfaces
             }
         }
     }
-
 }
