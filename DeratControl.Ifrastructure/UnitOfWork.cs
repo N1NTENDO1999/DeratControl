@@ -108,7 +108,7 @@ namespace DeratControl.Infrastructure
                 return userRepository;
             }
         }
-       
+
         public DbContext DatabaseContext { get; private set; }
 
         public UnitOfWork(DbContext dbContext)
