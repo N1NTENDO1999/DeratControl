@@ -10,11 +10,11 @@ namespace DeratControl.Infrastructure.Repositories
 {
     public class OrganizationRepository : Repository<Organization, int>, IOrganizationRepository
     {
-        private DbContext databaseContext;
-
+        
         public OrganizationRepository(DbContext databaseContext)
+            : base(databaseContext)
         {
-            this.databaseContext = databaseContext;
+
         }
 
         public Task<bool> Exists(string organizationName)

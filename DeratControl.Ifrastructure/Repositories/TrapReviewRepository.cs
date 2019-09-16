@@ -9,11 +9,10 @@ namespace DeratControl.Infrastructure.Repositories
 {
     public class TrapReviewRepository : Repository<TrapReview, int>, ITrapReviewRepository
     {
-        private DbContext databaseContext;
-
         public TrapReviewRepository(DbContext databaseContext)
+            : base(databaseContext)
         {
-            this.databaseContext = databaseContext;
+
         }
     }
 }

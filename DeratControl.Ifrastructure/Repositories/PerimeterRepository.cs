@@ -9,11 +9,11 @@ namespace DeratControl.Infrastructure.Repositories
 {
     public class PerimeterRepository : Repository<Perimeter, int>, IPerimeterRepository
     {
-        private DbContext databaseContext;
-
+       
         public PerimeterRepository(DbContext databaseContext)
+            : base(databaseContext)
         {
-            this.databaseContext = databaseContext;
+
         }
     }
 }

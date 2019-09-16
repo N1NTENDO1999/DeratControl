@@ -10,11 +10,10 @@ namespace DeratControl.Infrastructure.Repositories
     public class TrapRepository : Repository<Trap, int>, ITrapRepository
 
     {
-        private DbContext databaseContext;
-
         public TrapRepository(DbContext databaseContext)
+            : base(databaseContext)
         {
-            this.databaseContext = databaseContext;
+
         }
     }
 }

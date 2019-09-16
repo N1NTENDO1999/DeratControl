@@ -9,11 +9,10 @@ namespace DeratControl.Infrastructure.Repositories
 {
     public class ReviewRepository : Repository<Review, int>, IReviewRepository
     {
-        private DbContext databaseContext;
-
         public ReviewRepository(DbContext databaseContext)
+            : base(databaseContext)
         {
-            this.databaseContext = databaseContext;
+
         }
     }
 }

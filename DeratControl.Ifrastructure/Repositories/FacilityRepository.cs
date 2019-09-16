@@ -9,11 +9,11 @@ namespace DeratControl.Infrastructure.Repositories
 {
     public class FacilityRepository : Repository<Facility, int>, IFacilityRepository
     {
-        private DbContext databaseContext;
 
         public FacilityRepository(DbContext databaseContext)
+        :base(databaseContext)
         {
-            this.databaseContext = databaseContext;
+            
         }
     }
 }

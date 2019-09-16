@@ -9,11 +9,10 @@ namespace DeratControl.Infrastructure.Repositories
 {
     public class PointRepository : Repository<Point, int>, IPointRepository
     {
-        private DbContext databaseContext;
-
         public PointRepository(DbContext databaseContext)
+            : base(databaseContext)
         {
-            this.databaseContext = databaseContext;
+
         }
     }
 }

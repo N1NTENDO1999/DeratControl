@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using DeratControl.Domain.Root;
+using Microsoft.EntityFrameworkCore;
 
 namespace DeratControl.Infrastructure
 {
@@ -9,7 +10,14 @@ namespace DeratControl.Infrastructure
         where TEntity : EntityBase<TKey>
         where TKey : struct
     {
+        public DbContext databaseContext { get;}
+
         public IEnumerable<TEntity> List => throw new NotImplementedException();
+
+        public Repository(DbContext context)
+        {
+            this.databaseContext = context;
+        }
 
         public void Add(TEntity entity)
         {

@@ -9,11 +9,10 @@ namespace DeratControl.Infrastructure.Repositories
 {
     public class UserRepository : Repository<User, int>, IUserRepository
     {
-        private DbContext databaseContext;
-
         public UserRepository(DbContext databaseContext)
+            : base(databaseContext)
         {
-            this.databaseContext = databaseContext;
+
         }
     }
 }
