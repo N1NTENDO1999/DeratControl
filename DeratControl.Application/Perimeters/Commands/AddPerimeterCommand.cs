@@ -1,4 +1,5 @@
 ﻿using System;
+using DeratControl.Domain.Root.Exceptions;
 using System.Threading.Tasks;
 using DeratControl.Application.Interfaces;
 using DeratControl.Application.Requests;
@@ -28,9 +29,11 @@ namespace DeratControl.Application.Perimeters.Commands
         protected override async Task<CommandResult> HandleRequest(CommandExecutionContext executionContext, AddPerimeterCommand request)
         {
 
-            var facility = unitOfWork.FacilityRepository.FindById(request.FacilityId);
+            var facility = await unitOfWork.FacilityRepository.FindById(request.FacilityId);
             if (facility == null)
-                throw new Exception("this facility doesn`t exists");
+            {
+                throw new FacilityDoesNotExistsException();
+            }
             var newPerimeter = facility.AddPerimeter(request.PerimeterType, executionContext.RequestedUser);
             await unitOfWork.Commit();
             return new CommandCreateResult<int>(newPerimeter.Id);

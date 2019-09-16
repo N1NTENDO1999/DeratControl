@@ -23,16 +23,10 @@ namespace DeratControl.Domain.Entities
         }
         public Perimeter(Facility facility, PerimeterType perimeterType, int createdBy)
         {
-            this.FacilityId = FacilityId;
             this.Facility = facility;
             this.PerimeterType = perimeterType;
             this.CreatedBy = createdBy;
             this.CreatedAt = DateTime.Now;
-        }
-        public Perimeter(int facilityId, PerimeterType perimeterType)
-        {
-            this.FacilityId = facilityId;
-            this.PerimeterType = perimeterType;
         }
     }
 }
