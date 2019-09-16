@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DeratControl.Domain.Root
 {
@@ -9,9 +10,9 @@ namespace DeratControl.Domain.Root
         where Tkey : struct
     {
         IEnumerable<T> List { get; }
-        void Add(T entity);
-        void Delete(T entity);
-        void Update(T entity);
-        T FindById(Tkey Id);
+        Task AddAsync(T entity);
+        Task DeleteAsync(T entity);
+        Task UpdateAsync(T entity);
+        Task<T> FindByIdAsync(Tkey Id);
     }
 }
