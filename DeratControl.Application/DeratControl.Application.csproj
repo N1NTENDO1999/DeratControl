@@ -12,4 +12,8 @@
     <ProjectReference Include="..\DeratControl.Domain\DeratControl.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Organizations\Queries\" />
+  </ItemGroup>
+
 </Project>

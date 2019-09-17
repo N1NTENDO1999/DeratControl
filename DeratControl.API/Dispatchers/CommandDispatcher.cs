@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using DeratControl.Application.Interfaces;
+using DeratControl.Domain.Security;
+using DeratControl.Security;
 
 namespace DeratControl.API.Dispatchers
 {
@@ -31,7 +33,9 @@ namespace DeratControl.API.Dispatchers
             var userRepo = (IRepository<User, int>)this._context.HttpContext.RequestServices.
               GetService(typeof(IRepository<User, int>));
 
-            User currentUser = userRepo.FindById(int.Parse(this._context.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value));
+            int userId = await ((IAuthService)this._context.HttpContext.RequestServices.
+                 GetService(typeof(IAuthService))).GetUserByName(this._context.HttpContext.User.Identity.Name);
+            User currentUser = userRepo.FindById(userId);
 
             if (currentUser == null)
                 throw new NullReferenceException();
