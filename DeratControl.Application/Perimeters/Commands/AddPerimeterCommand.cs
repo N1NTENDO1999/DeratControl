@@ -13,8 +13,8 @@ namespace DeratControl.Application.Perimeters.Commands
 /// </summary>
     public class AddPerimeterCommand : IRequest
     {
-        public PerimeterType PerimeterType { get; }
-        public int FacilityId { get; }
+        public PerimeterType PerimeterType { get; set; }
+        public int FacilityId { get; set; }
     }
     /// <summary>
     /// class that will implement CommandHandler : Add Perimeter to facility
@@ -28,12 +28,12 @@ namespace DeratControl.Application.Perimeters.Commands
         }
         protected override async Task<CommandResult> HandleRequest(CommandExecutionContext executionContext, AddPerimeterCommand request)
         {
-
             var facility = await unitOfWork.FacilityRepository.FindByIdAsync(request.FacilityId);
             if (facility == null)
             {
                 throw new FacilityDoesNotExistsException();
             }
+
             var newPerimeter = facility.AddPerimeter(request.PerimeterType, executionContext.RequestedUser);
             await unitOfWork.Commit();
             return new CommandCreateResult<int>(newPerimeter.Id);
