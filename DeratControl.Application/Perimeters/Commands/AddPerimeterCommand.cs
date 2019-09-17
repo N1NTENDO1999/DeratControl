@@ -29,7 +29,7 @@ namespace DeratControl.Application.Perimeters.Commands
         protected override async Task<CommandResult> HandleRequest(CommandExecutionContext executionContext, AddPerimeterCommand request)
         {
 
-            var facility = await unitOfWork.FacilityRepository.FindById(request.FacilityId);
+            var facility = await unitOfWork.FacilityRepository.FindByIdAsync(request.FacilityId);
             if (facility == null)
             {
                 throw new FacilityDoesNotExistsException();
