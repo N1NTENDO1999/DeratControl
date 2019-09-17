@@ -34,8 +34,8 @@ namespace DeratControl.API.Dispatchers
             var userRepo = (IRepository<User, int>)this._context.HttpContext.RequestServices.
               GetService(typeof(IRepository<User, int>));
 
-            int userId = ((IAuthService)this._context.HttpContext.RequestServices.
-                GetService(typeof(IAuthService))).GetUserByName(this._context.HttpContext.User.Identity.Name).Result;
+            int userId = await ((IAuthService)this._context.HttpContext.RequestServices.
+                GetService(typeof(IAuthService))).GetUserByName(this._context.HttpContext.User.Identity.Name);
             User currentUser = userRepo.FindById(userId);
 
             if (currentUser == null)
