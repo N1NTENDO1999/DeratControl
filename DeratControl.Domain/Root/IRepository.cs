@@ -11,8 +11,8 @@ namespace DeratControl.Domain.Root
     {
         IEnumerable<T> List { get; }
         Task AddAsync(T entity);
-        Task DeleteAsync(T entity);
-        Task UpdateAsync(T entity);
+        void Delete(T entity);
+        void Update(T entity);
         Task<T> FindByIdAsync(Tkey Id);
     }
 }

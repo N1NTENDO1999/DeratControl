@@ -7,6 +7,7 @@ namespace DeratControl.Domain.Entities
 {
     public class User : EntityBase<int>
     {
+
         public string FirstName { get;private set; }
         public string LastName { get;private set; }
         public string Address { get; private set; }
@@ -17,9 +18,10 @@ namespace DeratControl.Domain.Entities
         public virtual Organization Organization { get;private set; }
         public ICollection<Review> Reviews { get; set; } = new HashSet<Review>();
 
-        private User()
-        {
 
-        }
+        public virtual UserRole UserRole { get; set; }
+
+        
+
     }
 }

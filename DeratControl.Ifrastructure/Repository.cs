@@ -20,15 +20,14 @@ namespace DeratControl.Infrastructure
             this.databaseContext = context;
         }
 
-        public async Task AddAsync(TEntity entity)
+        public virtual async Task AddAsync(TEntity entity)
         {
             await databaseContext.Set<TEntity>().AddAsync(entity);
         }
 
-        public Task DeleteAsync(TEntity entity)
+        public void Delete(TEntity entity)
         {
             databaseContext.Set<TEntity>().Remove(entity);
-            return Task.CompletedTask;
         }
 
         public async Task<TEntity> FindByIdAsync(TKey Id)
@@ -36,10 +35,9 @@ namespace DeratControl.Infrastructure
            return await databaseContext.Set<TEntity>().FindAsync(Id);
         }
 
-        public Task UpdateAsync(TEntity entity)
+        public void Update(TEntity entity)
         {
             databaseContext.Set<TEntity>().Update(entity);
-            return Task.CompletedTask;
         }
     }
 }
