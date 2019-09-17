@@ -13,9 +13,17 @@ namespace DeratControl.Infrastructure.EntitiesConfigurations
         {
             base.Configure(builder);
 
-            builder.HasMany(o => o.ContactPeople).WithOne(p=>p.Organization).OnDelete(DeleteBehavior.Cascade);
+            builder
+                .HasMany(o => o.ContactPeople)
+                .WithOne(p => p.Organization)
+                .HasForeignKey(c => c.OrganizationId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasMany(o => o.Facilities).WithOne(f=>f.Organization).OnDelete(DeleteBehavior.Cascade);
+            builder
+                .HasMany(o => o.Facilities)
+                .WithOne(f => f.Organization)
+                .HasForeignKey(c => c.OrganizationId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
