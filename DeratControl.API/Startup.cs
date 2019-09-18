@@ -1,16 +1,13 @@
-﻿using System;
-using DeratControl.API.Middlewares;
+﻿using DeratControl.API.Middlewares;
 using DeratControl.Security.Infrastracture;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using DeratControl.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using DeratControl.Infrastructure;
 using Microsoft.Extensions.Configuration;
-using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
