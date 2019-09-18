@@ -1,6 +1,8 @@
 ﻿using DeratControl.Domain.Root;
+using DeratControl.Domain.Root.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DeratControl.Domain.Entities
@@ -12,8 +14,22 @@ namespace DeratControl.Domain.Entities
         public virtual Organization Organization { get; private set; }
         public virtual ICollection<Perimeter> Perimeters { get; private set; } = new HashSet<Perimeter>();
         public virtual ICollection<Review> Reviews { get; private set; } = new HashSet<Review>();
+
         private Facility()
         {
+        }
+
+        public Perimeter AddPerimeter(PerimeterType perimeterType, User user)
+        {
+            var perimeterExists = this.Perimeters.Any(f => f.PerimeterType == perimeterType);
+            if (perimeterExists)
+            {
+                throw new PerimeterAlreadyExistsException();
+            }
+
+            var newPerimeter = new Perimeter(this, perimeterType, user.Id);
+            this.Perimeters.Add(newPerimeter);
+            return newPerimeter;
         }
     }
 }
