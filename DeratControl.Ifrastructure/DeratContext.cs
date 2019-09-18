@@ -22,21 +22,22 @@ namespace DeratControl.Infrastructure
         public DeratContext(DbContextOptions<DeratContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new OrganizationConfiguration());
-            modelBuilder.ApplyConfiguration(new ReviewConfiguration());
+            modelBuilder.ApplyConfiguration(new FacilityConfiguration());
+            modelBuilder.ApplyConfiguration(new PerimeterConfiguration());
+            modelBuilder.ApplyConfiguration(new PointConfiguration());
             modelBuilder.ApplyConfiguration(new TrapConfiguration());
 
-            modelBuilder.ApplyConfiguration(new PointConfiguration());
-            modelBuilder.ApplyConfiguration(new PerimeterConfiguration());
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
-            modelBuilder.ApplyConfiguration(new FacilityConfiguration());
+            modelBuilder.ApplyConfiguration(new ReviewConfiguration());
             modelBuilder.ApplyConfiguration(new TrapReviewConfiguration());
-            modelBuilder.ApplyConfiguration(new TrapReviewConfiguration());
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

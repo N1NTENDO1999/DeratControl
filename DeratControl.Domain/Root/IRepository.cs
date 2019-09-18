@@ -10,9 +10,9 @@ namespace DeratControl.Domain.Root
         where Tkey : struct
     {
         IEnumerable<T> List { get; }
-        void Add(T entity);
+        Task AddAsync(T entity);
         void Delete(T entity);
         void Update(T entity);
-        Task<T> FindById(Tkey Id);
+        Task<T> FindByIdAsync(Tkey Id);
     }
 }

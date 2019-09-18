@@ -11,6 +11,6 @@ namespace DeratControl.Domain.Root.Repositories
         /// <summary>
         /// Checks if Organization already has facility at this address
         /// </summary>
-        Task<bool> IsInclude(string FacilityAddress);
+        Task<bool> IsInclude(string facilityAddress);
     }
 }

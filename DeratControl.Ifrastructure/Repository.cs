@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using DeratControl.Domain.Root;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,24 +20,24 @@ namespace DeratControl.Infrastructure
             this.databaseContext = context;
         }
 
-        public void Add(TEntity entity)
+        public virtual async Task AddAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            await databaseContext.Set<TEntity>().AddAsync(entity);
         }
 
         public void Delete(TEntity entity)
         {
-            throw new NotImplementedException();
+            databaseContext.Set<TEntity>().Remove(entity);
         }
 
-        public TEntity FindById(TKey Id)
+        public async Task<TEntity> FindByIdAsync(TKey Id)
         {
-            throw new NotImplementedException();
+           return await databaseContext.Set<TEntity>().FindAsync(Id);
         }
 
         public void Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            databaseContext.Set<TEntity>().Update(entity);
         }
     }
 }

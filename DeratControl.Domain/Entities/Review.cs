@@ -16,7 +16,7 @@ namespace DeratControl.Domain.Entities
     {
         private Review()
         {
-            this.ListOfTrapsToReview = new HashSet<Trap>();
+          
         }
 
         public Review(DateTime endTime, int createdBy)
@@ -40,9 +40,9 @@ namespace DeratControl.Domain.Entities
         public int FacilityId { get; set; }
         public virtual Facility Facility { get;  set; }
 
-        public int UserId { get; set; }
+        public int EmployeeId { get; set; }
         public virtual User AssignedEmployee { get;  set; }
 
-        public virtual ICollection<Trap> ListOfTrapsToReview { get; protected set; }
+        public virtual ICollection<TrapReview> ListOfTrapsToReview { get; protected set; } = new HashSet<TrapReview>();
     }
 }

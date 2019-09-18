@@ -13,11 +13,35 @@ namespace DeratControl.Infrastructure.EntitiesConfigurations
         {
             base.Configure(builder);
 
-            builder.Property(u => u.FirstName).HasMaxLength(40).IsRequired();
+            builder.ToTable("Users");
 
-            builder.Property(u => u.LastName).HasMaxLength(40).IsRequired();
+            builder
+                .Property(u => u.FirstName)
+                .HasMaxLength(40)
+                .IsRequired();
 
-            builder.Property(u => u.Email).HasMaxLength(40).IsRequired();
+            builder
+                .Property(u => u.LastName)
+                .HasMaxLength(40)
+                .IsRequired();
+
+            builder
+                .Property(u => u.Email)
+                .HasMaxLength(40)
+                .IsRequired();
+
+            builder
+                .HasOne(o => o.Organization)
+                .WithMany(o => o.ContactPeople)
+                .HasForeignKey(o => o.OrganizationId);
+
+            builder.OwnsOne(x => x.UserRole,
+                (a) =>
+                {
+                    a.Property(y => y.RoleId)
+                        .HasColumnName("UserRoleId");
+                });
+
         }
     }
 }
