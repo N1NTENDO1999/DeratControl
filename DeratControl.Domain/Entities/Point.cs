@@ -12,7 +12,7 @@ namespace DeratControl.Domain.Entities
             
         }
 
-        public string Order { get; protected set; }
+        public int Order { get; protected set; }
         public string Location { get; protected set; }
         public string Description { get; protected set; }
 
