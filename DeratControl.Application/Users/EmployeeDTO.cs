@@ -4,8 +4,7 @@ using System.Text;
 
 namespace DeratControl.Application.Users
 {
-    public class EmployeeDTO: UserDTO
-
+    public class EmployeeDTO : UserDTO
     {
     }
 }
