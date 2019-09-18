@@ -39,5 +39,25 @@ namespace DeratControl.Domain.Entities
             this.Facilities.Add(newFacility);
             return newFacility;
         }
+
+        public void RemoveFacility(string address)
+        {
+            var isFacilityExists = this.Facilities.Any(f => f.Address == address);
+
+            if (isFacilityExists)
+            {
+                throw new FacilityNotExistsException();
+            }
+
+            var facilityToRemove = this.Facilities.SingleOrDefault(f => f.Address == address);
+
+            if (facilityToRemove == null)
+            {
+                throw new FacilityNotExistsException();
+            }
+
+            this.Facilities.Remove(facilityToRemove);
+        }
+
     }
 }
