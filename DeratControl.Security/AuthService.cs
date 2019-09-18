@@ -21,12 +21,12 @@ namespace DeratControl.Security
             signInManager = signInMng;
         }
 
-        public async Task<string> GetUserByName(string userName)
+        public async Task<int> GetUserByName(string userName)
         {
             SecurityUser user = await userManager.FindByNameAsync(userName);
             if (user == null)
                 throw new Exception("User not found.");
-            return user.Id;
+            return user.UserId;
         }
 
         public async Task<SignInResponse<string>> SignIn(SignInRequest credentials)

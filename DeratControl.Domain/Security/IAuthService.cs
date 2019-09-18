@@ -10,6 +10,6 @@ namespace DeratControl.Domain.Security
     {
         Task<SignInResponse<string>> SignIn(SignInRequest credentials);
         Task<SignOutResponse> SignOut(SignOutRequest credentials);
-        Task<string> GetUserByName(string userName);
+        Task<int> GetUserByName(string userName);
     }
 }

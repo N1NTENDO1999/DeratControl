@@ -10,12 +10,21 @@ namespace DeratControl.Infrastructure.EntitiesConfigurations
         {
             base.Configure(builder);
 
+            builder.ToTable("TrapReviews");
+
             builder.Property(tr => tr.Comment).HasMaxLength(1000);
-            builder.Property(tr => tr.Review).IsRequired();
             builder.Property(tr => tr.TrapRewiewState).IsRequired();
 
-            builder.HasOne(o => o.Point).WithMany(r => r.ListOfReviews).HasForeignKey(o => o.PointId);
-            builder.HasMany(o => o.ListOfImages).WithOne(r => r.TrapReview).OnDelete(DeleteBehavior.Cascade);
+            builder
+                .HasOne(o => o.Point)
+                .WithMany(r => r.ListOfReviews)
+                .HasForeignKey(o => o.PointId);
+
+            builder
+                .HasMany(o => o.ListOfImages)
+                .WithOne(r => r.TrapReview)
+                .HasForeignKey(c => c.TrapReviewId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
