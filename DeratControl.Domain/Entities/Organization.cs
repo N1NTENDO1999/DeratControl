@@ -28,9 +28,9 @@ namespace DeratControl.Domain.Entities
 
         public Facility AddFacility(string address, User user)
         {
-            var PerimeterExists = this.Facilities.Any(o => o.Address == address);
+            var facilityExists = this.Facilities.Any(o => o.Address == address);
 
-            if (PerimeterExists)
+            if (facilityExists)
             {
                 throw new FacilityAlreadyExistsException();
             }
