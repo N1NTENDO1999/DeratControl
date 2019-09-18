@@ -26,8 +26,8 @@ namespace DeratControl.API.Dispatchers
             if (command == null)
                 throw new ArgumentNullException(nameof(command),
                                                 "Command can not be null.");
-            
-             if (!this._context.HttpContext.User.Identity.IsAuthenticated)
+
+            if (!this._context.HttpContext.User.Identity.IsAuthenticated)
                 throw new UnauthorizedAccessException();
 
             var userRepo = (IRepository<User, int>)this._context.HttpContext.RequestServices.
@@ -45,10 +45,10 @@ namespace DeratControl.API.Dispatchers
 
             var commandExeContext = new CommandExecutionContext(currentUser);
 
-            var handler= (ICommandHandler<TRequest>)this._context.HttpContext.RequestServices.
+            var handler = (ICommandHandler<TRequest>)this._context.HttpContext.RequestServices.
                 GetService(typeof(ICommandHandler<TRequest>));
 
-            return await handler.Handle(commandExeContext,command);
+            return await handler.Handle(commandExeContext, command);
         }
     }
 }

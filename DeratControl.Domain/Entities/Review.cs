@@ -19,7 +19,7 @@ namespace DeratControl.Domain.Entities
           
         }
 
-        public Review(DateTime endTime,int createdBy)
+        public Review(DateTime endTime, int createdBy)
         {
             this.Date = endTime;
 
