@@ -20,7 +20,7 @@ namespace DeratControl.Domain.Entities
         public PerimeterType PerimeterType { get; set; }
 
         public virtual ICollection<Point> TrapPoints { get; protected set; } = new HashSet<Point>();
-
+        
         private Perimeter()
         {
         }
