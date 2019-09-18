@@ -26,6 +26,7 @@ namespace DeratControl.Application.Perimeters.Commands
         {
             this.unitOfWork = unitOfWork;
         }
+
         protected override async Task<CommandResult> HandleRequest(CommandExecutionContext executionContext, AddPerimeterCommand request)
         {
             var facility = await unitOfWork.FacilityRepository.FindByIdAsync(request.FacilityId);

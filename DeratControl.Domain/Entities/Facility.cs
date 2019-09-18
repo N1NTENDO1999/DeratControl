@@ -14,19 +14,21 @@ namespace DeratControl.Domain.Entities
         public virtual Organization Organization { get; private set; }
         public virtual ICollection<Perimeter> Perimeters { get; private set; }
         public virtual ICollection<Review> Reviews { get; private set; }
+        
         private Facility()
         {
             this.Perimeters = new List<Perimeter>();
             this.Reviews = new List<Review>();
         }
+
         public Perimeter AddPerimeter(PerimeterType perimeterType, User user)
         {
-            var PerimeterExists = this.Perimeters.Any(f => f.PerimeterType == perimeterType);
-            if (PerimeterExists)
+            var perimeterExists = this.Perimeters.Any(f => f.PerimeterType == perimeterType);
+            if (perimeterExists)
             {
                 throw new PerimeterAlreadyExistsException();
             }
-            Perimeter newPerimeter = new Perimeter(this, perimeterType, user.Id);
+            var newPerimeter = new Perimeter(this, perimeterType, user.Id);
             this.Perimeters.Add(newPerimeter);
             return newPerimeter;
         }
