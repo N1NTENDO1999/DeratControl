@@ -14,7 +14,7 @@ namespace DeratControl.Domain.Entities
         public virtual Organization Organization { get; private set; }
         public virtual ICollection<Perimeter> Perimeters { get; private set; }
         public virtual ICollection<Review> Reviews { get; private set; }
-        
+
         private Facility()
         {
             this.Perimeters = new List<Perimeter>();
@@ -28,10 +28,10 @@ namespace DeratControl.Domain.Entities
             {
                 throw new PerimeterAlreadyExistsException();
             }
+
             var newPerimeter = new Perimeter(this, perimeterType, user.Id);
             this.Perimeters.Add(newPerimeter);
             return newPerimeter;
         }
     }
 }
-    
