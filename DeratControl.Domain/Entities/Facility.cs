@@ -19,6 +19,14 @@ namespace DeratControl.Domain.Entities
         {
         }
 
+        public Facility(int organizationId, string address, int createdBy)
+        {
+            this.OrganizationId = organizationId;
+            this.Address = address;
+            this.CreatedBy = createdBy;
+            this.CreatedAt = DateTime.Now;
+        }
+        
         public Perimeter AddPerimeter(PerimeterType perimeterType, User user)
         {
             var perimeterExists = this.Perimeters.Any(f => f.PerimeterType == perimeterType);
@@ -30,6 +38,6 @@ namespace DeratControl.Domain.Entities
             var newPerimeter = new Perimeter(this, perimeterType, user.Id);
             this.Perimeters.Add(newPerimeter);
             return newPerimeter;
-        }
+         }
     }
 }
