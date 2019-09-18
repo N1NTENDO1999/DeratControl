@@ -31,9 +31,10 @@ namespace DeratControl.Application.Perimeters.Commands
             {
                 throw new FacilityDoesNotExistsException();
             }
-            var removingPerimeter = facility.RemovePerimeter(request.PerimeterType);
+
+            facility.RemovePerimeter(request.PerimeterType);
             await unitOfWork.Commit();
-            return new CommandCreateResult<int>(removingPerimeter.Id);
+            return new CommandCreateResult<int>();
         }
     }
 }

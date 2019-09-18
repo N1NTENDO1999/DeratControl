@@ -20,10 +20,10 @@ namespace DeratControl.Domain.Entities
             this.Reviews = new List<Review>();
         }
 
-        public Perimeter RemovePerimeter(PerimeterType perimeterType)
+        public void RemovePerimeter(PerimeterType perimeterType)
         {
-            var PerimeterExists = this.Perimeters.Any(f => f.PerimeterType == perimeterType);
-            if (PerimeterExists == false)
+            var perimeterExists = this.Perimeters.Any(f => f.PerimeterType == perimeterType);
+            if (perimeterExists == false)
             {
                 throw new PerimeterMissingException();
             }
@@ -31,6 +31,7 @@ namespace DeratControl.Domain.Entities
             var perimeterToRemove = (from perimeter in this.Perimeters
                                      where perimeter.PerimeterType == perimeterType
                                      select perimeter).Single();
+
             this.Perimeters.Remove(perimeterToRemove);
             return perimeterToRemove;
         }
