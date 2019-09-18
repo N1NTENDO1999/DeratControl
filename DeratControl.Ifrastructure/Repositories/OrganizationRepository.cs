@@ -21,5 +21,10 @@ namespace DeratControl.Infrastructure.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public Task<bool> IsInclude(string facilityAddress)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

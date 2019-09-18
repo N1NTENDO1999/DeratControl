@@ -21,7 +21,7 @@ namespace DeratControl.Application.Facilities
 
         protected override async Task<CommandResult> HandleRequest(CommandExecutionContext executionContext, AddFacilityCommand request)
         {
-            var organization = await this._unitOfWork.OrganizationRepository.FindById(request.OrganizationId);
+            var organization = await this._unitOfWork.OrganizationRepository.FindByIdAsync(request.OrganizationId);
 
             if (organization == null)
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using DeratControl.Domain.Root;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,7 +30,7 @@ namespace DeratControl.Infrastructure
             throw new NotImplementedException();
         }
 
-        public TEntity FindById(TKey Id)
+        public Task<TEntity> FindByIdAsync(TKey Id)
         {
             throw new NotImplementedException();
         }

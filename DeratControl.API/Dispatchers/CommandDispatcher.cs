@@ -35,7 +35,7 @@ namespace DeratControl.API.Dispatchers
 
             int userId = await ((IAuthService)this._context.HttpContext.RequestServices.
                  GetService(typeof(IAuthService))).GetUserByName(this._context.HttpContext.User.Identity.Name);
-            User currentUser = userRepo.FindById(userId);
+            User currentUser = userRepo.FindByIdAsync(userId);
 
             if (currentUser == null)
                 throw new NullReferenceException();
