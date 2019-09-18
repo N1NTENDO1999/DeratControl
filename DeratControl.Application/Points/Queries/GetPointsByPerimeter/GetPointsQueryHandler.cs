@@ -19,14 +19,14 @@ namespace DeratControl.Application.Points.Queries.GetPointsByPerimeter
             this._unitofwork = unitofwork;
         }
 
-        public async Task<PointsViewModelResult> Handle(CommandExecutionContext executionContext, GetPointsQuery request)
+      public async Task<PointsViewModelResult> Handle(CommandExecutionContext executionContext, GetPointsQuery request)
         {
-            var perimeter = await _unitofwork.PerimeterRepository.FindByIdAsync(request.PerimeterId);
+            var perimeter= await _unitofwork.PerimeterRepository.FindByIdAsync(request.PerimeterId);
 
             if (perimeter == null)
                 throw new NullReferenceException("Perimeter with specified id does not exist!");
 
-            return new PointsViewModelResult() { Points = perimeter.TrapPoints };
+            return  new PointsViewModelResult() {Points=perimeter.TrapPoints};
         }
     }
 }
