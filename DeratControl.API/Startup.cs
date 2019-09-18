@@ -1,15 +1,19 @@
-﻿using System;
-using DeratControl.API.Middlewares;
+﻿using DeratControl.API.Middlewares;
+using DeratControl.Security.Infrastracture;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using DeratControl.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using DeratControl.Infrastructure;
 using Microsoft.Extensions.Configuration;
-using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.OpenApi.Models;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
+using DeratControl.Security;
+using DeratControl.Domain.Security;
+using System.Reflection;
 
 namespace DeratControl.API
 {
@@ -26,8 +30,11 @@ namespace DeratControl.API
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<DeratContext>(options =>
-            //options.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DeratContext>(options => {
+                options.UseSqlServer(_config.GetConnectionString("DefaultConnection"), builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name));
+            });
+            
+           
 
             services.AddMvcCore().AddApiExplorer();
 
@@ -35,8 +42,29 @@ namespace DeratControl.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
-        }  
 
+            services.AddDefaultIdentity<SecurityUser>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.RequireHttpsMetadata = false;
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = true,
+                            ValidIssuer = AuthOptions.ISSUER,
+                            ValidateAudience = true,
+                            ValidAudience = AuthOptions.AUDIENCE,
+                            ValidateLifetime = true,
+                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                            ValidateIssuerSigningKey = true,
+                        };
+                    });
+            services.AddScoped<IAuthService, AuthService>();
+        }
+  
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
@@ -53,6 +81,7 @@ namespace DeratControl.API
                 });
             }
             app.UseHttpStatusCodeExceptionMiddleware();
+            app.UseAuthentication();
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello World!");
@@ -60,3 +89,4 @@ namespace DeratControl.API
         }
     }
 }
+

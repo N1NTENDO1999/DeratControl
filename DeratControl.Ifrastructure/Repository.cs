@@ -20,24 +20,24 @@ namespace DeratControl.Infrastructure
             this.databaseContext = context;
         }
 
-        public void Add(TEntity entity)
+        public virtual async Task AddAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            await databaseContext.Set<TEntity>().AddAsync(entity);
         }
 
         public void Delete(TEntity entity)
         {
-            throw new NotImplementedException();
+            databaseContext.Set<TEntity>().Remove(entity);
+        }
+
+        public async Task<TEntity> FindByIdAsync(TKey Id)
+        {
+           return await databaseContext.Set<TEntity>().FindAsync(Id);
         }
 
         public void Update(TEntity entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<TEntity> FindById(TKey Id)
-        {
-            throw new NotImplementedException();
+            databaseContext.Set<TEntity>().Update(entity);
         }
     }
 }

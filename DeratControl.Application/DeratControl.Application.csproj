@@ -13,4 +13,9 @@
     <ProjectReference Include="..\DeratControl.Ifrastructure\DeratControl.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Organizations\Queries\" />
+    <Folder Include="Points\Commands\" />
+  </ItemGroup>
+
 </Project>

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using DeratControl.Domain.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+
 namespace DeratControl.Infrastructure.EntitiesConfigurations
 {
     class ReviewConfiguration : BaseEntityConfiguration<Review,int>
@@ -13,9 +14,26 @@ namespace DeratControl.Infrastructure.EntitiesConfigurations
         {
             base.Configure(builder);
 
-            builder.Property(r => r.Date).IsRequired();
+            builder.ToTable("Reviews");
 
-            builder.HasMany(o => o.ListOfTrapsToReview);
+            builder.Property(r => r.Date).IsRequired();
+            
+            builder
+                .HasOne(r => r.Facility)
+                .WithMany(f => f.Reviews)
+                .HasForeignKey(k => k.FacilityId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasMany(o => o.ListOfTrapsToReview)
+                .WithOne(c => c.Review)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder
+                .HasOne(c => c.AssignedEmployee)
+                .WithMany(c => c.Reviews)
+                .HasForeignKey(c=>c.EmployeeId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

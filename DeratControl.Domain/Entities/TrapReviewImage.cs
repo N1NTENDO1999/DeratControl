@@ -7,8 +7,8 @@ namespace DeratControl.Domain.Entities
 {
     public class TrapReviewImage : EntityBase<int>
     {
-        public int TrapReviewImageId { get; private set; }
+        public int TrapReviewId { get; private set; }
 
-        public TrapReview TrapReview { get; private set; }
+        public virtual TrapReview TrapReview { get; private set; }
     }
 }
