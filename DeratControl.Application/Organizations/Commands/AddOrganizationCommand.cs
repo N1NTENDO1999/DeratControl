@@ -35,7 +35,7 @@ namespace DeratControl.Application.Organizations
             }
 
             var entity = new Organization(request.OrganizationName, executionContext.RequestedUser);
-            organizationRepository.Add(entity);
+            await organizationRepository.AddAsync(entity);
             //TODO : add unitOfWork.Save(); when avaliable
             return new CommandCreateResult<int>(entity.Id);
         }

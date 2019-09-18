@@ -33,9 +33,16 @@ namespace DeratControl.API.Dispatchers
             var userRepo = (IRepository<User, int>)this._context.HttpContext.RequestServices.
               GetService(typeof(IRepository<User, int>));
 
+<<<<<<< HEAD
+
             int userId = await ((IAuthService)this._context.HttpContext.RequestServices.
                  GetService(typeof(IAuthService))).GetUserByName(this._context.HttpContext.User.Identity.Name);
-            User currentUser = userRepo.FindById(userId);
+=======
+            int userId = await ((IAuthService)this._context.HttpContext.RequestServices.
+                GetService(typeof(IAuthService))).GetUserByName(this._context.HttpContext.User.Identity.Name);
+>>>>>>> Dispatchers fixed
+            User currentUser = await userRepo.FindByIdAsync(userId);
+
 
             if (currentUser == null)
                 throw new NullReferenceException();
