@@ -15,5 +15,13 @@ namespace DeratControl.Domain.Entities
         private Facility()
         {
         }
+
+        public Facility(int organizationId, string address, int createdBy)
+        {
+            this.OrganizationId = organizationId;
+            this.Address = address;
+            this.CreatedBy = createdBy;
+            this.CreatedAt = DateTime.Now;
+        }
     }
 }
