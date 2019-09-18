@@ -24,5 +24,10 @@ namespace DeratControl.Infrastructure.Repositories
                 .FirstOrDefault(x => x.Name == organizationName);
             return existing == null ? Task.FromResult(false) : Task.FromResult(true);
         }
+
+        public Task<bool> IsInclude(string facilityAddress)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

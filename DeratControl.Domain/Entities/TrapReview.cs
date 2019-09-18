@@ -21,9 +21,9 @@ namespace DeratControl.Domain.Entities
 
         public int PointId { get; private set; }
 
-        public Point Point { get; private set; }
+        public virtual Point Point { get; private set; }
 
-        public Review Review { get; private set; }        
+        public virtual Review Review { get; private set; }        
 
         public string Comment { get; private set; }
 
