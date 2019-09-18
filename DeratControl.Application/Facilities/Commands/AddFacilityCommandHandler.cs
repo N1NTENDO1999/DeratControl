@@ -19,15 +19,13 @@ namespace DeratControl.Application.Facilities.Commands
             this._unitOfWork = unitOfWork;
         }
 
-
-
         protected override async Task<CommandResult> HandleRequest(CommandExecutionContext executionContext, AddFacilityCommand request)
         {
             var organization = this._unitOfWork.OrganizationRepository.FindById(request.OrganizationId);
 
             if (organization == null)
             {
-                throw new OrganizationIsNullException();
+                throw new OrganizationNotExistException();
             }
 
             var newFacility  = organization.AddFacility(request.Address, executionContext.RequestedUser);
@@ -35,7 +33,6 @@ namespace DeratControl.Application.Facilities.Commands
             await this._unitOfWork.Commit();
 
             return new CommandCreateResult<int>(newFacility.Id);
-
         }
         
         protected override void AssertRequestIsValid(AddFacilityCommand request)
