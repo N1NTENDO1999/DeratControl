@@ -13,6 +13,6 @@ namespace DeratControl.Domain.Root
         void Add(T entity);
         void Delete(T entity);
         void Update(T entity);
-        T FindById(Tkey Id);
+        Task<T> FindById(Tkey Id);
     }
 }

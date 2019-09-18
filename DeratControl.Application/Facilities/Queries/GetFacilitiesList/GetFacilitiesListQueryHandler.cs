@@ -10,7 +10,7 @@ namespace DeratControl.Application.Facilities.Queries.GetFacilitiesList
 {
     class GetFacilitiesListQueryHandler : IQueryHandler<GetFacilitiesListQuery, FacilitiesListViewModel>
     {
-        private IUnitOfWork _unitOfWork;
+        readonly private IUnitOfWork _unitOfWork;
 
         public GetFacilitiesListQueryHandler(IUnitOfWork unitOfWork)
         {
@@ -19,12 +19,14 @@ namespace DeratControl.Application.Facilities.Queries.GetFacilitiesList
 
         public async Task<FacilitiesListViewModel> Handle(CommandExecutionContext executionContext, GetFacilitiesListQuery request)
         {
-            var organization = _unitOfWork.OrganizationRepository.FindById(request.OrganizationId);
+            var organization = await _unitOfWork.OrganizationRepository.FindById(request.OrganizationId);
 
             if (organization == null)
-                throw new OrganizationIsNullException();
+            {
+                throw new OrganizationNotExistException();
+            }
 
-            return await Task.FromResult(new FacilitiesListViewModel() { Facilities = organization.Facilities });
+            return new FacilitiesListViewModel() { Facilities = organization.Facilities };
         }
     }
 }
