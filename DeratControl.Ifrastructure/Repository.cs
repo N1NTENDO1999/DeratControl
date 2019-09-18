@@ -30,7 +30,7 @@ namespace DeratControl.Infrastructure
             throw new NotImplementedException();
         }
 
-        public Task<TEntity> FindByIdAsync(TKey Id)
+        public async Task<TEntity> FindByIdAsync(TKey Id)
         {
             throw new NotImplementedException();
         }
