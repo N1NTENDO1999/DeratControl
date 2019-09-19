@@ -6,7 +6,7 @@ using System.Text;
 namespace DeratControl.Domain.Entities
 {
     public class UserRole
-
+    { 
         public int RoleId { get; protected set; }
         public string RoleName { get; set; }
 
