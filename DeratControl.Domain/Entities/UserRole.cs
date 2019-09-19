@@ -6,8 +6,8 @@ using System.Text;
 namespace DeratControl.Domain.Entities
 {
     public class UserRole
-    {
-        public int RoleId { get; }
+
+        public int RoleId { get; protected set; }
         public string RoleName { get; set; }
 
         private readonly Dictionary<int, string> roles = new Dictionary<int, string>

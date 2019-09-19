@@ -31,7 +31,8 @@ namespace DeratControl.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DeratContext>(options => {
-                options.UseSqlServer(_config.GetConnectionString("DefaultConnection"), builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name));
+                options.UseSqlServer(_config.GetConnectionString("DefaultConnection"), 
+                    builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name));
             });
             
            
@@ -43,7 +44,11 @@ namespace DeratControl.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
 
-            services.AddDefaultIdentity<SecurityUser>()
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(_config.GetConnectionString("DefaultConnection"), 
+                builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name)));
+
+            services.AddIdentity<SecurityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
