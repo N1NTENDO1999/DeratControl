@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DeratControl.Application.Points.Queries.GetPointsByPerimeter
 {
-    public class GetPointsQueryHandler : IQueryHandler<GetPointsQuery,PointsViewModelResult>
+    public class GetPointsQueryHandler : IQueryHandler<GetPointsQuery, PointsViewModelResult>
     {
         private IUnitOfWork _unitofwork;
 
@@ -19,7 +19,7 @@ namespace DeratControl.Application.Points.Queries.GetPointsByPerimeter
             this._unitofwork = unitofwork;
         }
 
-       public async Task<PointsViewModelResult> Handle(CommandExecutionContext executionContext, GetPointsQuery request)
+      public async Task<PointsViewModelResult> Handle(CommandExecutionContext executionContext, GetPointsQuery request)
         {
             var perimeter= await _unitofwork.PerimeterRepository.FindByIdAsync(request.PerimeterId);
 

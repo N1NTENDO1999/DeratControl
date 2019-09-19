@@ -20,9 +20,17 @@ namespace DeratControl.Domain.Entities
         public PerimeterType PerimeterType { get; set; }
 
         public virtual ICollection<Point> TrapPoints { get; protected set; } = new HashSet<Point>();
-        
+
         private Perimeter()
         {
+        }
+
+        public Perimeter(Facility facility, PerimeterType perimeterType, int createdBy)
+        {
+            this.Facility = facility;
+            this.PerimeterType = perimeterType;
+            this.CreatedBy = createdBy;
+            this.CreatedAt = DateTime.Now;
         }
     }
 }
