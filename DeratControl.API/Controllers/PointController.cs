@@ -15,21 +15,21 @@ namespace DeratControl.API.Controllers
     [ApiController]
     public class PointController : ControllerBase
     {
-        private CommandDispatcher _commanddispatcher;
+        private CommandDispatcher _commandDispatcher;
         private QueryDispatcher _queryDispatcher;
 
         public PointController(CommandDispatcher cdis,QueryDispatcher qdis )
         {
             this._queryDispatcher = qdis;
 
-            this._commanddispatcher = cdis;
+            this._commandDispatcher = cdis;
         }
 
         [HttpPost]
         [Route("/addpoint")]
         public async Task<CommandResult> AddPoints(AddPointsCommand request)
         {
-            return await this._commanddispatcher.Dispatch(request);
+            return await this._commandDispatcher.Dispatch(request);
         }
 
         [HttpGet]
