@@ -8,17 +8,24 @@ using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using DeratControl.Domain.Root;
 
 namespace DeratControl.Security
 {
     public class AuthService : IAuthService
     {
         private readonly UserManager<SecurityUser> userManager;
+        private readonly RoleManager<SecurityUser> roleManager;
         private readonly SignInManager<SecurityUser> signInManager;
-        public AuthService(UserManager<SecurityUser> userMng, SignInManager<SecurityUser> signInMng)
+        private readonly IUnitOfWork unitOfWork;
+
+
+        public AuthService(UserManager<SecurityUser> userMng,RoleManager<SecurityUser> roleManager, SignInManager<SecurityUser> signInMng, IUnitOfWork unitOfWork)
         {
-            userManager = userMng;
-            signInManager = signInMng;
+            this.userManager = userMng;
+            this.roleManager = roleManager;
+            this.signInManager = signInMng;
+            this.unitOfWork = unitOfWork;
         }
 
         public async Task<int> GetUserByName(string userName)
@@ -27,6 +34,13 @@ namespace DeratControl.Security
             if (user == null)
                 throw new Exception("User not found.");
             return user.UserId;
+        }
+
+        public async Task<bool> Register(int UserId)
+        {
+            SecurityUser securityUser = new SecurityUser(UserId);
+            IdentityResult result = await userManager.CreateAsync(securityUser);
+            return result.Succeeded;
         }
 
         public async Task<SignInResponse<string>> SignIn(SignInRequest credentials)
