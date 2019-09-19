@@ -5,10 +5,18 @@ using System.Text;
 
 namespace DeratControl.Application.Points.Commands.AddPoint
 {
-   public class AddPointCommand:IRequest
+   public class PointDto
+   {
+        public string Location { get; set; }
+
+        public int Order { get; set; }
+
+    }
+
+   public class AddPointsCommand:IRequest
     {
         public int PerimeterId { get; set; }
 
-        public string Location { get; set; }
+        public List<PointDto> Points { get; set; }
     }
 }

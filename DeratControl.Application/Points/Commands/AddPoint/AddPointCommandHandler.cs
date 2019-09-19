@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DeratControl.Application.Points.Commands.AddPoint
 {
-    public class AddPointCommandHandler : BaseCommandHandler<AddPointCommand>
+    public class AddPointCommandHandler : BaseCommandHandler<AddPointsCommand>
     {
         public IUnitOfWork UnitOfWork { get;}
 
@@ -19,28 +19,33 @@ namespace DeratControl.Application.Points.Commands.AddPoint
             this.UnitOfWork = unitofwork;
         }
 
-        protected override async Task<CommandResult> HandleRequest(CommandExecutionContext executionContext, AddPointCommand request)
+        protected override async Task<CommandResult> HandleRequest(CommandExecutionContext executionContext, AddPointsCommand request)
         {
             Perimeter perimeter = await this.UnitOfWork.PerimeterRepository.FindByIdAsync(request.PerimeterId);
 
             if (perimeter == null)
                 throw new NullReferenceException("Perimeter not found!");
 
-            Point newpoint = new Point(request.Location, request.PerimeterId, perimeter);
-
-            perimeter.TrapPoints.Add(newpoint);
+            foreach(var point in request.Points)
+            {
+                perimeter.TrapPoints.Add(new Point(point.Location,point.Order, request.PerimeterId, perimeter));
+            }
 
             await this.UnitOfWork.Commit();
 
-            return new CommandCreateResult<int>(newpoint.Id);
+            return new CommandResult();
         }
 
-        protected override void AssertRequestIsValid(AddPointCommand request)
+        protected override void AssertRequestIsValid(AddPointsCommand request)
         {
             base.AssertRequestIsValid(request);
 
-            if(string.IsNullOrEmpty(request.Location))
-                throw new ArgumentNullException(nameof(request.Location));
+            foreach(var point in request.Points)
+            {
+                if (string.IsNullOrEmpty(point.Location))
+                    throw new ArgumentNullException(nameof(point.Location));
+            }
+            
         }
     }
 }
