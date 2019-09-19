@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DeratControl.Application.Facilities.Queries.GetFacilitiesList
 {
-    class GetFacilitiesListQueryHandler : IQueryHandler<GetFacilitiesListQuery, FacilitiesListViewModel>
+    public class GetFacilitiesListQueryHandler : IQueryHandler<GetFacilitiesListQuery, FacilitiesListViewModel>
     {
         readonly private IUnitOfWork _unitOfWork;
 
