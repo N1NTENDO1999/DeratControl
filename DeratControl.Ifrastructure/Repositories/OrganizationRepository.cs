@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DeratControl.Domain.Entities;
@@ -19,7 +20,9 @@ namespace DeratControl.Infrastructure.Repositories
 
         public Task<bool> Exists(string organizationName)
         {
-            throw new NotImplementedException();
+            var existing = databaseContext.Set<Organization>()
+                .FirstOrDefault(x => x.Name == organizationName);
+            return existing == null ? Task.FromResult(false) : Task.FromResult(true);
         }
 
         public Task<bool> IsInclude(string facilityAddress)
