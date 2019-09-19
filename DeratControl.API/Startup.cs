@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using DeratControl.Security;
 using DeratControl.Domain.Security;
 using System.Reflection;
+
 using DeratControl.Domain.Root;
 using DeratControl.API.Dispatchers;
 using DeratControl.Application.Interfaces;
@@ -23,6 +24,7 @@ using DeratControl.Domain.Root.Repositories;
 using DeratControl.Application.Points.Commands.AddPoint;
 using DeratControl.Application.Points.Queries.GetPointsByPerimeter;
 using DeratControl.Application.Users;
+
 
 namespace DeratControl.API
 {
@@ -39,56 +41,57 @@ namespace DeratControl.API
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DeratContext>(options => {
-                options.UseSqlServer(_config.GetConnectionString("DefaultConnection"), 
+            services.AddDbContext<DeratContext>(options =>
+            {
+                options.UseSqlServer(_config.GetConnectionString("DefaultConnection"),
                     builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name));
             });
-
 
             services.AddMvc();
             services.AddMvcCore().AddApiExplorer();
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-            });
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "My API", Version = "v1"}); });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(_config.GetConnectionString("DefaultConnection"), 
-                builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name)));
+                options.UseSqlServer(_config.GetConnectionString("DefaultConnection"),
+                    builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name)));
 
             services.AddIdentity<SecurityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options =>
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        options.RequireHttpsMetadata = false;
-                        options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            ValidateIssuer = true,
-                            ValidIssuer = AuthOptions.ISSUER,
-                            ValidateAudience = true,
-                            ValidAudience = AuthOptions.AUDIENCE,
-                            ValidateLifetime = true,
-                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                            ValidateIssuerSigningKey = true,
-                        };
-                    });
-            services.AddScoped<IAuthService, AuthService>();
+                        ValidateIssuer = true,
+                        ValidIssuer = AuthOptions.ISSUER,
+                        ValidateAudience = true,
+                        ValidAudience = AuthOptions.AUDIENCE,
+                        ValidateLifetime = true,
+                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true,
+                    };
+                });
             services.AddScoped<DbContext, DeratContext>();
-            
+            services.AddScoped<IAuthService, AuthService>();
+
+            services.AddScoped<DbContext, DeratContext>();
+
             services.AddScoped<IOrganizationRepository, OrganizationRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(CommandDispatcher));
             services.AddScoped(typeof(QueryDispatcher));
             services.AddScoped(typeof(ICommandHandler<AddEmployeeCommand>), typeof(AddEmployeeCommandHandler));
             services.AddScoped(typeof(ICommandHandler<AddPointsCommand>), typeof(AddPointCommandHandler));
-            services.AddScoped(typeof(IQueryHandler<GetPointsQuery,PointsViewModelResult>), typeof(GetPointsQueryHandler));
+            services.AddScoped(typeof(IQueryHandler<GetPointsQuery, PointsViewModelResult>),
+                typeof(GetPointsQueryHandler));
+
 
         }
-  
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
@@ -104,7 +107,9 @@ namespace DeratControl.API
                     c.RoutePrefix = string.Empty;
                 });
             }
+
             app.UseHttpStatusCodeExceptionMiddleware();
+
             //app.UseAuthentication();
             app.UseMvc(routes =>
             {
@@ -112,10 +117,7 @@ namespace DeratControl.API
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+
         }
     }
 }

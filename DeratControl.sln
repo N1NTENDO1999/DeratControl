@@ -1,27 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29215.179
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.779
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E2525F3F-9D64-47DD-AB4D-926CEB919CC5}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{D131EE23-6BFB-4BB0-941C-756DAC7CE0D5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{910CE724-CE7B-4D09-B552-9D78D1F71B18}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeratControl.Domain", "DeratControl.Domain\DeratControl.Domain.csproj", "{BA6B0474-B6F6-4D56-A769-9C87A805730A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeratControl.Application", "DeratControl.Application\DeratControl.Application.csproj", "{15776120-4F4A-49DD-9F47-B42EC03E1885}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeratControl.Infrastructure", "DeratControl.Ifrastructure\DeratControl.Infrastructure.csproj", "{83BC5609-14FA-42EB-B696-A19091CC0D7B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeratControl.API", "DeratControl.API\DeratControl.API.csproj", "{7A969AA0-D55F-4F4D-8A67-52181204B535}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeratControl.Domain.Tests", "DeratControl.Domain.Tests\DeratControl.Domain.Tests.csproj", "{6D3E762A-2CB4-4028-B92C-3A6662ABD3EF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeratControl.Application.Tests", "DeratControl.Application.Tests\DeratControl.Application.Tests.csproj", "{B05912E4-7D31-441A-BBD2-1B45BCF75C00}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeratControl.Security", "DeratControl.Security\DeratControl.Security.csproj", "{684C9703-0FA3-423A-8914-295E7C70179D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,22 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BA6B0474-B6F6-4D56-A769-9C87A805730A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA6B0474-B6F6-4D56-A769-9C87A805730A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA6B0474-B6F6-4D56-A769-9C87A805730A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA6B0474-B6F6-4D56-A769-9C87A805730A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15776120-4F4A-49DD-9F47-B42EC03E1885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15776120-4F4A-49DD-9F47-B42EC03E1885}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15776120-4F4A-49DD-9F47-B42EC03E1885}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15776120-4F4A-49DD-9F47-B42EC03E1885}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83BC5609-14FA-42EB-B696-A19091CC0D7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83BC5609-14FA-42EB-B696-A19091CC0D7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83BC5609-14FA-42EB-B696-A19091CC0D7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83BC5609-14FA-42EB-B696-A19091CC0D7B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7A969AA0-D55F-4F4D-8A67-52181204B535}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A969AA0-D55F-4F4D-8A67-52181204B535}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A969AA0-D55F-4F4D-8A67-52181204B535}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A969AA0-D55F-4F4D-8A67-52181204B535}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6D3E762A-2CB4-4028-B92C-3A6662ABD3EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6D3E762A-2CB4-4028-B92C-3A6662ABD3EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D3E762A-2CB4-4028-B92C-3A6662ABD3EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,22 +25,13 @@ Global
 		{B05912E4-7D31-441A-BBD2-1B45BCF75C00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B05912E4-7D31-441A-BBD2-1B45BCF75C00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B05912E4-7D31-441A-BBD2-1B45BCF75C00}.Release|Any CPU.Build.0 = Release|Any CPU
-		{684C9703-0FA3-423A-8914-295E7C70179D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{684C9703-0FA3-423A-8914-295E7C70179D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{684C9703-0FA3-423A-8914-295E7C70179D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{684C9703-0FA3-423A-8914-295E7C70179D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{BA6B0474-B6F6-4D56-A769-9C87A805730A} = {E2525F3F-9D64-47DD-AB4D-926CEB919CC5}
-		{15776120-4F4A-49DD-9F47-B42EC03E1885} = {E2525F3F-9D64-47DD-AB4D-926CEB919CC5}
-		{83BC5609-14FA-42EB-B696-A19091CC0D7B} = {E2525F3F-9D64-47DD-AB4D-926CEB919CC5}
-		{7A969AA0-D55F-4F4D-8A67-52181204B535} = {E2525F3F-9D64-47DD-AB4D-926CEB919CC5}
 		{6D3E762A-2CB4-4028-B92C-3A6662ABD3EF} = {910CE724-CE7B-4D09-B552-9D78D1F71B18}
 		{B05912E4-7D31-441A-BBD2-1B45BCF75C00} = {910CE724-CE7B-4D09-B552-9D78D1F71B18}
-		{684C9703-0FA3-423A-8914-295E7C70179D} = {E2525F3F-9D64-47DD-AB4D-926CEB919CC5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {501BBD10-81D5-495D-827E-CAD5089C4E9B}

@@ -1,15 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿
+using DeratControl.API.Dispatchers;
+using DeratControl.Application.Organizations;
+using DeratControl.Application.Requests;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace DeratControl.API.Controllers
 {
-    [Route("api/[controller]")]
+
     [ApiController]
     public class OrganizationController : ControllerBase
     {
+
+        private CommandDispatcher comdispatcher;
+
+        public OrganizationController(CommandDispatcher comdispatcher)
+        {
+            this.comdispatcher = comdispatcher;
+        }
+
+        [HttpPost]
+        [Route("/huy")]
+        public async Task<CommandResult> AddOrganization(AddOrganizationCommand request)
+        {
+            return await this.comdispatcher.Dispatch(request);
+        }
     }
 }

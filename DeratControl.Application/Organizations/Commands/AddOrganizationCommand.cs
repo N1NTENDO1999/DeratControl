@@ -19,24 +19,27 @@ namespace DeratControl.Application.Organizations
     }
 
     public class AddOrganizationCommandHandler : BaseCommandHandler<AddOrganizationCommand>
-    {
+
         private readonly IUnitOfWork _unitOfWork;
 
         public AddOrganizationCommandHandler(IUnitOfWork unitOfWork)
         {
             this._unitOfWork = unitOfWork;
+
         }
 
         protected override async Task<CommandResult> HandleRequest(CommandExecutionContext executionContext, AddOrganizationCommand request)
-        {
+
             if (await _unitOfWork.OrganizationRepository.Exists(request.OrganizationName))
             {
                 throw new OrganizationAlreadyExistsException();
             }
 
             var entity = new Organization(request.OrganizationName, executionContext.RequestedUser);
+
             await _unitOfWork.OrganizationRepository.AddAsync(entity);
             await _unitOfWork.Commit();
+
             return new CommandCreateResult<int>(entity.Id);
         }
 

@@ -30,7 +30,7 @@ namespace DeratControl.Infrastructure.EntitiesConfigurations
                 .HasMany(f => f.Reviews)
                 .WithOne(r => r.Facility)
                 .HasForeignKey(c => c.FacilityId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict);       
         }
     }
 }
