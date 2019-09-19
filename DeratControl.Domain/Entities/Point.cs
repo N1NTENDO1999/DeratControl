@@ -12,9 +12,11 @@ namespace DeratControl.Domain.Entities
             
         }
 
-        public Point(string location,int perimeterId,Perimeter perimeter)
+        public Point(string location,int order,int perimeterId,Perimeter perimeter)
         {
             this.Location = location;
+
+            this.Order = order;
 
             this.PerimeterId = perimeterId;
 
