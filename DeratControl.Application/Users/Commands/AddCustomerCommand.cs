@@ -31,8 +31,13 @@ namespace DeratControl.Application.Users.Commands
             if (unitOfWork.UserRepository.Exists(customer.Email))
                 throw new UserAlreadyExistsException();
             var organization = await GetOrganizationById(customer.OrganizationId);
+            if (organization == null)
+            {
+                throw new OrganizationNotExistException();
+            }
             var entity = new User(customer.Address, customer.Email, customer.FirstName, customer.LastName,
-                customer.Phone,organization);
+                customer.Phone,organization,new UserRole("Customer"));
+            organization.AddUser(entity);
             await unitOfWork.UserRepository.AddAsync(entity);
             await unitOfWork.Commit();
             return new CommandCreateResult<int>(entity.Id);
