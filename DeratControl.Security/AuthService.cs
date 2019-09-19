@@ -16,15 +16,14 @@ namespace DeratControl.Security
     public class AuthService : IAuthService
     {
         private readonly UserManager<SecurityUser> userManager;
-        private readonly RoleManager<SecurityUser> roleManager;
+        
         private readonly SignInManager<SecurityUser> signInManager;
         private readonly IUnitOfWork unitOfWork;
 
 
-        public AuthService(UserManager<SecurityUser> userMng,RoleManager<SecurityUser> roleManager, SignInManager<SecurityUser> signInMng, IUnitOfWork unitOfWork)
+        public AuthService(UserManager<SecurityUser> userMng, SignInManager<SecurityUser> signInMng, IUnitOfWork unitOfWork)
         {
             this.userManager = userMng;
-            this.roleManager = roleManager;
             this.signInManager = signInMng;
             this.unitOfWork = unitOfWork;
         }
@@ -37,13 +36,12 @@ namespace DeratControl.Security
             return user.UserId;
         }
 
-        public async Task<bool> Register(int userId)
+        public async Task<bool> Register(int userId, string userName, string password, string userRole)
         {
-            string password = "password";
-            User user = await unitOfWork.UserRepository.FindByIdAsync(userId);
-            SecurityUser securityUser = new SecurityUser(userId);
+            
+            SecurityUser securityUser = new SecurityUser(){UserId = userId, Email = userName, UserName = userName};
             IdentityResult result = await userManager.CreateAsync(securityUser, password);
-            await userManager.AddToRoleAsync(securityUser, user.UserRole.RoleName);
+            await userManager.AddToRoleAsync(securityUser, userRole);
             return result.Succeeded;
         }
 

@@ -24,10 +24,14 @@ using DeratControl.Application.Points.Commands.AddPoint;
 using DeratControl.Application.Points.Queries.GetPointsByPerimeter;
 using DeratControl.Application.Perimeters.Queries.GetPerimetersList;
 using DeratControl.Application.Perimeters.Commands;
+
+using DeratControl.Application.Users;
+
 using DeratControl.Application.Traps.Commands.SetTrap;
 using DeratControl.Application.Traps.Queries.ViewTrapByPoint;
 using DeratControl.Application.Facilities.Commands;
 using DeratControl.Application.Facilities.Queries.GetFacilitiesList;
+
 
 namespace DeratControl.API
 {
@@ -89,8 +93,10 @@ namespace DeratControl.API
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(CommandDispatcher));
             services.AddScoped(typeof(QueryDispatcher));
-               
+
+            services.AddScoped(typeof(ICommandHandler<AddOrganizationCommand>), typeof(AddOrganizationCommandHandler));
             services.AddScoped(typeof(ICommandHandler<AddPointsCommand>), typeof(AddPointCommandHandler));
+            services.AddScoped(typeof(ICommandHandler<AddEmployeeCommand>), typeof(AddEmployeeCommandHandler));
             services.AddScoped(typeof(IQueryHandler<GetPointsQuery,PointsViewModelResult>), typeof(GetPointsQueryHandler));
             services.AddScoped(typeof(ICommandHandler<AddPerimeterCommand>), typeof(AddPerimeterCommandHandler));
             services.AddScoped(typeof(IQueryHandler<GetPerimetersQuery, PerimetersViewModelResult>), typeof(GetPerimetersQueryHandler));
