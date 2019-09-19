@@ -8,8 +8,13 @@ using System.Threading.Tasks;
 using System;
 using DeratControl.Domain.Root;
 
-namespace DeratControl.Application.Facilities
+namespace DeratControl.Application.Facilities.Commands
 {
+    public class AddFacilityCommand : IRequest
+    {
+        public int OrganizationId { get; set; }        
+        public string Address { get; set; }
+    }
     public class AddFacilityCommandHandler : BaseCommandHandler<AddFacilityCommand>
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -28,13 +33,13 @@ namespace DeratControl.Application.Facilities
                 throw new OrganizationNotExistException();
             }
 
-            var newFacility  = organization.AddFacility(request.Address, executionContext.RequestedUser);
+            var newFacility = organization.AddFacility(request.Address, executionContext.RequestedUser);
 
             await this._unitOfWork.Commit();
 
             return new CommandCreateResult<int>(newFacility.Id);
         }
-        
+
         protected override void AssertRequestIsValid(AddFacilityCommand request)
         {
             base.AssertRequestIsValid(request);
@@ -45,3 +50,4 @@ namespace DeratControl.Application.Facilities
         }
     }
 }
+
