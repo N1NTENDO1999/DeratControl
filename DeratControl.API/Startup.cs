@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Identity;
 using DeratControl.Security;
 using DeratControl.Domain.Security;
 using System.Reflection;
+using DeratControl.API.Dispatchers;
+using DeratControl.Application.Perimeters.Queries.GetPerimetersList;
+using DeratControl.Application.Interfaces;
 
 namespace DeratControl.API
 {
@@ -30,11 +33,12 @@ namespace DeratControl.API
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DeratContext>(options => {
+            services.AddDbContext<DeratContext>(options =>
+            {
                 options.UseSqlServer(_config.GetConnectionString("DefaultConnection"), builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name));
             });
-            
-           
+
+
 
             services.AddMvcCore().AddApiExplorer();
 
@@ -63,8 +67,11 @@ namespace DeratControl.API
                         };
                     });
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped(typeof(CommandDispatcher));
+            services.AddScoped(typeof(IQueryHandler<GetPerimetersQuery,PerimetersViewModelResult>),typeof(GetPerimetersQueryHandler));
+
         }
-  
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
