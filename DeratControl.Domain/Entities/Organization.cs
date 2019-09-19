@@ -39,5 +39,10 @@ namespace DeratControl.Domain.Entities
             this.Facilities.Add(newFacility);
             return newFacility;
         }
+
+        public void AddUser(User user)
+        {
+            ContactPeople.Add(user);
+        }
     }
 }

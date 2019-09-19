@@ -11,5 +11,6 @@ namespace DeratControl.Domain.Security
         Task<SignInResponse<string>> SignIn(SignInRequest credentials);
         Task<SignOutResponse> SignOut(SignOutRequest credentials);
         Task<int> GetUserByName(string userName);
+        Task<bool> Register(int UserId);
     }
 }

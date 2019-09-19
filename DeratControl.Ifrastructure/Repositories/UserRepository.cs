@@ -22,5 +22,14 @@ namespace DeratControl.Infrastructure.Repositories
         {
             return databaseContext.Set<User>().Where(x => x.Email == email).FirstOrDefault() != null;
         }
+
+        public ICollection<User> FindRoleById(int RoleId)
+        {
+            if (RoleId < 0 || RoleId > 2)
+            {
+                throw new ArgumentException();
+            }
+            return databaseContext.Set<User>().Where(x => x.UserRole.RoleId == RoleId).ToList();
+        }
     }
 }
