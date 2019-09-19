@@ -48,6 +48,7 @@ namespace DeratControl.API
 
 
             services.AddMvcCore().AddApiExplorer();
+            services.AddMvc();
 
             services.AddSwaggerGen(c =>
             {
@@ -109,6 +110,7 @@ namespace DeratControl.API
             }
             app.UseHttpStatusCodeExceptionMiddleware();
             app.UseAuthentication();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
