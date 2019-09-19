@@ -19,7 +19,7 @@ namespace DeratControl.Domain.Entities
         public virtual Organization Organization { get;private set; }
         public ICollection<Review> Reviews { get; set; } = new HashSet<Review>();
 
-        public virtual UserRole UserRole { get; set; }
+        public  UserRole UserRole { get; set; }
 
         private User()
         {
@@ -35,5 +35,11 @@ namespace DeratControl.Domain.Entities
             Email = email;
         }
 
+        
+    }
+    public enum UserRole
+    {
+        Employee,
+        Admin
     }
 }

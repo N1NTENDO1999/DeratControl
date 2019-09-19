@@ -27,24 +27,24 @@ namespace DeratControl.API.Dispatchers
                 throw new ArgumentNullException(nameof(command),
                                                 "Command can not be null.");
 
-            if (!this._context.HttpContext.User.Identity.IsAuthenticated)
-                throw new UnauthorizedAccessException();
+            //if (!this._context.HttpContext.User.Identity.IsAuthenticated)
+            //    throw new UnauthorizedAccessException();
 
             var unitOfWork = (IUnitOfWork)this._context.HttpContext.RequestServices.
               GetService(typeof(IUnitOfWork));
 
-            int userId = await ((IAuthService)this._context.HttpContext.RequestServices.
-                 GetService(typeof(IAuthService))).GetUserByName(this._context.HttpContext.User.Identity.Name);
+            //int userId = await ((IAuthService)this._context.HttpContext.RequestServices.
+            //     GetService(typeof(IAuthService))).GetUserByName(this._context.HttpContext.User.Identity.Name);
 
-            User currentUser = await unitOfWork.UserRepository.FindByIdAsync(userId);
+            //User currentUser = await unitOfWork.UserRepository.FindByIdAsync(userId);
 
-            if (currentUser == null)
-                throw new NullReferenceException("User was not found");
+            //if (currentUser == null)
+            //    throw new NullReferenceException("User was not found");
 
             var handler = (ICommandHandler<TRequest>)this._context.HttpContext.RequestServices.
                 GetService(typeof(ICommandHandler<TRequest>));
 
-            var commandExeContext = new CommandExecutionContext(currentUser);
+            var commandExeContext = new CommandExecutionContext(new User("a", "a", "a", "a", "a"));
 
             return await handler.Handle(commandExeContext, command);
         }
