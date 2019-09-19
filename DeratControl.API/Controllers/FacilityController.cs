@@ -4,6 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using DeratControl.API.Dispatchers;
+using DeratControl.Application.Requests;
+using DeratControl.Application.Perimeters.Commands;
+using DeratControl.Application.Perimeters.Queries.GetPerimetersList;
+using DeratControl.Application.Requests.Interfaces;
+using DeratControl.Application.Interfaces;
 
 namespace DeratControl.API.Controllers
 {
@@ -11,5 +17,25 @@ namespace DeratControl.API.Controllers
     [ApiController]
     public class FacilityController : ControllerBase
     {
+        private readonly CommandDispatcher commandDispatcher;
+        private readonly QueryDispatcher queryDispatcher;
+        public FacilityController(CommandDispatcher commandDispatcher, QueryDispatcher queryDispatcher)
+        {
+            this.commandDispatcher = commandDispatcher;
+            this.queryDispatcher = queryDispatcher;
+        }
+        [HttpPost]
+        [Route("/AddPerimeter")]
+        public async Task<CommandResult> AddPerimeter(AddPerimeterCommand request)
+        {
+            return await this.commandDispatcher.Dispatch<AddPerimeterCommand>(request);
+        }
+
+        [HttpPost]
+        [Route("/GetPerimeters/{id}")]
+        public async Task<PerimetersViewModelResult> GetPerimeters(int id)
+        {
+            return await this.queryDispatcher.Dispatch<GetPerimetersQuery, PerimetersViewModelResult>(new GetPerimetersQuery() { FacilityId = id });
+        }
     }
 }
