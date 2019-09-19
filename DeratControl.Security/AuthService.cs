@@ -39,10 +39,11 @@ namespace DeratControl.Security
 
         public async Task<bool> Register(int userId)
         {
+            string password = "password";
             User user = await unitOfWork.UserRepository.FindByIdAsync(userId);
             SecurityUser securityUser = new SecurityUser(userId);
-            IdentityResult result = await userManager.CreateAsync(securityUser);
-            await userManager.AddToRoleAsync(securityUser,user.UserRole.RoleName);
+            IdentityResult result = await userManager.CreateAsync(securityUser, password);
+            await userManager.AddToRoleAsync(securityUser, user.UserRole.RoleName);
             return result.Succeeded;
         }
 
