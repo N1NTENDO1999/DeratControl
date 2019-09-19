@@ -36,7 +36,7 @@ namespace DeratControl.Application.Users.Commands
                 throw new OrganizationNotExistException();
             }
             var entity = new User(customer.Address, customer.Email, customer.FirstName, customer.LastName,
-                customer.Phone,organization,new UserRole("Customer"));
+                customer.Phone,organization, 0);
             organization.AddUser(entity);
             await unitOfWork.UserRepository.AddAsync(entity);
             await unitOfWork.Commit();
