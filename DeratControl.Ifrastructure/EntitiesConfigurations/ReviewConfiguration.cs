@@ -27,6 +27,7 @@ namespace DeratControl.Infrastructure.EntitiesConfigurations
             builder
                 .HasMany(o => o.ListOfTrapsToReview)
                 .WithOne(c => c.Review)
+                .HasForeignKey(c => c.ReviewId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder

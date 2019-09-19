@@ -17,7 +17,7 @@ namespace DeratControl.Domain.Entities
 
     public class TrapReview : EntityBase<int>
     {
-        public int TrapReviewId { get; private set; }
+        public int ReviewId { get; private set; }
 
         public int PointId { get; private set; }
 
