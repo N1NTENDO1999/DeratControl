@@ -96,7 +96,7 @@ $tf/
 # Guidance Automation Toolkit
 *.gpState
 
-appsettings.Development.json
+DeratControl.API/appsettings.Development.json
 
 # ReSharper is a .NET coding add-in
 _ReSharper*/
