@@ -36,6 +36,7 @@ namespace DeratControl.Application.Organizations
 
             var entity = new Organization(request.OrganizationName, executionContext.RequestedUser);
             await _unitOfWork.OrganizationRepository.AddAsync(entity);
+            await _unitOfWork.Commit();
             return new CommandCreateResult<int>(entity.Id);
         }
 
