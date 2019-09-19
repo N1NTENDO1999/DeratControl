@@ -45,7 +45,6 @@ namespace DeratControl.API
                     builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name));
             });
 
-            services.AddMvc();
 
 
             services.AddMvcCore().AddApiExplorer();
