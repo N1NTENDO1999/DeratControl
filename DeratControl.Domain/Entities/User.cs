@@ -26,14 +26,25 @@ namespace DeratControl.Domain.Entities
 
         }
 
-        public User(string firstName, string lastName, string address, string phone, string email)
+        public User(string firstName, string lastName, string address, string phone, string email,UserRole userRole)
         {
             FirstName = firstName;
             LastName = lastName;
             Address = address;
             Phone = phone;
             Email = email;
+            UserRole = userRole;
         }
 
+        public User(string firstName, string lastName, string address, string phone, string email, Organization organization, UserRole userRole)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Address = address;
+            Phone = phone;
+            Email = email;
+            Organization = organization;
+            UserRole = userRole;
+        }
     }
 }
