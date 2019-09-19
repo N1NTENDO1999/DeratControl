@@ -87,7 +87,8 @@ namespace DeratControl.API
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(CommandDispatcher));
             services.AddScoped(typeof(QueryDispatcher));
-               
+
+            services.AddScoped(typeof(ICommandHandler<AddOrganizationCommand>), typeof(AddOrganizationCommandHandler));
             services.AddScoped(typeof(ICommandHandler<AddPointsCommand>), typeof(AddPointCommandHandler));
             services.AddScoped(typeof(IQueryHandler<GetPointsQuery,PointsViewModelResult>), typeof(GetPointsQueryHandler));
             services.AddScoped(typeof(ICommandHandler<AddPerimeterCommand>), typeof(AddPerimeterCommandHandler));
