@@ -3,6 +3,7 @@ using DeratControl.Application.Organizations;
 using DeratControl.Application.Requests;
 using DeratControl.Application.Requests.Interfaces;
 using DeratControl.Domain.Entities;
+using DeratControl.Domain.Root;
 using DeratControl.Domain.Root.Exceptions;
 using DeratControl.Domain.Root.Repositories;
 using System;
@@ -19,24 +20,26 @@ namespace DeratControl.Application.Organizations
 
     public class AddOrganizationCommandHandler : BaseCommandHandler<AddOrganizationCommand>
     {
-        private readonly IOrganizationRepository organizationRepository;
+        private readonly IUnitOfWork unitOfWork;
 
         //TODO : inject IUnitOfWork insted of IOrganizationRepository when avaliable
-        public AddOrganizationCommandHandler(IOrganizationRepository organizationRepository)
+        public AddOrganizationCommandHandler(IUnitOfWork organizationRepository)
         {
-            this.organizationRepository = organizationRepository;
+            this.unitOfWork = organizationRepository;
         }
 
         protected override async Task<CommandResult> HandleRequest(CommandExecutionContext executionContext, AddOrganizationCommand request)
         {
-            if (await organizationRepository.Exists(request.OrganizationName))
+            if (await this.unitOfWork.OrganizationRepository.Exists(request.OrganizationName))
             {
                 throw new OrganizationAlreadyExistsException();
             }
 
             var entity = new Organization(request.OrganizationName, executionContext.RequestedUser);
-            await organizationRepository.AddAsync(entity);
-            //TODO : add unitOfWork.Save(); when avaliable
+            await this.unitOfWork.OrganizationRepository.AddAsync(entity);
+
+            await this.unitOfWork.Commit();
+
             return new CommandCreateResult<int>(entity.Id);
         }
 

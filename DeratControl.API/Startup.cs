@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Identity;
 using DeratControl.Security;
 using DeratControl.Domain.Security;
 using System.Reflection;
+using DeratControl.API.Dispatchers;
+using DeratControl.Application.Interfaces;
+using DeratControl.Application.Organizations;
 
 namespace DeratControl.API
 {
@@ -33,8 +36,8 @@ namespace DeratControl.API
             services.AddDbContext<DeratContext>(options => {
                 options.UseSqlServer(_config.GetConnectionString("DefaultConnection"), builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name));
             });
-            
-           
+
+            services.AddMvc();
 
             services.AddMvcCore().AddApiExplorer();
 
@@ -63,6 +66,8 @@ namespace DeratControl.API
                         };
                     });
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped(typeof(CommandDispatcher));
+            services.AddScoped(typeof(ICommandHandler<AddOrganizationCommand>),typeof(AddOrganizationCommandHandler));
         }
   
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,9 +87,11 @@ namespace DeratControl.API
             }
             app.UseHttpStatusCodeExceptionMiddleware();
             app.UseAuthentication();
-            app.Run(async (context) =>
+            app.UseMvc(routes =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
