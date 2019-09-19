@@ -12,5 +12,8 @@ namespace DeratControl.Security
         {
             UserId = userId;
         }
+        public SecurityUser()
+        {
+        }
     }
 }
