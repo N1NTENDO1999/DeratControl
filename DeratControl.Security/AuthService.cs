@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using DeratControl.Domain.Root;
+using DeratControl.Domain.Entities;
 
 namespace DeratControl.Security
 {
@@ -36,10 +37,12 @@ namespace DeratControl.Security
             return user.UserId;
         }
 
-        public async Task<bool> Register(int UserId)
+        public async Task<bool> Register(int userId)
         {
-            SecurityUser securityUser = new SecurityUser(UserId);
+            User user = await unitOfWork.UserRepository.FindByIdAsync(userId);
+            SecurityUser securityUser = new SecurityUser(userId);
             IdentityResult result = await userManager.CreateAsync(securityUser);
+            await userManager.AddToRoleAsync(securityUser,user.UserRole.RoleName);
             return result.Succeeded;
         }
 
