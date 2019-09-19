@@ -7,5 +7,8 @@ namespace DeratControl.Application.Points.Commands.AddPoint
 {
    public class AddPointCommand:IRequest
     {
+        public int PerimeterId { get; set; }
+
+        public string Location { get; set; }
     }
 }
