@@ -17,8 +17,8 @@ namespace DeratControl.API.Controllers
             this.authService = authService;
         }
         [HttpPost]
-        [Route("/signIn")]
-        public Task<SignInResponse<string>> SignIn(SignInRequest signInRequest)
+        [Route("signIn")]
+        public Task<SignInResponse<string>> SignIn([FromBody]SignInRequest signInRequest)
         {
             var response= authService.SignIn(signInRequest);
             return response;

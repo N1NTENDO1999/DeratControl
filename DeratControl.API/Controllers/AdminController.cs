@@ -29,7 +29,7 @@ namespace DeratControl.API.Controllers
         public async Task<IActionResult> AddEmployee(AddEmployeeCommand request)
         {
             var result = (CommandCreateResult<int>) await comdispatcher.Dispatch(request);
-            await authService.Register(result.Id,request.Email,request.Email,"ADMIN");
+            await authService.Register(result.Id,request.Email,request.Password,"ADMIN");
             return Ok();
 
         }
