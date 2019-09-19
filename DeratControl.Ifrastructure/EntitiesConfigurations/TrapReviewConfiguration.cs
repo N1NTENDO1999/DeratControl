@@ -16,6 +16,11 @@ namespace DeratControl.Infrastructure.EntitiesConfigurations
             builder.Property(tr => tr.TrapRewiewState).IsRequired();
 
             builder
+                .HasOne(o => o.Review)
+                .WithMany(r => r.ListOfTrapsToReview)
+                .HasForeignKey(o => o.ReviewId);
+
+            builder
                 .HasOne(o => o.Point)
                 .WithMany(r => r.ListOfReviews)
                 .HasForeignKey(o => o.PointId);
