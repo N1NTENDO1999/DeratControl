@@ -17,6 +17,9 @@ using System.Reflection;
 using DeratControl.API.Dispatchers;
 using DeratControl.Application.Interfaces;
 using DeratControl.Application.Organizations;
+using DeratControl.Domain.Root;
+using DeratControl.Domain.Root.Repositories;
+using DeratControl.Infrastructure.Repositories;
 
 namespace DeratControl.API
 {
@@ -65,7 +68,10 @@ namespace DeratControl.API
                             ValidateIssuerSigningKey = true,
                         };
                     });
+            services.AddScoped<DbContext, DeratContext>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IOrganizationRepository, OrganizationRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(CommandDispatcher));
             services.AddScoped(typeof(ICommandHandler<AddOrganizationCommand>),typeof(AddOrganizationCommandHandler));
         }
@@ -86,7 +92,7 @@ namespace DeratControl.API
                 });
             }
             app.UseHttpStatusCodeExceptionMiddleware();
-            app.UseAuthentication();
+           // app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
