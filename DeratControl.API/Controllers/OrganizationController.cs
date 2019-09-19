@@ -17,7 +17,7 @@ namespace DeratControl.API.Controllers
         private readonly CommandDispatcher commandDispatcher;
         private readonly QueryDispatcher queryDispatcher;
 
-        OrganizationController(CommandDispatcher commandDispatcher, QueryDispatcher queryDispatcher)
+        public OrganizationController(CommandDispatcher commandDispatcher, QueryDispatcher queryDispatcher)
         {
             this.commandDispatcher = commandDispatcher;
             this.queryDispatcher = queryDispatcher;

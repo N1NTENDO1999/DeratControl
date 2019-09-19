@@ -1,5 +1,4 @@
-﻿using System;
-using DeratControl.Domain.Root.Exceptions;
+﻿using DeratControl.Domain.Root.Exceptions;
 using System.Threading.Tasks;
 using DeratControl.Application.Interfaces;
 using DeratControl.Application.Requests;
