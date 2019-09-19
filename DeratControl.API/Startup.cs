@@ -92,14 +92,10 @@ namespace DeratControl.API
             services.AddScoped(typeof(IQueryHandler<GetPointsQuery,PointsViewModelResult>), typeof(GetPointsQueryHandler));
             services.AddScoped(typeof(ICommandHandler<AddPerimeterCommand>), typeof(AddPerimeterCommandHandler));
             services.AddScoped(typeof(IQueryHandler<GetPerimetersQuery, PerimetersViewModelResult>), typeof(GetPerimetersQueryHandler));
-
-            services.AddScoped(typeof(ICommandHandler<SetTrapCommand>), typeof(SetTrapCommandHandler));
-            services.AddScoped(typeof(IQueryHandler<ViewTrapQuery, TrapViewModelResult>), typeof(ViewTrapQueryHandler));
-
         }
   
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<SecurityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -115,6 +111,7 @@ namespace DeratControl.API
             }
             app.UseHttpStatusCodeExceptionMiddleware();
             app.UseAuthentication();
+            DataInitializer.SeedData(userManager, roleManager).Wait();
 
             app.UseMvc(routes =>
             {
