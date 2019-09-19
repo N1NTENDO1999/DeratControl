@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DeratControl.Domain.Root.Exceptions
 {
-    public class UserIsNotEmployeeException : Exception
+    public class UserIsNotEmployeeException : DomainException
     {
     }
 }

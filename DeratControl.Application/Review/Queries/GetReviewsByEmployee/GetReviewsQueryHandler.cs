@@ -21,12 +21,12 @@ namespace DeratControl.Application.Review.Queries.GetReviewsByEmpleyee
 
         public async Task<ReviewsDTO> Handle(CommandExecutionContext executionContext, GetReviewsQuery request)
         {
-            var employee = unitOfWork.UserRepository.FindByIdAsync(request.EmployeeId);
+            var employee = await unitOfWork.UserRepository.FindByIdAsync(request.EmployeeId);
 
-            if (employee.Result.OrganizationId == null)
+            if (employee.OrganizationId == null)
                 throw new UserIsNotEmployeeException();
 
-            var review = employee.Result.Reviews;
+            var review = employee.Reviews;
 
             return (new ReviewsDTO(review));
         }
