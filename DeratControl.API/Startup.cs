@@ -14,6 +14,14 @@ using Microsoft.AspNetCore.Identity;
 using DeratControl.Security;
 using DeratControl.Domain.Security;
 using System.Reflection;
+using DeratControl.Domain.Root;
+using DeratControl.API.Dispatchers;
+using DeratControl.Application.Interfaces;
+using DeratControl.Application.Organizations;
+using DeratControl.Infrastructure.Repositories;
+using DeratControl.Domain.Root.Repositories;
+using DeratControl.Application.Points.Commands.AddPoint;
+using DeratControl.Application.Points.Queries.GetPointsByPerimeter;
 
 namespace DeratControl.API
 {
@@ -68,6 +76,16 @@ namespace DeratControl.API
                         };
                     });
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<DbContext, DeratContext>();
+            
+            services.AddScoped<IOrganizationRepository, OrganizationRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(CommandDispatcher));
+            services.AddScoped(typeof(QueryDispatcher));
+               
+            services.AddScoped(typeof(ICommandHandler<AddPointsCommand>), typeof(AddPointCommandHandler));
+            services.AddScoped(typeof(IQueryHandler<GetPointsQuery,PointsViewModelResult>), typeof(GetPointsQueryHandler));
+
         }
   
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
