@@ -12,6 +12,17 @@ namespace DeratControl.Domain.Entities
             
         }
 
+        public Point(string location,int order,int perimeterId,Perimeter perimeter)
+        {
+            this.Location = location;
+
+            this.Order = order;
+
+            this.PerimeterId = perimeterId;
+
+            this.Perimeter = perimeter;
+        }
+
         public int Order { get; protected set; }
         public string Location { get; protected set; }
         public string Description { get; protected set; }
