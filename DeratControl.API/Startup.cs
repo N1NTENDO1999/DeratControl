@@ -24,10 +24,10 @@ using DeratControl.Application.Points.Commands.AddPoint;
 using DeratControl.Application.Points.Queries.GetPointsByPerimeter;
 using DeratControl.Application.Perimeters.Queries.GetPerimetersList;
 using DeratControl.Application.Perimeters.Commands;
-using DeratControl.Application.Facilities.Commands;
-using DeratControl.Application.Facilities.Queries.GetFacilitiesList;
 using DeratControl.Application.Traps.Commands.SetTrap;
 using DeratControl.Application.Traps.Queries.ViewTrapByPoint;
+using DeratControl.Application.Facilities.Commands;
+using DeratControl.Application.Facilities.Queries.GetFacilitiesList;
 
 namespace DeratControl.API
 {
