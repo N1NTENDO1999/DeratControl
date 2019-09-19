@@ -24,6 +24,8 @@ using DeratControl.Application.Points.Commands.AddPoint;
 using DeratControl.Application.Points.Queries.GetPointsByPerimeter;
 using DeratControl.Application.Perimeters.Queries.GetPerimetersList;
 using DeratControl.Application.Perimeters.Commands;
+using DeratControl.Application.Traps.Commands.SetTrap;
+using DeratControl.Application.Traps.Queries.ViewTrapByPoint;
 
 namespace DeratControl.API
 {
@@ -90,7 +92,6 @@ namespace DeratControl.API
             services.AddScoped(typeof(IQueryHandler<GetPointsQuery,PointsViewModelResult>), typeof(GetPointsQueryHandler));
             services.AddScoped(typeof(ICommandHandler<AddPerimeterCommand>), typeof(AddPerimeterCommandHandler));
             services.AddScoped(typeof(IQueryHandler<GetPerimetersQuery, PerimetersViewModelResult>), typeof(GetPerimetersQueryHandler));
-          
         }
   
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

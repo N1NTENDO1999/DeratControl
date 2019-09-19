@@ -17,25 +17,6 @@ namespace DeratControl.API.Controllers
     [ApiController]
     public class FacilityController : ControllerBase
     {
-        private readonly CommandDispatcher commandDispatcher;
-        private readonly QueryDispatcher queryDispatcher;
-        public FacilityController(CommandDispatcher commandDispatcher, QueryDispatcher queryDispatcher)
-        {
-            this.commandDispatcher = commandDispatcher;
-            this.queryDispatcher = queryDispatcher;
-        }
-        [HttpPost]
-        [Route("/AddPerimeter")]
-        public async Task<CommandResult> AddPerimeter(AddPerimeterCommand request)
-        {
-            return await this.commandDispatcher.Dispatch<AddPerimeterCommand>(request);
-        }
-
-        [HttpPost]
-        [Route("/GetPerimeters/{id}")]
-        public async Task<PerimetersViewModelResult> GetPerimeters(int id)
-        {
-            return await this.queryDispatcher.Dispatch<GetPerimetersQuery, PerimetersViewModelResult>(new GetPerimetersQuery() { FacilityId = id });
-        }
+       
     }
 }
