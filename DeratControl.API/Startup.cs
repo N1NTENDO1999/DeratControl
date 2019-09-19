@@ -22,6 +22,8 @@ using DeratControl.Infrastructure.Repositories;
 using DeratControl.Domain.Root.Repositories;
 using DeratControl.Application.Points.Commands.AddPoint;
 using DeratControl.Application.Points.Queries.GetPointsByPerimeter;
+using DeratControl.Application.Perimeters.Queries.GetPerimetersList;
+using DeratControl.Application.Perimeters.Commands;
 
 namespace DeratControl.API
 {
@@ -42,8 +44,9 @@ namespace DeratControl.API
                 options.UseSqlServer(_config.GetConnectionString("DefaultConnection"), 
                     builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name));
             });
-            
-           
+
+            services.AddMvc();
+
 
             services.AddMvcCore().AddApiExplorer();
 
@@ -85,6 +88,8 @@ namespace DeratControl.API
                
             services.AddScoped(typeof(ICommandHandler<AddPointsCommand>), typeof(AddPointCommandHandler));
             services.AddScoped(typeof(IQueryHandler<GetPointsQuery,PointsViewModelResult>), typeof(GetPointsQueryHandler));
+            services.AddScoped(typeof(ICommandHandler<AddPerimeterCommand>), typeof(AddPerimeterCommandHandler));
+            services.AddScoped(typeof(IQueryHandler<GetPerimetersQuery, PerimetersViewModelResult>), typeof(GetPerimetersQueryHandler));
 
         }
   
@@ -105,6 +110,12 @@ namespace DeratControl.API
             }
             app.UseHttpStatusCodeExceptionMiddleware();
             app.UseAuthentication();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello World!");

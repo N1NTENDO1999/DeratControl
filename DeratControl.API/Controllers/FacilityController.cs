@@ -31,11 +31,11 @@ namespace DeratControl.API.Controllers
             return await this.commandDispatcher.Dispatch<AddPerimeterCommand>(request);
         }
 
-        [HttpGet]
-        [Route("/GetPerimeters")]
-        public async Task<PerimetersViewModelResult> GetPerimeters(GetPerimetersQuery request)
+        [HttpPost]
+        [Route("/GetPerimeters/{id}")]
+        public async Task<PerimetersViewModelResult> GetPerimeters(int id)
         {
-            return await this.queryDispatcher.Dispatch<GetPerimetersQuery, PerimetersViewModelResult>(request);
+            return await this.queryDispatcher.Dispatch<GetPerimetersQuery, PerimetersViewModelResult>(new GetPerimetersQuery() { FacilityId = id });
         }
     }
 }
