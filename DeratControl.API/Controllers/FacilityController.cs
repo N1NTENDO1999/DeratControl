@@ -10,6 +10,8 @@ using DeratControl.Application.Perimeters.Commands;
 using DeratControl.Application.Perimeters.Queries.GetPerimetersList;
 using DeratControl.Application.Requests.Interfaces;
 using DeratControl.Application.Interfaces;
+using DeratControl.Application.Facilities.Commands;
+using DeratControl.Application.Facilities.Queries.GetFacilitiesList;
 
 namespace DeratControl.API.Controllers
 {
@@ -25,17 +27,17 @@ namespace DeratControl.API.Controllers
             this.queryDispatcher = queryDispatcher;
         }
         [HttpPost]
-        [Route("/AddPerimeter")]
-        public async Task<CommandResult> AddPerimeter(AddPerimeterCommand request)
+        [Route("/AddFacility")]
+        public async Task<CommandResult> AddFacility(AddFacilityCommand request)
         {
-            return await this.commandDispatcher.Dispatch<AddPerimeterCommand>(request);
+            return await this.commandDispatcher.Dispatch<AddFacilityCommand>(request);
         }
 
-        [HttpPost]
-        [Route("/GetPerimeters/{id}")]
-        public async Task<PerimetersViewModelResult> GetPerimeters(int id)
+        [HttpGet]
+        [Route("/GetFacilities/{id}")]
+        public async Task<FacilitiesListViewModel> GetFacilities(int id)
         {
-            return await this.queryDispatcher.Dispatch<GetPerimetersQuery, PerimetersViewModelResult>(new GetPerimetersQuery() { FacilityId = id });
+            return await this.queryDispatcher.Dispatch<GetFacilitiesListQuery, FacilitiesListViewModel>(new GetFacilitiesListQuery() { OrganizationId = id });
         }
     }
 }

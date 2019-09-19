@@ -51,7 +51,7 @@ namespace DeratControl.Domain.Entities
     public enum UserRole
     {
         Admin,
-        Employee     
+        Employee
     }
     
 }
