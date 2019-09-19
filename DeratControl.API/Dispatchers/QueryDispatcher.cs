@@ -27,7 +27,7 @@ namespace DeratControl.API.Dispatchers
             if (command == null)
                 throw new ArgumentNullException(nameof(command),
                                                 "Command can not be null.");
-            
+
             if (!this._context.HttpContext.User.Identity.IsAuthenticated)
                 throw new UnauthorizedAccessException();
 
