@@ -97,11 +97,14 @@ namespace DeratControl.API
             services.AddScoped(typeof(ICommandHandler<AddOrganizationCommand>), typeof(AddOrganizationCommandHandler));
             services.AddScoped(typeof(ICommandHandler<AddPointsCommand>), typeof(AddPointCommandHandler));
             services.AddScoped(typeof(ICommandHandler<AddEmployeeCommand>), typeof(AddEmployeeCommandHandler));
-            services.AddScoped(typeof(IQueryHandler<GetPointsQuery,PointsViewModelResult>), typeof(GetPointsQueryHandler));
+            services.AddScoped(typeof(IQueryHandler<GetPointQuery,PointsViewModelResult>), typeof(GetPointsQueryHandler));
             services.AddScoped(typeof(ICommandHandler<AddPerimeterCommand>), typeof(AddPerimeterCommandHandler));
             services.AddScoped(typeof(IQueryHandler<GetPerimetersQuery, PerimetersViewModelResult>), typeof(GetPerimetersQueryHandler));
             services.AddScoped(typeof(ICommandHandler<AddFacilityCommand>), typeof(AddFacilityCommandHandler));
             services.AddScoped(typeof(IQueryHandler<GetFacilitiesListQuery, FacilitiesListViewModel>), typeof(GetFacilitiesListQueryHandler));
+
+            services.AddScoped(typeof(ICommandHandler<SetTrapCommand>), typeof(SetTrapCommandHandler));
+            services.AddScoped(typeof(IQueryHandler<ViewTrapQuery, TrapViewModelResult>), typeof(ViewTrapQueryHandler));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

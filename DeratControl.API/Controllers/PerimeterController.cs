@@ -35,7 +35,7 @@ namespace DeratControl.API.Controllers
         [Route("/GetPerimeters/{id}")]
         public async Task<PerimetersViewModelResult> GetPerimeters(int id)
         {
-            return await this.queryDispatcher.Dispatch<GetPerimetersQuery, PerimetersViewModelResult>(new GetPerimetersQuery() { FacilityId = id });
+            return await this.queryDispatcher.Dispatch<GetPerimetersQuery, PerimetersViewModelResult>(new GetPerimetersQuery() { PerimeterId = id });
         }
     }
 }
