@@ -31,7 +31,7 @@ namespace DeratControl.Application.Users
                 throw new UserAlreadyExistsException();
 
             var entity = new User(employee.Address, employee.Email, employee.FirstName, employee.LastName,
-                employee.Phone,new UserRole("Employee"));
+                employee.Phone,0);
             await unitOfWork.UserRepository.AddAsync(entity);
             await unitOfWork.Commit();
             return new CommandCreateResult<int>(entity.Id);

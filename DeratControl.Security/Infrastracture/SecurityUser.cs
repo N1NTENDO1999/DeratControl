@@ -8,9 +8,11 @@ namespace DeratControl.Security
     {
         public int UserId { get; set; }
         //public User User { get; set; }
-        public SecurityUser(int userId)
+        public SecurityUser() : base()
         {
-            UserId = userId;
+            SecurityStamp = Guid.NewGuid().ToString();
+           
         }
+
     }
 }
