@@ -14,9 +14,6 @@
 
   <ItemGroup>
     <Folder Include="Points\Commands\" />
-    <Folder Include="Review\Commands\" />
-    <Folder Include="TrapReviewImage\Commands\" />
-    <Folder Include="TrapReviewImage\Queries\" />
   </ItemGroup>
 
 </Project>

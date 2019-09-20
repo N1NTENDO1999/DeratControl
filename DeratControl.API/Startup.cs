@@ -14,6 +14,24 @@ using Microsoft.AspNetCore.Identity;
 using DeratControl.Security;
 using DeratControl.Domain.Security;
 using System.Reflection;
+using DeratControl.Domain.Root;
+using DeratControl.API.Dispatchers;
+using DeratControl.Application.Interfaces;
+using DeratControl.Application.Organizations;
+using DeratControl.Infrastructure.Repositories;
+using DeratControl.Domain.Root.Repositories;
+using DeratControl.Application.Points.Commands.AddPoint;
+using DeratControl.Application.Points.Queries.GetPointsByPerimeter;
+using DeratControl.Application.Perimeters.Queries.GetPerimetersList;
+using DeratControl.Application.Perimeters.Commands;
+
+using DeratControl.Application.Users;
+
+using DeratControl.Application.Traps.Commands.SetTrap;
+using DeratControl.Application.Traps.Queries.ViewTrapByPoint;
+using DeratControl.Application.Facilities.Commands;
+using DeratControl.Application.Facilities.Queries.GetFacilitiesList;
+
 
 namespace DeratControl.API
 {
@@ -31,19 +49,25 @@ namespace DeratControl.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DeratContext>(options => {
-                options.UseSqlServer(_config.GetConnectionString("DefaultConnection"), builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name));
+                options.UseSqlServer(_config.GetConnectionString("DefaultConnection"), 
+                    builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name));
             });
-            
-           
+
+
 
             services.AddMvcCore().AddApiExplorer();
+            services.AddMvc();
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
 
-            services.AddDefaultIdentity<SecurityUser>()
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(_config.GetConnectionString("DefaultConnection"), 
+                builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name)));
+
+            services.AddIdentity<SecurityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -63,10 +87,25 @@ namespace DeratControl.API
                         };
                     });
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<DbContext, DeratContext>();
+            
+            services.AddScoped<IOrganizationRepository, OrganizationRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(CommandDispatcher));
+            services.AddScoped(typeof(QueryDispatcher));
+
+            services.AddScoped(typeof(ICommandHandler<AddOrganizationCommand>), typeof(AddOrganizationCommandHandler));
+            services.AddScoped(typeof(ICommandHandler<AddPointsCommand>), typeof(AddPointCommandHandler));
+            services.AddScoped(typeof(ICommandHandler<AddEmployeeCommand>), typeof(AddEmployeeCommandHandler));
+            services.AddScoped(typeof(IQueryHandler<GetPointsQuery,PointsViewModelResult>), typeof(GetPointsQueryHandler));
+            services.AddScoped(typeof(ICommandHandler<AddPerimeterCommand>), typeof(AddPerimeterCommandHandler));
+            services.AddScoped(typeof(IQueryHandler<GetPerimetersQuery, PerimetersViewModelResult>), typeof(GetPerimetersQueryHandler));
+            services.AddScoped(typeof(ICommandHandler<AddFacilityCommand>), typeof(AddFacilityCommandHandler));
+            services.AddScoped(typeof(IQueryHandler<GetFacilitiesListQuery, FacilitiesListViewModel>), typeof(GetFacilitiesListQueryHandler));
         }
-  
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<SecurityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -82,6 +121,14 @@ namespace DeratControl.API
             }
             app.UseHttpStatusCodeExceptionMiddleware();
             app.UseAuthentication();
+            DataInitializer.SeedData(userManager, roleManager).Wait();
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello World!");

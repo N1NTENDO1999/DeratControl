@@ -18,8 +18,8 @@ namespace DeratControl.Security.Infrastracture
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<SecurityUser>()
-                .HasOne(su => su.User);
+            //builder.Entity<SecurityUser>()
+            //    .HasOne(su => su.User);
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using DeratControl.Application.Interfaces;
 using DeratControl.Application.Requests;
@@ -7,37 +9,46 @@ using DeratControl.Domain.Entities;
 using DeratControl.Domain.Root;
 using DeratControl.Domain.Root.Exceptions;
 
-namespace DeratControl.Application.Users
+namespace DeratControl.Application.Users.Commands
 {
-    public sealed class AddEmployeeCommand : EmployeeDTO, IRequest
+    public sealed class AddCustomerCommand: CustomerDTO, IRequest
     {
     }
-
-    public sealed class AddEmployeeCommandHandler : BaseCommandHandler<AddEmployeeCommand>
+    public sealed class AddCustomerCommandHandler : BaseCommandHandler<AddCustomerCommand>
     {
         private readonly IUnitOfWork unitOfWork;
 
-        public AddEmployeeCommandHandler(IUnitOfWork unitOfWork)
+        public AddCustomerCommandHandler(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }
 
         protected override async Task<CommandResult> HandleRequest(CommandExecutionContext executionContext,
-            AddEmployeeCommand request)
+            AddCustomerCommand request)
         {
-            var employee = request;
+            var customer = request;
 
-            if (unitOfWork.UserRepository.Exists(employee.Email))
+            if (unitOfWork.UserRepository.Exists(customer.Email))
                 throw new UserAlreadyExistsException();
-
-            var entity = new User(employee.Address, employee.Email, employee.FirstName, employee.LastName,
-                employee.Phone);
+            var organization = await GetOrganizationById(customer.OrganizationId);
+            if (organization == null)
+            {
+                throw new OrganizationNotExistException();
+            }
+            var entity = new User(customer.Address, customer.Email, customer.FirstName, customer.LastName,
+                customer.Phone,organization, 0);
+            organization.AddUser(entity);
             await unitOfWork.UserRepository.AddAsync(entity);
             await unitOfWork.Commit();
             return new CommandCreateResult<int>(entity.Id);
         }
 
-        protected override void AssertRequestIsValid(AddEmployeeCommand request)
+        private Task<Organization> GetOrganizationById(int organizationId)
+        {
+            return unitOfWork.OrganizationRepository.FindByIdAsync(organizationId);
+        }
+
+        protected override void AssertRequestIsValid(AddCustomerCommand request)
         {
             base.AssertRequestIsValid(request);
             if (string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Address) ||
@@ -48,5 +59,4 @@ namespace DeratControl.Application.Users
             }
         }
     }
-
 }

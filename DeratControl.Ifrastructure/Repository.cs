@@ -30,7 +30,7 @@ namespace DeratControl.Infrastructure
             databaseContext.Set<TEntity>().Remove(entity);
         }
 
-        public async Task<TEntity> FindByIdAsync(TKey Id)
+        public virtual async Task<TEntity> FindByIdAsync(TKey Id)
         {
            return await databaseContext.Set<TEntity>().FindAsync(Id);
         }

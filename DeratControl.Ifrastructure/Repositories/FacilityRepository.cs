@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DeratControl.Domain.Entities;
@@ -12,14 +13,19 @@ namespace DeratControl.Infrastructure.Repositories
     {
 
         public FacilityRepository(DbContext databaseContext)
-        :base(databaseContext)
+        : base(databaseContext)
         {
-            
+
         }
 
         public Task<bool> Exists(Facility facility)
         {
             throw new NotImplementedException();
+        }
+
+        public override async Task<Facility> FindByIdAsync(int Id)
+        {
+            return (await databaseContext.Set<Facility>().Include(f => f.Perimeters).ToListAsync()).SingleOrDefault();
         }
     }
 }

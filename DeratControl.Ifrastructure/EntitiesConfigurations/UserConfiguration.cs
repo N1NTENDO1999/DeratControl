@@ -35,12 +35,12 @@ namespace DeratControl.Infrastructure.EntitiesConfigurations
                 .WithMany(o => o.ContactPeople)
                 .HasForeignKey(o => o.OrganizationId);
 
-            builder.OwnsOne(x => x.UserRole,
-                (a) =>
-                {
-                    a.Property(y => y.RoleId)
-                        .HasColumnName("UserRoleId");
-                });
+            //builder.OwnsOne(x => x.UserRole,
+            //    (a) =>
+            //    {
+            //        a.Property(y => y.RoleId)
+            //            .HasColumnName("UserRoleId");
+            //    });
 
         }
     }
