@@ -11,7 +11,7 @@ namespace DeratControl.Application.Perimeters.Queries.GetPerimetersList
 {
     public class GetPerimetersQuery : IRequest
     {
-        public int FacilityId { get; set; }
+        public int PerimeterId { get; set; }
     }
 
     public class GetPerimetersQueryHandler : IQueryHandler<GetPerimetersQuery, PerimetersViewModelResult>
@@ -24,13 +24,13 @@ namespace DeratControl.Application.Perimeters.Queries.GetPerimetersList
 
         public async Task<PerimetersViewModelResult> Handle(CommandExecutionContext executionContext, GetPerimetersQuery request)
         {
-            var facility = await unitOfWork.FacilityRepository.FindByIdAsync(request.FacilityId);
-            if (facility == null)
+            var perimeter = await unitOfWork.PerimeterRepository.FindByIdAsync(request.PerimeterId);
+            if (perimeter == null)
             {
                 throw new FacilityDoesNotExistsException();
             }
 
-            return new PerimetersViewModelResult() { Perimeters = facility.Perimeters };
+            return new PerimetersViewModelResult() { Perimeter=perimeter};
         }
     }
 }

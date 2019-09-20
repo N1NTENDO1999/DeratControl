@@ -18,11 +18,13 @@ namespace DeratControl.Security
         public static async Task SeedUsers(UserManager<SecurityUser> userManager)
         {
             string username = "admin";
-            string password = "Admin12345";
+            string password = "Admin!2345";
             if (await userManager.FindByNameAsync(username) == null)
             {
                //User
                 SecurityUser admin = new SecurityUser();
+                admin.Email = "admin@gmail.com";
+                admin.UserName = "admin";
                 IdentityResult result = await userManager.CreateAsync(admin, password);
                 if (result.Succeeded)
                 {
