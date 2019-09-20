@@ -6,7 +6,7 @@ using System.Text;
 namespace DeratControl.Domain.Entities
 {
     public class UserRole
-
+    {
         public int RoleId { get; protected set; }
         public string RoleName { get; set; }
 
@@ -31,10 +31,9 @@ namespace DeratControl.Domain.Entities
             }
         }
 
-        private KeyValuePair<int,string> IsValid(string roleName)
+        private KeyValuePair<int, string> IsValid(string roleName)
         {
             return roles.Where(x => x.Value == roleName).FirstOrDefault();
         }
-
     }
 }
