@@ -6,7 +6,7 @@ namespace DeratControl.Domain.Root.Exceptions
 {
     public class PerimeterDoesNotExists : DomainException
     {
-        public FacilityDoesNotExistsException(string message, int statusCode) : base(message, statusCode)
+        public PerimeterDoesNotExists(string message, int statusCode) : base(message, statusCode)
         {
         }
     }

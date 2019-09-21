@@ -25,10 +25,10 @@ namespace DeratControl.API.Middlewares
             }
             catch (DomainException ex)
             {
-                //if (context.Response.HasStarted)
-                //{
-                //    throw;
-                //}
+                if (context.Response.HasStarted)
+                {
+                    throw;
+                }
                 context.Response.Clear();
                 Log.Error($"Occured exception:  {ex.Message}");
                 context.Response.StatusCode = ex.StatusCode;
