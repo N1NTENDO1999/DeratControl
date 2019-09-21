@@ -23,7 +23,7 @@ namespace DeratControl.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public new async Task<Facility> FindByIdAsync(int Id)
+        public override async Task<Facility> FindByIdAsync(int Id)
         {
             return await databaseContext.Set<Facility>().Include(f => f.Perimeters).Where(f => f.Id==Id).FirstOrDefaultAsync();
         }
