@@ -6,5 +6,8 @@ namespace DeratControl.Domain.Root.Exceptions
 {
     public class OrganizationNotExistException : DomainException
     {
+        public OrganizationNotExistException(string message, int statusCode) : base(message, statusCode)
+        {
+        }
     }
 }

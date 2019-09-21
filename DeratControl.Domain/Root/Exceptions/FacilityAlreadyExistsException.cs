@@ -6,6 +6,8 @@ namespace DeratControl.Domain.Root.Exceptions
 {
     public class FacilityAlreadyExistsException : DomainException
     {
-
+        public FacilityAlreadyExistsException(string message, int statusCode) : base(message, statusCode)
+        {
+        }
     }
 }

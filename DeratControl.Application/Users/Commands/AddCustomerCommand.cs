@@ -8,6 +8,7 @@ using DeratControl.Application.Requests.Interfaces;
 using DeratControl.Domain.Entities;
 using DeratControl.Domain.Root;
 using DeratControl.Domain.Root.Exceptions;
+using Microsoft.AspNetCore.Http;
 
 namespace DeratControl.Application.Users.Commands
 {
@@ -29,11 +30,11 @@ namespace DeratControl.Application.Users.Commands
             var customer = request;
 
             if (unitOfWork.UserRepository.Exists(customer.Email))
-                throw new UserAlreadyExistsException();
+                throw new UserAlreadyExistsException("Current user already exists", StatusCodes.Status400BadRequest);
             var organization = await GetOrganizationById(customer.OrganizationId);
             if (organization == null)
             {
-                throw new OrganizationNotExistException();
+                throw new OrganizationNotExistException("Current organization does not exists", StatusCodes.Status400BadRequest);
             }
             var entity = new User(customer.Address, customer.Email, customer.FirstName, customer.LastName,
                 customer.Phone,organization, 0);

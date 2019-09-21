@@ -2,6 +2,7 @@
 using DeratControl.Application.Requests.Interfaces;
 using DeratControl.Domain.Root;
 using DeratControl.Domain.Root.Exceptions;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace DeratControl.Application.Review.Queries.GetReviewsByEmpleyee
             var employee = await unitOfWork.UserRepository.FindByIdAsync(request.EmployeeId);
 
             if (employee.OrganizationId == null)
-                throw new UserIsNotEmployeeException();
+                throw new UserIsNotEmployeeException("Current user isn`t employee", StatusCodes.Status400BadRequest);
 
             var review = employee.Reviews;
 

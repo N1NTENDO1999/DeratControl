@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace DeratControl.Application.Traps.Commands.SetTrap
 {
@@ -33,7 +34,7 @@ namespace DeratControl.Application.Traps.Commands.SetTrap
 
             if(point == null)
             {
-                throw new PointDoesNotExistException();
+                throw new PointDoesNotExistException("Current point does not exists", StatusCodes.Status400BadRequest);
             }
 
             var entity = new Trap(point, request.Data, request.TrapType, executionContext.RequestedUser);

@@ -6,6 +6,7 @@ using DeratControl.Application.Requests.Interfaces;
 using DeratControl.Domain.Entities;
 using DeratControl.Domain.Root;
 using DeratControl.Domain.Root.Exceptions;
+using Microsoft.AspNetCore.Http;
 
 namespace DeratControl.Application.Users
 {
@@ -28,7 +29,7 @@ namespace DeratControl.Application.Users
             var employee = request;
 
             if (unitOfWork.UserRepository.Exists(employee.Email))
-                throw new UserAlreadyExistsException();
+                throw new UserAlreadyExistsException("Current user already exists", StatusCodes.Status400BadRequest);
 
             var entity = new User(employee.Address, employee.Email, employee.FirstName, employee.LastName,
                 employee.Phone,0);

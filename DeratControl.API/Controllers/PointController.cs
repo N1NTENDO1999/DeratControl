@@ -34,9 +34,9 @@ namespace DeratControl.API.Controllers
 
         [HttpGet]
         [Route("/getpoints/{id}")]
-        public async Task<PointsViewModelResult> GetPoints(int id)
+        public async Task<PointViewModelResult> GetPoints(int id)
         {
-            return await this._queryDispatcher.Dispatch<GetPointQuery, PointsViewModelResult>(new GetPointQuery() { PointId = id });
+            return await this._queryDispatcher.Dispatch<GetPointQuery, PointViewModelResult>(new GetPointQuery() { PointId = id });
         }
     }
 }

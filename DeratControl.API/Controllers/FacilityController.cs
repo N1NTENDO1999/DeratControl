@@ -35,9 +35,9 @@ namespace DeratControl.API.Controllers
 
         [HttpGet]
         [Route("/GetFacilities/{id}")]
-        public async Task<FacilitiesListViewModel> GetFacilities(int id)
+        public async Task<FacilityViewModel> GetFacilities(int id)
         {
-            return await this.queryDispatcher.Dispatch<GetFacilitiesListQuery, FacilitiesListViewModel>(new GetFacilitiesListQuery() { FacilityId = id });
+            return await this.queryDispatcher.Dispatch<GetFacilityQuery, FacilityViewModel>(new GetFacilityQuery() { FacilityId = id });
         }
     }
 }

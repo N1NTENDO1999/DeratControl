@@ -6,6 +6,7 @@ using DeratControl.Domain.Entities;
 using DeratControl.Domain.Root;
 using DeratControl.Domain.Root.Exceptions;
 using DeratControl.Domain.Root.Repositories;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -31,7 +32,7 @@ namespace DeratControl.Application.Organizations
         {
             if (await _unitOfWork.OrganizationRepository.Exists(request.OrganizationName))
             {
-                throw new OrganizationAlreadyExistsException();
+                throw new OrganizationAlreadyExistsException("Current organization already exists", StatusCodes.Status400BadRequest);
             }
 
             var entity = new Organization(request.OrganizationName, executionContext.RequestedUser);

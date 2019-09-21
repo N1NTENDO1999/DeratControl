@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DeratControl.Domain.Root.Exceptions
 {
-    public class FacilityDoesNotExistsException : DomainException
+    public class PerimeterDoesNotExists : DomainException
     {
         public FacilityDoesNotExistsException(string message, int statusCode) : base(message, statusCode)
         {

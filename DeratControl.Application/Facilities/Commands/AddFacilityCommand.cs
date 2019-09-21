@@ -7,6 +7,7 @@ using DeratControl.Domain.Root.Exceptions;
 using System.Threading.Tasks;
 using System;
 using DeratControl.Domain.Root;
+using Microsoft.AspNetCore.Http;
 
 namespace DeratControl.Application.Facilities.Commands
 {
@@ -30,7 +31,7 @@ namespace DeratControl.Application.Facilities.Commands
 
             if (organization == null)
             {
-                throw new OrganizationNotExistException();
+                throw new OrganizationNotExistException("Current organization does not exists", StatusCodes.Status400BadRequest);
             }
 
             var newFacility = organization.AddFacility(request.Address, executionContext.RequestedUser);

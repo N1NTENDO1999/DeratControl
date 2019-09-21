@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DeratControl.Application.Facilities.Queries.GetFacilitiesList
 {
-    public class GetFacilitiesListQuery : IRequest
+    public class GetFacilityQuery : IRequest
     {
         public int FacilityId { get; set; }
     }

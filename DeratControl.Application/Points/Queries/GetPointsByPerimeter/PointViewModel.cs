@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DeratControl.Application.Points.Queries.GetPointsByPerimeter
 {
-   public class PointsViewModelResult:IQueryResult
+   public class PointViewModelResult:IQueryResult
     {
         public  Point Point { get; set; }
     }
