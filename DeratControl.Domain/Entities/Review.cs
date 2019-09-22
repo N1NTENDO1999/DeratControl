@@ -27,6 +27,14 @@ namespace DeratControl.Domain.Entities
 
         }
 
+        public Review(DateTime time, Status status, int facilityId, int employeeId)
+        {
+            this.FacilityId = facilityId;
+            this.Date = time;
+            this.EmployeeId = employeeId;
+            this.Status = status;
+        }
+
         public DateTime Date { get;  set; }
 
         public DateTime? StartedAt { get;  set; }

@@ -19,14 +19,14 @@ namespace DeratControl.Application.Facilities.Queries.GetFacilitiesList
 
         public async Task<FacilitiesListViewModel> Handle(CommandExecutionContext executionContext, GetFacilitiesListQuery request)
         {
-            var organization = await _unitOfWork.OrganizationRepository.FindByIdAsync(request.OrganizationId);
+            var facility = await _unitOfWork.FacilityRepository.FindByIdAsync(request.FacilityId);
 
-            if (organization == null)
+            if (facility == null)
             {
                 throw new OrganizationNotExistException();
             }
 
-            return new FacilitiesListViewModel() { Facilities = organization.Facilities };
+            return new FacilitiesListViewModel() { Facility = facility };
         }
     }
 }

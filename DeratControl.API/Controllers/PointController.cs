@@ -18,7 +18,7 @@ namespace DeratControl.API.Controllers
         private CommandDispatcher _commandDispatcher;
         private QueryDispatcher _queryDispatcher;
 
-        public PointController(CommandDispatcher cdis,QueryDispatcher qdis )
+        public PointController(CommandDispatcher cdis, QueryDispatcher qdis)
         {
             this._queryDispatcher = qdis;
 
@@ -33,10 +33,10 @@ namespace DeratControl.API.Controllers
         }
 
         [HttpGet]
-        [Route("/getpoints/{perimeterid}")]
-        public async Task<PointsViewModelResult> GetPoints(int perimeterid)
+        [Route("/getpoints/{id}")]
+        public async Task<PointsViewModelResult> GetPoints(int id)
         {
-            return await this._queryDispatcher.Dispatch<GetPointsQuery,PointsViewModelResult>(new GetPointsQuery() {PerimeterId=perimeterid });
+            return await this._queryDispatcher.Dispatch<GetPointQuery, PointsViewModelResult>(new GetPointQuery() { PointId = id });
         }
     }
 }

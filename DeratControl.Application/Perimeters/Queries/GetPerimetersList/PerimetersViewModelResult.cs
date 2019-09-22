@@ -8,6 +8,7 @@ namespace DeratControl.Application.Perimeters.Queries.GetPerimetersList
 {
     public class PerimetersViewModelResult : IQueryResult
     {
-        public ICollection<Perimeter> Perimeters { get; set; }
+        public Perimeter Perimeter { get; set; } 
+       
     }
 }
