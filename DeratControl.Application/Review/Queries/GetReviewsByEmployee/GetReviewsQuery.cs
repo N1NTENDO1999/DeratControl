@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DeratControl.Application.Review.Queries.GetReviewsByEmpleyee
 {
-    public class GetReviewsQuery : IRequest
+    class GetReviewsQuery : IRequest
     {
         public int EmployeeId { get; set; }
     }

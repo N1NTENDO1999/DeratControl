@@ -23,9 +23,9 @@ namespace DeratControl.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        //public override async Task<Facility> FindByIdAsync(int Id)
-        //{
-        //    return (await databaseContext.Set<Facility>().Include(f => f.Perimeters).ToListAsync()).FirstOrDefault();
-        //}
+        public override async Task<Facility> FindByIdAsync(int Id)
+        {
+            return (await databaseContext.Set<Facility>().Include(f => f.Perimeters).ToListAsync()).SingleOrDefault();
+        }
     }
 }
