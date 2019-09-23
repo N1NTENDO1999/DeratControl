@@ -9,9 +9,10 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 
 namespace DeratControl.Application.Perimeters.Commands
-{   /// <summary>
-/// DTO class for adding perimeters command
-/// </summary>
+{
+    /// <summary>
+    /// DTO class for adding perimeters command
+    /// </summary>
     public class AddPerimeterCommand : IRequest
     {
         public PerimeterType PerimeterType { get; set; }
