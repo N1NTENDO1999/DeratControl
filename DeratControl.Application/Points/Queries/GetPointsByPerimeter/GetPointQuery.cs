@@ -5,8 +5,8 @@ using DeratControl.Application.Interfaces;
 
 namespace DeratControl.Application.Points.Queries.GetPointsByPerimeter
 {
-    public class GetPointsQuery:IRequest
+    public class GetPointQuery:IRequest
     {
-        public int PerimeterId { get; set; }
+        public int PointId { get; set; }
     }
 }

@@ -43,17 +43,6 @@ namespace DeratControl.API.Dispatchers
             //if (!this._context.HttpContext.User.Identity.IsAuthenticated)
             //    throw new UnauthorizedAccessException();
 
-            var unitOfWork = (IUnitOfWork)this._context.HttpContext.RequestServices.
-              GetService(typeof(IUnitOfWork));
-
-            //int userId = await ((IAuthService)this._context.HttpContext.RequestServices.
-            //     GetService(typeof(IAuthService))).GetUserByName(this._context.HttpContext.User.Identity.Name);
-
-            //User currentUser = await unitOfWork.UserRepository.FindByIdAsync(userId);
-
-            //if (currentUser == null)
-            //    throw new NullReferenceException("User was not found");
-
             var handler = (ICommandHandler<TRequest>)this._context.HttpContext.RequestServices.
                 GetService(typeof(ICommandHandler<TRequest>));
 
