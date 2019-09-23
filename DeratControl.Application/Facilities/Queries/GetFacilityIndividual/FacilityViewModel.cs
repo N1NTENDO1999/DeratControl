@@ -8,6 +8,6 @@ namespace DeratControl.Application.Facilities.Queries.GetFacilitiesList
 {
     public class FacilityViewModel : IQueryResult
     {
-        public Facility Facility { get; set; }
+        public ICollection<Facility> Facilities { get; set; }
     }
 }

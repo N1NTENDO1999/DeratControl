@@ -18,7 +18,7 @@ namespace DeratControl.API.Controllers
         private CommandDispatcher _commandDispatcher;
         private QueryDispatcher _queryDispatcher;
 
-        public PointController(CommandDispatcher cdis, QueryDispatcher qdis)
+        public PointController(CommandDispatcher cdis,QueryDispatcher qdis )
         {
             this._queryDispatcher = qdis;
 

@@ -14,6 +14,5 @@ namespace DeratControl.Application.Perimeters.Queries.GetPerimetersList
            this.Perimeter = new List<Perimeter>();
            
         }
-       
     }
 }

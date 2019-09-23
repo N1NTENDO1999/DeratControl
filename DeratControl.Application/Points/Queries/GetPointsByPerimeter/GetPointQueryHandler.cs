@@ -21,9 +21,9 @@ namespace DeratControl.Application.Points.Queries.GetPointsByPerimeter
 
         public async Task<PointViewModelResult> Handle(CommandExecutionContext executionContext, GetPointQuery request)
         {
-            var point = await _unitofwork.PointRepository.FindByIdAsync(request.PointId);
+            var perimeter= await _unitofwork.PerimeterRepository.FindByIdAsync(request.PerimeterId);
 
-            if (point == null)
+            if (perimeter == null)
                 throw new NullReferenceException("Perimeter with specified id does not exist!");
 
             return new PointViewModelResult() { Point = point };

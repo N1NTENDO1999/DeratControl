@@ -20,13 +20,13 @@ namespace DeratControl.Application.Facilities.Queries.GetFacilitiesList
 
         public async Task<FacilityViewModel> Handle(CommandExecutionContext executionContext, GetFacilityQuery request)
         {
-            var facility = await _unitOfWork.FacilityRepository.FindByIdAsync(request.FacilityId);
+            var organization = await _unitOfWork.OrganizationRepository.FindByIdAsync(request.OrganizationId);
 
-            if (facility == null)
+            if (organization == null)
             {
                 throw new FacilityDoesNotExistsException("Current facility does not exists", StatusCodes.Status400BadRequest);
             }
-
+            
             return new FacilityViewModel() { Facility = facility };
         }
     }

@@ -21,7 +21,7 @@ namespace DeratControl.API.Dispatchers
             this._context = context;
         }
 
-        public async Task<CommandResult> Dispatch<TRequest>(TRequest command) where TRequest : IRequest
+       public async Task<CommandResult>  Dispatch<TRequest>(TRequest command)where TRequest : IRequest
         {
             if (command == null)
                 throw new ArgumentNullException(nameof(command),
@@ -40,10 +40,24 @@ namespace DeratControl.API.Dispatchers
             //if (currentUser == null)	
             //    throw new NullReferenceException("User was not found");
 
+            //if (!this._context.HttpContext.User.Identity.IsAuthenticated)
+            //    throw new UnauthorizedAccessException();
+
+            var unitOfWork = (IUnitOfWork)this._context.HttpContext.RequestServices.
+              GetService(typeof(IUnitOfWork));
+
+            //int userId = await ((IAuthService)this._context.HttpContext.RequestServices.
+            //     GetService(typeof(IAuthService))).GetUserByName(this._context.HttpContext.User.Identity.Name);
+
+            //User currentUser = await unitOfWork.UserRepository.FindByIdAsync(userId);
+
+            //if (currentUser == null)
+            //    throw new NullReferenceException("User was not found");
+
             var handler = (ICommandHandler<TRequest>)this._context.HttpContext.RequestServices.
                 GetService(typeof(ICommandHandler<TRequest>));
 
-            var commandExeContext = new CommandExecutionContext(new User("John", "Smith", "Baker strreet 221b", "+380732202576", "johnsmith@gmail.com", 0));
+            var commandExeContext = new CommandExecutionContext(new User("a","b","c","d","e",0));
 
             return await handler.Handle(commandExeContext, command);
         }
