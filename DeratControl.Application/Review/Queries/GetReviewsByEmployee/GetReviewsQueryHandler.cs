@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DeratControl.Application.Review.Queries.GetReviewsByEmpleyee
 {
-    class GetReviewsQueryHandler : IQueryHandler<GetReviewsQuery, ReviewsDTO>
+    public class GetReviewsQueryHandler : IQueryHandler<GetReviewsQuery, ReviewsDTO>
     {
         private  readonly IUnitOfWork unitOfWork;
 
