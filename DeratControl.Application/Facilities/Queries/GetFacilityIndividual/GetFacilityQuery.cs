@@ -7,6 +7,6 @@ namespace DeratControl.Application.Facilities.Queries.GetFacilitiesList
 {
     public class GetFacilityQuery : IRequest
     {
-        public int FacilityId { get; set; }
+        public int OrganizationId { get; set; }
     }
 }
