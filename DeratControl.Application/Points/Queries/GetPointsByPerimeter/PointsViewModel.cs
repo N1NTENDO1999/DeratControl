@@ -8,6 +8,6 @@ namespace DeratControl.Application.Points.Queries.GetPointsByPerimeter
 {
    public class PointsViewModelResult:IQueryResult
     {
-        public  Point Point { get; set; }
+        public ICollection<Point> Points { get; set; }
     }
 }
