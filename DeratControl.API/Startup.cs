@@ -121,17 +121,13 @@ namespace DeratControl.API
             }
             app.UseHttpStatusCodeExceptionMiddleware();
             app.UseAuthentication();
-            DataInitializer.SeedData(userManager, roleManager).Wait();
+            //DataInitializer.SeedData(userManager, roleManager).Wait();
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-            });
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
             });
         }
     }
