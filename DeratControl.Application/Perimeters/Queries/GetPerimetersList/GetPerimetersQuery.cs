@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace DeratControl.Application.Perimeters.Queries.GetPerimetersList
 {
     public class GetPerimetersQuery : IRequest
