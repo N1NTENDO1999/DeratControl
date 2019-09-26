@@ -13,7 +13,10 @@ namespace DeratControl.Infrastructure
     {
         public DbContext databaseContext { get;}
 
-        public IEnumerable<TEntity> List => throw new NotImplementedException();
+        public async Task<IEnumerable<TEntity>> ToListAsync()
+        {
+            return await databaseContext.Set<TEntity>().ToListAsync();
+        }
 
         public Repository(DbContext context)
         {
@@ -39,5 +42,7 @@ namespace DeratControl.Infrastructure
         {
             databaseContext.Set<TEntity>().Update(entity);
         }
+
+    
     }
 }

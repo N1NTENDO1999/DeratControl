@@ -25,7 +25,7 @@ namespace DeratControl.Application.Organizations.Queries.GetOrganizationsList
 
         public async Task<OrganizationsViewModelResult> Handle(CommandExecutionContext executionContext, GetOrganizationsQuery request)
         {
-            ICollection<Organization> organizations = (ICollection<Organization>)unitOfWork.OrganizationRepository.List;
+            ICollection<Organization> organizations = (ICollection<Organization>)unitOfWork.OrganizationRepository.ToListAsync();
             if (organizations == null)
             {
                 throw new OrganizationNotExistException();
