@@ -33,7 +33,7 @@ namespace DeratControl.Domain.Entities
         public virtual Perimeter Perimeter { get; private set; }
 
         public int? TrapId { get; protected set; }
-        public virtual Trap Trap { get; protected set; }
+        public virtual Trap Trap { get; set; }
 
     }
 }
