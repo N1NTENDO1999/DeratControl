@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using DeratControl.Domain.Root.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Serilog;
@@ -22,7 +23,7 @@ namespace DeratControl.API.Middlewares
             {
                 await _next(context);
             }
-            catch (Exception ex)
+            catch (DomainException ex)
             {
                 if (context.Response.HasStarted)
                 {
@@ -30,6 +31,8 @@ namespace DeratControl.API.Middlewares
                 }
                 context.Response.Clear();
                 Log.Error($"Occured exception:  {ex.Message}");
+                context.Response.StatusCode = ex.StatusCode;
+                context.Response.ContentType = ex.ContentType;
                 await context.Response.WriteAsync(ex.Message);
                 return;
             }

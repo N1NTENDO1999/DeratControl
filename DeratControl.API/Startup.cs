@@ -24,14 +24,14 @@ using DeratControl.Application.Points.Commands.AddPoint;
 using DeratControl.Application.Points.Queries.GetPointsByPerimeter;
 using DeratControl.Application.Perimeters.Queries.GetPerimetersList;
 using DeratControl.Application.Perimeters.Commands;
-
+using DeratControl.Application.Perimeters.Queries.GetPerimeterIndividual;
 using DeratControl.Application.Users;
 
 using DeratControl.Application.Traps.Commands.SetTrap;
 using DeratControl.Application.Traps.Queries.ViewTrapByPoint;
 using DeratControl.Application.Facilities.Commands;
 using DeratControl.Application.Facilities.Queries.GetFacilitiesList;
-
+using DeratControl.Application.Perimeters.Queries.GetPerimeterIndividual;
 
 namespace DeratControl.API
 {
@@ -48,15 +48,20 @@ namespace DeratControl.API
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DeratContext>(options => {
-                options.UseSqlServer(_config.GetConnectionString("DefaultConnection"), 
+            services.AddDbContext<DeratContext>(options =>
+            {
+                options.UseSqlServer(_config.GetConnectionString("DefaultConnection"),
                     builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name));
             });
 
 
 
             services.AddMvcCore().AddApiExplorer();
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+
+
 
             services.AddSwaggerGen(c =>
             {
@@ -64,7 +69,7 @@ namespace DeratControl.API
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(_config.GetConnectionString("DefaultConnection"), 
+                options.UseSqlServer(_config.GetConnectionString("DefaultConnection"),
                 builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name)));
 
             services.AddIdentity<SecurityUser, IdentityRole>()
@@ -88,7 +93,7 @@ namespace DeratControl.API
                     });
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<DbContext, DeratContext>();
-            
+
             services.AddScoped<IOrganizationRepository, OrganizationRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(CommandDispatcher));
@@ -97,11 +102,15 @@ namespace DeratControl.API
             services.AddScoped(typeof(ICommandHandler<AddOrganizationCommand>), typeof(AddOrganizationCommandHandler));
             services.AddScoped(typeof(ICommandHandler<AddPointsCommand>), typeof(AddPointCommandHandler));
             services.AddScoped(typeof(ICommandHandler<AddEmployeeCommand>), typeof(AddEmployeeCommandHandler));
-            services.AddScoped(typeof(IQueryHandler<GetPointsQuery,PointsViewModelResult>), typeof(GetPointsQueryHandler));
+            services.AddScoped(typeof(IQueryHandler<GetPointQuery, PointViewModelResult>), typeof(GetPointQueryHandler));
             services.AddScoped(typeof(ICommandHandler<AddPerimeterCommand>), typeof(AddPerimeterCommandHandler));
-            services.AddScoped(typeof(IQueryHandler<GetPerimetersQuery, PerimetersViewModelResult>), typeof(GetPerimetersQueryHandler));
+            services.AddScoped(typeof(IQueryHandler<GetPerimeterQuery, PerimeterViewModelResult>), typeof(GetPerimeterQueryHandler));
+            services.AddScoped(typeof(IQueryHandler<GetPerimetersListQuery, PerimetersViewModelResult>), typeof(GetPerimetersQueryHandler));
             services.AddScoped(typeof(ICommandHandler<AddFacilityCommand>), typeof(AddFacilityCommandHandler));
-            services.AddScoped(typeof(IQueryHandler<GetFacilitiesListQuery, FacilitiesListViewModel>), typeof(GetFacilitiesListQueryHandler));
+            services.AddScoped(typeof(IQueryHandler<GetFacilityQuery, FacilityViewModel>), typeof(GetFacilityQueryHandler));
+
+            services.AddScoped(typeof(ICommandHandler<SetTrapCommand>), typeof(SetTrapCommandHandler));
+            services.AddScoped(typeof(IQueryHandler<ViewTrapQuery, TrapViewModelResult>), typeof(ViewTrapQueryHandler));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

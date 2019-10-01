@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using DeratControl.Domain.Root;
 using DeratControl.Domain.Root.Exceptions;
+using Microsoft.AspNetCore.Http;
 
 namespace DeratControl.Domain.Entities
 {
@@ -32,7 +33,7 @@ namespace DeratControl.Domain.Entities
 
             if (facilityExists)
             {
-                throw new FacilityAlreadyExistsException();
+                throw new FacilityAlreadyExistsException("Current facility already exists", StatusCodes.Status400BadRequest);
             }
 
             var newFacility = new Facility(this.Id, address, user.Id);

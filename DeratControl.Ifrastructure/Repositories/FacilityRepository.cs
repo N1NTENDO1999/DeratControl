@@ -25,7 +25,7 @@ namespace DeratControl.Infrastructure.Repositories
 
         public override async Task<Facility> FindByIdAsync(int Id)
         {
-            return (await databaseContext.Set<Facility>().Include(f => f.Perimeters).ToListAsync()).SingleOrDefault();
+            return await databaseContext.Set<Facility>().Include(f => f.Perimeters).Where(f => f.Id==Id).FirstOrDefaultAsync();
         }
     }
 }

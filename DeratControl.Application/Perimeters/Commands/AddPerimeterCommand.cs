@@ -6,10 +6,13 @@ using DeratControl.Application.Requests.Interfaces;
 using DeratControl.Domain.Entities;
 using DeratControl.Domain.Root;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
+
 namespace DeratControl.Application.Perimeters.Commands
-{   /// <summary>
-/// DTO class for adding perimeters command
-/// </summary>
+{
+    /// <summary>
+    /// DTO class for adding perimeters command
+    /// </summary>
     public class AddPerimeterCommand : IRequest
     {
         public PerimeterType PerimeterType { get; set; }
@@ -31,7 +34,7 @@ namespace DeratControl.Application.Perimeters.Commands
             var facility = await unitOfWork.FacilityRepository.FindByIdAsync(request.FacilityId);
             if (facility == null)
             {
-                throw new FacilityDoesNotExistsException();
+                throw new FacilityDoesNotExistsException("Current facility does not exists", StatusCodes.Status400BadRequest);
             }
 
             var newPerimeter = facility.AddPerimeter(request.PerimeterType, executionContext.RequestedUser);

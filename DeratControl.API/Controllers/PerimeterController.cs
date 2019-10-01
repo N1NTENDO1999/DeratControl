@@ -10,6 +10,7 @@ using DeratControl.Application.Perimeters.Commands;
 using DeratControl.Application.Perimeters.Queries.GetPerimetersList;
 using DeratControl.Application.Requests.Interfaces;
 using DeratControl.Application.Interfaces;
+using DeratControl.Application.Perimeters.Queries.GetPerimeterIndividual;
 
 namespace DeratControl.API.Controllers
 {
@@ -32,10 +33,17 @@ namespace DeratControl.API.Controllers
         }
 
         [HttpGet]
-        [Route("/GetPerimeters/{id}")]
-        public async Task<PerimetersViewModelResult> GetPerimeters(int id)
+        [Route("/GetPerimeter/{id}")]
+        public async Task<PerimeterViewModelResult> GetPerimeter(int id)
         {
-            return await this.queryDispatcher.Dispatch<GetPerimetersQuery, PerimetersViewModelResult>(new GetPerimetersQuery() { FacilityId = id });
+            return await this.queryDispatcher.Dispatch<GetPerimeterQuery, PerimeterViewModelResult>(new GetPerimeterQuery() { PerimeterId = id });
+        }
+
+        [HttpGet]
+        [Route("/GetPerimeters/{facilityId}")]
+        public async Task<PerimetersViewModelResult> GetPerimetersList(int facilityId)
+        {
+            return await this.queryDispatcher.Dispatch<GetPerimetersListQuery, PerimetersViewModelResult>(new GetPerimetersListQuery() { FacilityId = facilityId });
         }
     }
 }

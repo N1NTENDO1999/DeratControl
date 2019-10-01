@@ -1,5 +1,7 @@
 ﻿using DeratControl.Domain.Root;
 using DeratControl.Domain.Root.Exceptions;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +34,7 @@ namespace DeratControl.Domain.Entities
             var perimeterExists = this.Perimeters.Any(f => f.PerimeterType == perimeterType);
             if (perimeterExists)
             {
-                throw new PerimeterAlreadyExistsException();
+                throw new PerimeterAlreadyExistsException("Current perimeter already exists", StatusCodes.Status400BadRequest);
             }
 
             var newPerimeter = new Perimeter(this, perimeterType, user.Id);
