@@ -20,16 +20,16 @@ namespace DeratControl.Application.Traps.Commands.SetTrap
 
     public class SetTrapCommandHandler : BaseCommandHandler<SetTrapCommand>
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork unitOfWork;
 
         public SetTrapCommandHandler(IUnitOfWork unitOfWork)
         {
-            this._unitOfWork = unitOfWork;
+            this.unitOfWork = unitOfWork;
         }
 
         protected override async Task<CommandResult> HandleRequest(CommandExecutionContext executionContext, SetTrapCommand request)
         {
-            var point = await _unitOfWork.PointRepository.FindByIdAsync(request.TrapPointId);
+            var point = await unitOfWork.PointRepository.FindByIdAsync(request.TrapPointId);
 
             if(point == null)
             {
@@ -38,8 +38,12 @@ namespace DeratControl.Application.Traps.Commands.SetTrap
 
             var entity = new Trap(point, request.Data, request.TrapType, executionContext.RequestedUser);
 
-            await _unitOfWork.TrapRepository.AddAsync(entity);
-            await _unitOfWork.Commit();
+            point.Trap = entity;
+
+            unitOfWork.PointRepository.Update(point);
+
+            await unitOfWork.TrapRepository.AddAsync(entity);
+            await unitOfWork.Commit();
             return new CommandCreateResult<int>(entity.Id);
         }
     }
